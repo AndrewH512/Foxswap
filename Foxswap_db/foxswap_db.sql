@@ -132,4 +132,4 @@ VALUES
 ('andrew512', 'Andrew', 'Hennessy', '845-561-8782', 'andrewhenn512@gmail.com', SHA2('123random', 256), 1, 0, '/images/andrew.jpg', 'Bio goes here'),
 ('steven', 'Steve', 'Stever', '987-654-3210', 'steve@gmail.com', SHA2('mynamesteve', 256), 0, 0, '/images/steve.jpg', 'Steve is a nerd');
 
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'marist123';
