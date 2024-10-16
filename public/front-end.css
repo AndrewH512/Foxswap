@@ -55,8 +55,7 @@ footer {
 }
 
 
-/* Search bar styling under nav */
-/* This is for the Browsing Page */
+/* Search bar styling under nav in browse.html */
 .search-container {
     text-align: center;
     padding: 20px;
@@ -85,3 +84,30 @@ footer {
     color: black;
 }
 
+
+/* Button styling On Welcome page */
+.auth-buttons {
+    display: flex;
+    justify-content: center; /* Centers the buttons horizontally */
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px;
+}
+.auth-buttons button {
+    background-color: #000000; 
+    border: none;
+    color: white;
+    padding: 30px 45px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 33px;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow */
+    transition: 0.3s ease-in-out; /* Smooth transitions */
+}
+
+/* Button hover effect */
+.auth-buttons button:hover {
+    background-color: #e41e1e; 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+}

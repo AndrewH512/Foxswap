@@ -9,7 +9,7 @@ const port = 3000;
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root', // replace with your MySQL username
-    password: 'marist123', // replace with your MySQL password
+    password: '123', // replace with your MySQL password
     database: 'foxswap_db'
 });
 
