@@ -9,7 +9,7 @@ const port = 3000;
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root', // replace with your MySQL username
-    password: 'Bluebutt9424$', // replace with your MySQL password
+    password: 'marist123', // replace with your MySQL password
     database: 'foxswap_db'
 });
 
@@ -25,6 +25,17 @@ db.connect((err) => {
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'homepage.html'));
+});
+
+// Route to get all posts
+app.get('/api/posts', (req, res) => {
+  const query = 'SELECT * FROM Posts';
+  db.query(query, (err, results) => {
+      if (err) {
+          return res.status(500).json({ error: err.message });
+      }
+      res.json(results);
+  });
 });
 
 

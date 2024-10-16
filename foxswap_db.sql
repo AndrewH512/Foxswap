@@ -140,4 +140,4 @@ VALUES
 ('steven', 2, 'sold', '15.00', 'ENG201', 'acceptable', '2024-11-15', 0, 1);
 
 
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Bluebutt9424$';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'marist123';
