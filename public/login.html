@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Foxswap</title>
+    <link rel="stylesheet" href="front-end.css">
+</head>
+<body>
+    <!-- Header section -->
+    <header>
+        <h1>Welcome to Foxswap</h1>
+        <img src="Fox_Swap_Logo.png" alt="Logo" class="logo" style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
+    </header>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm" action="/login" method="POST">
+             <!-- Division for input to enter username -->
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <!-- Division for input to enter password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <!-- Division for submit button -->
+            <div class="auth-buttons">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+         <!-- Division with link to sign-up-->
+        <div class="footer">
+            <p class="center-text">Don't have an account? <a href="signup.html">Sign up</a></p>
+        </div>
+    </div>
+
+    <!-- Footer section -->
+    <footer>
+        <p>&copy; 2024 Foxswap. All rights reserved.</p>
+        <p>Twitter - Instagram - Facebook</p>
+    </footer>
+</body>
+</html>

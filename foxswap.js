@@ -21,13 +21,13 @@ db.connect((err) => {
   console.log('Connected to MySQL database');
 });
 
-// Route to serve homepage.html when visiting the root URL
+// Route to serve welcomepage.html when visiting the root URL
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'homepage.html'));
+  res.sendFile(path.join(__dirname, 'public', 'welcomepage.html'));
 });
 
-// Route to get all posts
+// Route to get all posts (TESTING DATABASE)
 app.get('/api/posts', (req, res) => {
   const query = 'SELECT * FROM Posts';
   db.query(query, (err, results) => {

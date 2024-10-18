@@ -43,6 +43,11 @@ nav a:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Use this to center text */
+.center-text {
+    text-align: center; 
+}
+
 /* Footer styling */
 footer {
     background-color: #B3261E;
@@ -53,7 +58,6 @@ footer {
     width: 100%;
     bottom: 0;
 }
-
 
 /* Search bar styling under nav in browse.html */
 .search-container {
@@ -84,14 +88,45 @@ footer {
     color: black;
 }
 
+/* Basic Button styling. Used on the login and welcome pages */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-/* Button styling On Welcome page */
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Basic button styling */
 .auth-buttons {
     display: flex;
     justify-content: center; /* Centers the buttons horizontally */
     gap: 20px; /* Space between buttons */
     margin-top: 20px;
 }
+
 .auth-buttons button {
     background-color: #000000; 
     border: none;
