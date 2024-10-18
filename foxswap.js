@@ -2,8 +2,9 @@ const mysql = require('mysql2')
 const express = require('express');
 const path = require('path');
 const bodyParser = require("body-parser");
-const encoder = bodyParser.urlencoded({extended: true});
+const encoder = bodyParser.urlencoded({ extended: true });
 const crypto = require('crypto');
+const { error } = require('console');
 
 const app = express();
 const port = 3000;
@@ -11,16 +12,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(encoder);
 // Database connection configuration
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root', // replace with your MySQL username
-    password: 'marist123', // replace with your MySQL password
-    database: 'foxswap_db'
+  host: 'localhost',
+  user: 'root', // replace with your MySQL username
+  password: 'marist123', // replace with your MySQL password
+  database: 'foxswap_db'
 });
 
 // Connect to MySQL
 db.connect((err) => {
   if (err) {
-      throw err;
+    throw err;
   }
   console.log('Connected to MySQL database');
 });
@@ -31,15 +32,15 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'welcomepage.html'));
 });
 
-// Route to get all posts (TESTING DATABASE)
-app.get('/api/posts', (req, res) => {
-  const query = 'SELECT * FROM Posts';
+// Route to get all users (TESTING DATABASE)
+app.get('/api/users', (req, res) => {
+  const query = 'SELECT * FROM Users';
   db.query(query, (err, results) => {
-      if (err) {
-          return res.status(500).json({ error: err.message });
-      }
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
 
-      res.json(results);
+    res.json(results);
   });
 });
 
@@ -47,9 +48,6 @@ app.get('/api/posts', (req, res) => {
 app.post('/public/login', encoder, (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-
-  console.log("Received username: ", username);  // Debugging
-  console.log("Received password: ", password);  // Debugging
 
   // Check if password is defined before attempting to hash it
   if (!password || !username) {
@@ -61,21 +59,21 @@ app.post('/public/login', encoder, (req, res) => {
 
   const query = "SELECT * FROM Users WHERE Username = ? AND Password = ?";
   db.query(query, [username, hashedPassword], (error, results) => {
-      if (error) {
-          return res.status(500).json({ error: error.message });
-      }
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
 
-      if (results.length > 0) {
-          res.redirect("/homepage.html");
-      } else {
-          res.redirect("/login.html");
-      }
+    if (results.length > 0) {
+      res.redirect("/homepage.html");
+    } else {
+      res.redirect("/login.html");
+    }
   });
 });
 
 
 // When login is successs
-app.get("/", function(req,res){
+app.get("/", function (req, res) {
   res.sendFile(__dirname, 'public', 'homepage.html');
 })
 
@@ -84,8 +82,45 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'browse.html'));
 });
 
+/*
+  This is where the code for our sign up page is going!
+*/
+
+app.post('/public/signup', encoder, (req, res) => {
+  const username = req.body.username;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const phoneNumber = req.body.phoneNumber;
+  const email = req.body.email;
+  const password = req.body.password;
+  const admin = false;
+  const banned = false;
+  const profilePicture = req.body.profilePicture;
+  const bio = req.body.bio;
+
+  // Hash the input password
+  const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
+
+  const query = "INSERT INTO Users (Username = ?, First_Name = ?, Last_Name = ?, Phone_Number = ?, Email = ?, Password = ?, Admin = ?, Banned = ?, Profile_Picture = ?, Bio = ?)";
+
+  db.query(query, [username, firstName, lastName, phoneNumber, email, hashedPassword, admin, banned, profilePicture, bio], (error, results) => {
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    if (results.length > 0) {
+      res.redirect("/homepage.html");
+    }
+    else {
+      res.redirect("/signup.html");
+    }
+
+  });
+});
+
+
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });
