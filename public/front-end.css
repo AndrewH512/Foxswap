@@ -1,4 +1,4 @@
-/* Basic styling for the page */
+/* Basic styling and css that every page uses */
 body, html {
     margin: 0;
     padding: 0;
@@ -12,26 +12,6 @@ header {
     color: white;
     padding: 20px;
     text-align: center;
-}
-
-/* Navigation bar styling */
-nav {
-    background-color: #B3261E;
-    overflow: hidden;
-}
-
-nav a {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 20px;
-    text-decoration: none;
-}
-
-nav a:hover {
-    background-color: #ddd;
-    color: black;
 }
 
 /* Main content styling */
@@ -58,6 +38,57 @@ footer {
     width: 100%;
     bottom: 0;
 }
+
+/* Navigation bar on the top of each page */
+nav {
+    background-color: #B3261E;
+    overflow: hidden;
+}
+
+nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Basic button styling */
+.auth-buttons {
+    display: flex;
+    justify-content: center; /* Centers the buttons horizontally */
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px;
+}
+
+.auth-buttons button {
+    background-color: #000000; 
+    border: none;
+    color: white;
+    padding: 30px 45px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 33px;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow */
+    transition: 0.3s ease-in-out; /* Smooth transitions */
+}
+
+/* Button hover effect */
+.auth-buttons button:hover {
+    background-color: #e41e1e; 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+}
+
+
+/* CSS for specfic things on pages */
 
 /* Search bar styling under nav in browse.html */
 .search-container {
@@ -88,7 +119,7 @@ footer {
     color: black;
 }
 
-/* Basic Button styling. Used on the login and welcome pages */
+/* CSS specfic to login page */
 .login-container {
     max-width: 400px;
     margin: 100px auto;
@@ -117,32 +148,4 @@ footer {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-/* Basic button styling */
-.auth-buttons {
-    display: flex;
-    justify-content: center; /* Centers the buttons horizontally */
-    gap: 20px; /* Space between buttons */
-    margin-top: 20px;
-}
-
-.auth-buttons button {
-    background-color: #000000; 
-    border: none;
-    color: white;
-    padding: 30px 45px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 33px;
-    cursor: pointer;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow */
-    transition: 0.3s ease-in-out; /* Smooth transitions */
-}
-
-/* Button hover effect */
-.auth-buttons button:hover {
-    background-color: #e41e1e; 
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
 }
