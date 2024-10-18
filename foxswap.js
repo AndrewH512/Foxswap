@@ -101,7 +101,7 @@ app.post('/public/signup', encoder, (req, res) => {
   // Hash the input password
   const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
-  const query = "INSERT INTO Users (Username = ?, First_Name = ?, Last_Name = ?, Phone_Number = ?, Email = ?, Password = ?, Admin = ?, Banned = ?, Profile_Picture = ?, Bio = ?)";
+  const query = "INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Admin, Banned, Profile_Picture, Bio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
   db.query(query, [username, firstName, lastName, phoneNumber, email, hashedPassword, admin, banned, profilePicture, bio], (error, results) => {
     if (error) {
