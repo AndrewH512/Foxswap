@@ -24,23 +24,7 @@
         <h2>Create an Account</h2>
 
         <!-- Display error message -->
-        <div id="error-message" style="color: red;">
-            <script>
-                const urlParams = new URLSearchParams(window.location.search);
-                const errors = urlParams.get('error');
-
-                if (errors) {
-                    const errorList = errors.split('&');
-                    errorList.forEach(error => {
-                        if (error === 'username') {
-                            document.write('Error: Username is already taken! Enter a different username.<br>');
-                        } else if (error === 'email') {
-                            document.write('Error: Email is already taken! Enter a different email.<br>');
-                        }
-                    });
-                }
-            </script>
-        </div>
+        <div id="error-message" style="color: red; text-align: center;"></div>
 
         <form action="/public/signup" method="POST">
             <!-- Divsion to Enter Username -->
@@ -100,6 +84,24 @@
         <p>&copy; 2024 Foxswap. All rights reserved.</p>
         <p>Twitter - Instagram - Facebook</p>
     </footer>
+
+    <script>
+        // Script to handle error messages
+        const urlParams = new URLSearchParams(window.location.search);
+        const errors = urlParams.get('error');
+
+        if (errors) {
+            const errorList = errors.split('&');
+            errorList.forEach(error => {
+                if (error === 'username') {
+                    document.getElementById('error-message').innerHTML += 'Error: Username is already taken! Enter a different Username.<br>';
+                } else if (error === 'email') {
+                    document.getElementById('error-message').innerHTML += 'Error: Email is already taken! Enter a different Email.<br>';
+                }
+            });
+        }
+    </script>
+
 </body>
 
 </html>

@@ -25,17 +25,7 @@
         <h2>Login</h2>
 
         <!-- Display error message -->
-        <div id="error-message" style="color: red;">
-            <script>
-                const urlParams = new URLSearchParams(window.location.search);
-                const error = urlParams.get('error');
-                if (error === 'username') {
-                    document.write('Error: Username does not exist.');
-                } else if (error === 'password') {
-                    document.write('Error: Incorrect password.');
-                }
-            </script>
-        </div>
+        <div id="error-message" style="color: red; text-align: center;"></div>
 
         <form action="/public/login" method="POST">
             <!-- Division for input to enter username -->
@@ -66,9 +56,17 @@
     </footer>
 
     <script>
+        // Script to handle error messages
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        if (error === 'username') {
+            document.getElementById('error-message').textContent = 'Error: Username does not exist.';
+        } else if (error === 'password') {
+            document.getElementById('error-message').textContent = 'Error: Incorrect password.';
+        }
+
         // Populate the username field if there's an error
-        const urlParams2 = new URLSearchParams(window.location.search);
-        const username = urlParams2.get('username');
+        const username = urlParams.get('username');
         if (username) {
             document.getElementById('username').value = username;
         }
