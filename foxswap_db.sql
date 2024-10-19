@@ -17,12 +17,12 @@ CREATE TABLE Users (
     Username VARCHAR(50) PRIMARY KEY NOT NULL,       -- Username as the primary key
     First_Name VARCHAR(50) NOT NULL,                 -- First name 
     Last_Name VARCHAR(50) NOT NULL,                  -- Last name 
-    Phone_Number VARCHAR(15) NOT NULL UNIQUE,        -- Phone number
+    Phone_Number VARCHAR(15) NOT NULL,               -- Phone number
     Email VARCHAR(100) NOT NULL UNIQUE,              -- Email 
     Password VARCHAR(255) NOT NULL,                  -- Password (hashed)
     Admin BOOLEAN DEFAULT 0 NOT NULL,                -- Admin flag (default: false)
     Banned BOOLEAN DEFAULT 0 NOT NULL,               -- Banned flag (default: false)
-    Profile_Picture BLOB,                            -- profile picture (optional)
+    Profile_Picture VARCHAR(255),                    -- profile picture (optional)
     Bio TEXT                                         -- User bio (optional)
 );
 
@@ -33,21 +33,21 @@ CREATE TABLE Books (
     ISBN VARCHAR(20) NOT NULL UNIQUE,                 -- ISBN of the book (unique constraint)
     Title VARCHAR(255) NOT NULL,                      -- Title of the book
     Subject VARCHAR(100) NOT NULL,                    -- Subject or category of the book
-    Cover_Picture BLOB                                -- Path to the cover picture 
+    Cover_Picture VARCHAR(100)                        -- Path to the cover picture 
 );
 
 -- Create the posts table
 CREATE TABLE Posts (
     Post_ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL, -- Post ID as the primary key, auto-incremented
     Seller VARCHAR(50) NOT NULL,                     -- Foreign key referencing username from users table
-    Book_ID INT NOT NULL,                             -- Foreign key referencing Book_ID from a books table
+    Book_ID INT NOT NULL,                            -- Foreign key referencing Book_ID from a books table
     Status VARCHAR(50) NOT NULL,                     -- Status of the post (available, sold, pending)
     Price VARCHAR(20) NOT NULL,                      -- Price of the book
     Class_Name VARCHAR(100) NOT NULL,                -- Class name for which the book 
     Book_Condition VARCHAR(50) NOT NULL,             -- Condition of the book (bad, used, acceptable)
     Due_Date DATE,                                   -- Due date for rentals or listings if applicable
     Transaction_Type BOOLEAN DEFAULT 0 NOT NULL,     -- Transaction type (0: sale, 1: rental)
-    Display_Post BOOLEAN DEFAULT 1,                   -- Flag for whether the post is visible (default: true)
+    Display_Post BOOLEAN DEFAULT 1,                  -- Flag for whether the post is visible (default: true)
 
     -- Foreign key constraints
     FOREIGN KEY (Seller) REFERENCES Users(Username) ON DELETE CASCADE,
@@ -124,7 +124,7 @@ CREATE TABLE Transaction (
 -- Insert additional records into the users table (example data)
 INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Admin, Banned, Profile_Picture, Bio)
 VALUES 
-('andrew512', 'Andrew', 'Hennessy', '845-561-8782', 'andrewhenn512@gmail.com', SHA2('123random', 256), 1, 0, '/images/andrew.jpg', 'Bio goes here'),
+('andrew512', 'Andrew', 'Hennessy', '845-561-8782', 'andrewhenn512@gmail.com', SHA2('123random', 256), 1, 0, '/public/uploads/andrew.png', 'Bio goes here'),
 ('steven', 'Steve', 'Stever', '987-654-3210', 'steve@gmail.com', SHA2('mynamesteve', 256), 0, 0, '/images/steve.jpg', 'Steve is a nerd'),
 ('Admin', 'Admin', 'Admin', '123-456-7890', 'admin@gmail.com', SHA2('marist123', 256), 1, 0, '/images/marist.jpg', 'Admin');
 ;
