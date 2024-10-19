@@ -7,10 +7,23 @@ const bodyParser = require("body-parser");
 const encoder = bodyParser.urlencoded({ extended: true });
 const crypto = require('crypto');
 const { error } = require('console');
+const multer = require('multer');
 
 // Initialize Express app
 const app = express();
 const port = 3000;
+
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/uploads'); // Directory to store uploaded files
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
+  }
+});
+
+const upload = multer({ storage: storage });
 
 // Serve static files from the 'public' directory (HTML, CSS, JS files)
 app.use(express.static(path.join(__dirname, 'public')));
@@ -105,7 +118,7 @@ app.get("/", (req, res) => {
 
 
 // Route for user signup (registering a new user)
-app.post('/public/signup', encoder, (req, res) => {
+app.post('/public/signup', upload.single('profilePicture'), encoder, (req, res) => {
   // Take the form data from signup request
   const username = req.body.username;
   const firstName = req.body.firstName;
@@ -115,7 +128,7 @@ app.post('/public/signup', encoder, (req, res) => {
   const password = req.body.password;
   const admin = false;
   const banned = false;
-  const profilePicture = req.body.profilePicture;
+  const profilePicture = req.file ? `/uploads/${req.file.filename}` : null; // Store path to uploaded picture
   const bio = req.body.bio;
 
   // Hash the input password
@@ -155,15 +168,30 @@ app.post('/public/signup', encoder, (req, res) => {
         res.redirect("/homepage.html");
       } else {
         // If signup fails, redirect back to the signup page
-        return res.redirect(`/signup.html?error=unknown`);
+        return res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
       }
     });
   });
 
 });
-//
+
+// Ensure that the uploaded files can be accessed by the client.
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
+
+// Route to get a specific user by username
+app.get('/api/users', (req, res) => {
+  const username = req.query.username;
+  const query = 'SELECT * FROM Users WHERE Username = ?';
+  db.query(query, [username], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(results);
+  });
+});
 
 // Start  of the server on port 3000
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
