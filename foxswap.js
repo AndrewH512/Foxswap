@@ -121,26 +121,45 @@ app.post('/public/signup', encoder, (req, res) => {
   // Hash the input password
   const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
-  // SQL query to insert the new user into the 'Users' table
-  const query = `INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Admin, Banned, Profile_Picture, Bio) 
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
-  // Execute the query and insert the new user
-  db.query(query, [username, firstName, lastName, phoneNumber, email, hashedPassword, admin, banned, profilePicture, bio], (error, results) => {
+  // Check if username or email already exists
+  const checkQuery = "SELECT * FROM Users WHERE Username = ? OR Email = ?";
+  db.query(checkQuery, [username, email], (error, results) => {
     if (error) {
       return res.status(500).json({ error: error.message });
     }
 
-    if (results.affectedRows > 0) {
-      // If the signup is successful, redirect to the homepage
-      res.redirect("/homepage.html");
-    }
-    else {
-      // If signup fails, redirect back to the signup page
-      res.redirect("/signup.html");
+    if (results.length > 0) {
+      // Determine which error to return
+      const errors = results.map(user => {
+        if (user.Username === username) return 'username';
+        if (user.Email === email) return 'email';
+        return null;
+      }).filter(Boolean);
+
+      // Redirect with the appropriate error
+      return res.redirect(`/signup.html?error=${errors.join('&')}`);
     }
 
+    // SQL query to insert the new user into the 'Users' table
+    const query = `INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Admin, Banned, Profile_Picture, Bio) 
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    // Execute the query and insert the new user
+    db.query(query, [username, firstName, lastName, phoneNumber, email, hashedPassword, false, false, profilePicture, bio], (error, results) => {
+      if (error) {
+        return res.status(500).json({ error: error.message });
+      }
+
+      if (results.affectedRows > 0) {
+        // If the signup is successful, redirect to the homepage
+        res.redirect("/homepage.html");
+      } else {
+        // If signup fails, redirect back to the signup page
+        return res.redirect(`/signup.html?error=unknown`);
+      }
+    });
   });
+
 });
 //
 
