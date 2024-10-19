@@ -1,3 +1,4 @@
+// Import necessary modules
 const mysql = require('mysql2')
 const express = require('express');
 const path = require('path');
@@ -6,10 +7,14 @@ const encoder = bodyParser.urlencoded({ extended: true });
 const crypto = require('crypto');
 const { error } = require('console');
 
+// Initialize Express app
 const app = express();
 const port = 3000;
+
+// Serve static files from the 'public' directory (HTML, CSS, JS files)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(encoder);
+
 // Database connection configuration
 const db = mysql.createConnection({
   host: 'localhost',
@@ -21,10 +26,17 @@ const db = mysql.createConnection({
 // Connect to MySQL
 db.connect((err) => {
   if (err) {
+    // Connection Error, throws an error
     throw err;
   }
+  // Connection was sucessful
   console.log('Connected to MySQL database');
 });
+
+
+//
+// Start of Routes
+//
 
 // Route to serve welcomepage.html when visiting the root URL
 app.use(express.static(path.join(__dirname, 'public')));
@@ -44,7 +56,8 @@ app.get('/api/users', (req, res) => {
   });
 });
 
-// Route to check user login
+
+// Route for login functionality
 app.post('/public/login', encoder, (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -58,35 +71,40 @@ app.post('/public/login', encoder, (req, res) => {
   const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
   const query = "SELECT * FROM Users WHERE Username = ? AND Password = ?";
+
+  // SQL query to check if the user with the provided username and hashed password exists
   db.query(query, [username, hashedPassword], (error, results) => {
     if (error) {
+      // Handles Errors
       return res.status(500).json({ error: error.message });
     }
 
     if (results.length > 0) {
+      // If the user is found, redirect to the homepage
       res.redirect("/homepage.html");
     } else {
+      // If login fails, redirect back to the login page
       res.redirect("/login.html");
     }
   });
 });
 
 
-// When login is successs
+// Route for successful login
 app.get("/", function (req, res) {
   res.sendFile(__dirname, 'public', 'homepage.html');
 })
 
-// When login fails
+// Route for failed login
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'browse.html'));
 });
 
-/*
-  This is where the code for our sign up page is going!
-*/
 
+
+// Route for user signup (registering a new user)
 app.post('/public/signup', encoder, (req, res) => {
+  // Take the form data from signup request
   const username = req.body.username;
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
@@ -101,26 +119,30 @@ app.post('/public/signup', encoder, (req, res) => {
   // Hash the input password
   const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
-  const query = "INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Admin, Banned, Profile_Picture, Bio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+  // SQL query to insert the new user into the 'Users' table
+  const query = `INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Admin, Banned, Profile_Picture, Bio) 
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
+  // Execute the query and insert the new user
   db.query(query, [username, firstName, lastName, phoneNumber, email, hashedPassword, admin, banned, profilePicture, bio], (error, results) => {
     if (error) {
       return res.status(500).json({ error: error.message });
     }
 
-    if (results.length > 0) {
+    if (results.affectedRows > 0) {
+      // If the signup is successful, redirect to the homepage
       res.redirect("/homepage.html");
     }
     else {
+       // If signup fails, redirect back to the signup page
       res.redirect("/signup.html");
     }
 
   });
 });
+//
 
-
-
-// Start the server
+// Start  of the server on port 3000
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

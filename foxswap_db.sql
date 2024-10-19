@@ -125,7 +125,9 @@ CREATE TABLE Transaction (
 INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Admin, Banned, Profile_Picture, Bio)
 VALUES 
 ('andrew512', 'Andrew', 'Hennessy', '845-561-8782', 'andrewhenn512@gmail.com', SHA2('123random', 256), 1, 0, '/images/andrew.jpg', 'Bio goes here'),
-('steven', 'Steve', 'Stever', '987-654-3210', 'steve@gmail.com', SHA2('mynamesteve', 256), 0, 0, '/images/steve.jpg', 'Steve is a nerd');
+('steven', 'Steve', 'Stever', '987-654-3210', 'steve@gmail.com', SHA2('mynamesteve', 256), 0, 0, '/images/steve.jpg', 'Steve is a nerd'),
+('Admin', 'Admin', 'Admin', '123-456-7890', 'admin@gmail.com', SHA2('marist123', 256), 1, 0, '/images/marist.jpg', 'Admin');
+;
 
 -- Insert records into the books table (example data)
 INSERT INTO Books (Author, ISBN, Title, Subject, Cover_Picture)

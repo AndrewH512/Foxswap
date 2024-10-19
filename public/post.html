@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="front-end.css">
+</head>
+
+<body>
+    <!-- Header section -->
+    <header>
+        <h1>Welcome to Foxswap</h1>
+        <img src="Fox_Swap_Logo.png" alt="Logo" class="logo"
+            style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
+    </header>
+
+    <!-- Navigation bar -->
+    <nav>
+		<a href="homepage.html">Homepage</a>
+        <a href="browse.html">Browse</a>
+        <a href="messages.html">Messages</a>
+        <a href="myprofile.html">My Profile</a>
+        <a href="favorites.html">Favorites</a>
+		<a href="search.html">Search</a>
+		<a href="post.html">Post</a>
+		<a href="yourposts.html">Your Posts</a>
+    </nav>
+
+    <!-- Create Textbook Container -->
+    <div class="signup-container">
+        <h2>Create a Textbook Listing</h2>
+        <form action="/public/create-textbook" method="POST">
+            <!-- Division to Enter Author -->
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" id="author" name="author" required>
+            </div>
+            <!-- Division to Enter ISBN -->
+            <div class="form-group">
+                <label for="isbn">ISBN</label>
+                <input type="text" id="isbn" name="isbn" required>
+            </div>
+            <!-- Division to Enter Title -->
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <!-- Division to Enter Subject -->
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+            <!-- Division to Enter Class Name -->
+            <div class="form-group">
+                <label for="className">Class Name</label>
+                <input type="text" id="className" name="className" required>
+            </div>
+            <!-- Division to upload Cover Picture (Optional) -->
+            <div class="form-group">
+                <label for="coverPicture">Cover Picture </label>
+                <input type="file" id="coverPicture" name="coverPicture" accept="image/*" required>
+            </div>
+            <!-- Division to Enter Price -->
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="text" id="price" name="price" required>
+            </div>
+            <!-- Division to Enter Book Condition -->
+            <div class="form-group">
+                <label for="condition">Book Condition</label>
+                <select id="condition" name="condition" required>
+                    <option value="new">New</option>
+                    <option value="good">Good</option>
+                    <option value="fair">Fair</option>
+                    <option value="poor">Poor</option>
+                </select>
+            </div>
+            <!-- Division to Choose Rental or Sale -->
+            <div class="form-group">
+                <label for="transactionType">Transaction Type</label>
+                <select id="transactionType" name="transactionType" required onchange="toggleDueDate()">
+                    <option value="sale">Sale</option>
+                    <option value="rental">Rental</option>
+                </select>
+            </div>
+            <!-- Division to Enter Due Date for Rentals -->
+            <!-- Only shows if user chooses rental -->
+            <div class="form-group" id="dueDateField" style="display:none;">
+                <label for="dueDate">Due Date</label>
+                <input type="date" id="dueDate" name="dueDate">
+            </div>
+            <!-- Division for submit button -->
+            <div class="auth-buttons">
+                <button type="submit">Create Listing</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer section -->
+    <footer>
+        <p>&copy; 2024 Foxswap. All rights reserved.</p>
+        <p>Twitter - Instagram - Facebook</p>
+    </footer>
+
+    <script>
+        // Function to show or hide the Due Date field based on Transaction Type selection
+        function toggleDueDate() {
+            const transactionType = document.getElementById("transactionType").value;
+            const dueDateField = document.getElementById("dueDateField");
+
+            if (transactionType === "rental") {
+                dueDateField.style.display = "block";
+            } else {
+                dueDateField.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>
