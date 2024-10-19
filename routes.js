@@ -10,11 +10,11 @@ const path = require('path');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Directory to store uploaded files
-    cb(null, 'public/uploads'); 
+    cb(null, 'public/uploads');
   },
   filename: (req, file, cb) => {
     // Unique filename
-    cb(null, Date.now() + path.extname(file.originalname)); 
+    cb(null, Date.now() + path.extname(file.originalname));
   }
 });
 
@@ -54,7 +54,7 @@ router.post('/public/login', upload.none(), (req, res) => {
       return res.redirect(`/login.html?error=password&username=${encodeURIComponent(username)}`);
     }
 
-    
+
     const username = req.body.username;
     res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
   });

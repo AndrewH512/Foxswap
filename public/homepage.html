@@ -11,9 +11,12 @@
     <style>
         /* Optional: Style for the profile picture */
         #profile-pic {
-            width: 100px; /* Set width */
-            height: 100px; /* Set height */
-            border-radius: 50%; /* Make it circular */
+            width: 100px;
+            /* Set width */
+            height: 100px;
+            /* Set height */
+            border-radius: 50%;
+            /* Make it circular */
         }
     </style>
 </head>
@@ -43,7 +46,7 @@
     <div class="main-content">
         <h2>Welcome to Foxswap!</h2>
         <p>Buy, sell and save: Your campus marketplace for used textbooks</p>
-        <img id="userProfile" src="" alt="Profile Picture" />
+        <img id="profilePic" src="" alt="Profile Picture" />
     </div>
 
     <!-- Footer section -->
@@ -53,24 +56,35 @@
     </footer>
 
     <script>
+        // Extract username from the URL
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
 
         if (username) {
-        // Fetch user data from the database
-        fetch(`/api/users?username=${encodeURIComponent(username)}`)
-            .then(response => response.json())
-            .then(data => {
-            if (data.length > 0) {
-                const user = data[0];
-                const profilePic = document.getElementById('profile-pic'); // Get the existing img element
-                profilePic.src = user.Profile_Picture || 'default-profile-pic.jpg'; // Set the source directly
-                profilePic.alt = `${user.First_Name}'s profile picture`;
-            }
-        });
-}
+            // Fetch user data from the database based on the username
+            fetch(`/api/Users?username=${encodeURIComponent(username)}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Log the entire response for debugging
+                    if (data.length > 0) {
+                        const user = data.find(u => u.Username === username);
+                        console.log("what up BOY:  " + user.First_Name)
+                        const profilePic = document.getElementById('profilePic');
+                        // Set the profile picture source
+                        profilePic.src = user.Profile_Picture || '/uploads/defaultProfilePic.jpg';
+                        profilePic.alt = `${user.First_Name}'s profile picture`;
+                    } else {
+                        console.log("User not found.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching user data:", error);
+                });
+        } else {
+            console.log("No username found in the URL.");
+        }
     </script>
-    
+
 </body>
 
 </html>
