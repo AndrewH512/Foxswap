@@ -8,7 +8,14 @@
 
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="front-end.css">
-
+    <style>
+        /* Optional: Style for the profile picture */
+        #profile-pic {
+            width: 100px; /* Set width */
+            height: 100px; /* Set height */
+            border-radius: 50%; /* Make it circular */
+        }
+    </style>
 </head>
 
 <body>
@@ -36,7 +43,7 @@
     <div class="main-content">
         <h2>Welcome to Foxswap!</h2>
         <p>Buy, sell and save: Your campus marketplace for used textbooks</p>
-        <div id="userProfile"></div> <!-- Section to display user profile picture -->
+        <img id="userProfile" src="" alt="Profile Picture" />
     </div>
 
     <!-- Footer section -->
@@ -50,24 +57,20 @@
         const username = urlParams.get('username');
 
         if (username) {
-            // Fetch user data from the database (you might want to create an endpoint for this)
-            fetch(`/api/users?username=${encodeURIComponent(username)}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length > 0) {
-                        const user = data[0];
-                        const img = document.createElement('img');
-                        img.src = user.Profile_Picture || 'default-profile-pic.jpg'; // Use a default image if none exists
-                        img.alt = `${user.First_Name}'s profile picture`;
-                        img.style.width = '100px'; // Set width as needed
-                        img.style.height = '100px'; // Set height as needed
-                        document.getElementById('userProfile').appendChild(img);
-                    }
-                });
-        }
-
+        // Fetch user data from the database
+        fetch(`/api/users?username=${encodeURIComponent(username)}`)
+            .then(response => response.json())
+            .then(data => {
+            if (data.length > 0) {
+                const user = data[0];
+                const profilePic = document.getElementById('profile-pic'); // Get the existing img element
+                profilePic.src = user.Profile_Picture || 'default-profile-pic.jpg'; // Set the source directly
+                profilePic.alt = `${user.First_Name}'s profile picture`;
+            }
+        });
+}
     </script>
-
+    
 </body>
 
 </html>

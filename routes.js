@@ -54,7 +54,9 @@ router.post('/public/login', upload.none(), (req, res) => {
       return res.redirect(`/login.html?error=password&username=${encodeURIComponent(username)}`);
     }
 
-    res.redirect("/homepage.html");
+    
+    const username = req.body.username;
+    res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
   });
 });
 
