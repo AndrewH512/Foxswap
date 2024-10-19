@@ -1,3 +1,4 @@
+
 // Import necessary modules
 const mysql = require('mysql2')
 const express = require('express');
@@ -70,22 +71,23 @@ app.post('/public/login', encoder, (req, res) => {
   // Hash the input password
   const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
-  const query = "SELECT * FROM Users WHERE Username = ? AND Password = ?";
+  const query = "SELECT * FROM Users WHERE Username = ?";
 
-  // SQL query to check if the user with the provided username and hashed password exists
-  db.query(query, [username, hashedPassword], (error, results) => {
+  db.query(query, [username], (error, results) => {
     if (error) {
-      // Handles Errors
       return res.status(500).json({ error: error.message });
     }
 
-    if (results.length > 0) {
-      // If the user is found, redirect to the homepage
-      res.redirect("/homepage.html");
-    } else {
-      // If login fails, redirect back to the login page
-      res.redirect("/login.html");
+    if (results.length === 0) {
+      // Username not found
+      return res.redirect("/login.html?error=username");
+    } else if (results[0].Password !== hashedPassword) {
+      // Incorrect password
+      return res.redirect(`/login.html?error=password&username=${encodeURIComponent(username)}`);
     }
+
+    // User found, password matches
+    res.redirect("/homepage.html");
   });
 });
 
@@ -134,7 +136,7 @@ app.post('/public/signup', encoder, (req, res) => {
       res.redirect("/homepage.html");
     }
     else {
-       // If signup fails, redirect back to the signup page
+      // If signup fails, redirect back to the signup page
       res.redirect("/signup.html");
     }
 
