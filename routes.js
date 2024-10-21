@@ -54,8 +54,8 @@ router.post('/public/login', upload.none(), (req, res) => {
       return res.redirect(`/login.html?error=password&username=${encodeURIComponent(username)}`);
     }
 
-
-    const username = req.body.username;
+    // If login is successful, save the username in the session
+    req.session.username = username;
     res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
   });
 });
@@ -90,6 +90,17 @@ router.post('/public/signup', upload.single('profilePicture'), (req, res) => {
       res.redirect("/homepage.html");
     });
   });
+});
+
+// Route to check if the user is logged in (for frontend session management)
+router.get('/api/check-session', (req, res) => {
+  if (req.session && req.session.username) {
+    // Return true if the user is already logged in
+    res.json({ authenticated: true, username: req.session.username });
+  } else {
+    // Return false if the user hasn't logged in yet
+    res.json({ authenticated: false });
+  }
 });
 
 // Ensure that the uploaded files can be accessed by the client.
