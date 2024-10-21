@@ -87,7 +87,8 @@ router.post('/public/signup', upload.single('profilePicture'), (req, res) => {
       if (error) {
         return res.status(500).json({ error: error.message });
       }
-      res.redirect("/homepage.html");
+      req.session.username = username;
+      res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
     });
   });
 });
