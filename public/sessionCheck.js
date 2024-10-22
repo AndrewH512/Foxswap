@@ -6,14 +6,7 @@ function checkSession() {
             if (!data.authenticated) {
                 // If not authenticated, redirect to login page
                 window.location.href = '/login.html';
-            } else {
-                // Populate the page with user data, e.g., welcome message
-                const username = data.username;
-                const welcomeMessageElement = document.getElementById('welcomeMessage');
-                if (welcomeMessageElement) {
-                    welcomeMessageElement.textContent = `Welcome, ${username}`;
-                }
-            }
+            } 
         })
         .catch(error => {
             console.error("Error checking session:", error);
