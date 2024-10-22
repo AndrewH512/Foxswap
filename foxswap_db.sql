@@ -126,7 +126,7 @@ INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Passwor
 VALUES 
 ('andrew512', 'Andrew', 'Hennessy', '845-561-8782', 'andrewhenn512@gmail.com', SHA2('123random', 256), 1, 0, '/uploads/andrew.png', 'Bio goes here'),
 ('steven', 'Steve', 'Stever', '987-654-3210', 'steve@gmail.com', SHA2('mynamesteve', 256), 0, 0, '/uploads/steve.png', 'Steve is a nerd'),
-('Admin', 'Admin', 'Admin', '123-456-7890', 'admin@gmail.com', SHA2('marist123', 256), 1, 0, '/uploads/admin.jpg', 'Admin');
+('admin', 'Admin', 'Admin', '123-456-7890', 'admin@gmail.com', SHA2('marist123', 256), 1, 0, '/uploads/admin.jpeg', 'Admin');
 ;
 
 -- Insert records into the books table (example data)
