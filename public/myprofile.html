@@ -8,17 +8,7 @@
 
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="front-end.css">
-    <style>
-        /* Optional: Style for the profile picture */
-        #profile-pic {
-            width: 100px;
-            /* Set width */
-            height: 100px;
-            /* Set height */
-            border-radius: 50%;
-            /* Make it circular */
-        }
-    </style>
+
 </head>
 
 <body>
@@ -43,17 +33,51 @@
         <a href="myprofile.html">Profile</a>
     </nav>
 
-    <!-- Main content section -->
-    <div class="main-content">
-        <h2>Welcome to Foxswap!</h2>
-        <p>Buy, sell and save: Your campus marketplace for used textbooks</p>
-        <img id="profilePic" src="" alt="Profile Picture" />
+    <!-- Profile Container -->
+    <div class="Profile">
+
+        <!-- Profile Title -->
+        <h2 style = "text-align: center;">Profile</h2>
+
+        <!-- User's First Name -->
+        <div class="First_Name"> </div>
+        
+        <!-- User's Last Name -->
+        <div class="Last_Name"> </div>
+
+        <!-- Division for Buttons! -->
+        <div style="text-align: center";>
+            <!-- Button to go message the user -->
+            <div class="auth-buttons" style="display: inline-block;">
+                <button type="message" style = "font-size: 12px; padding: 5px 10px;">Message User</button>
+            </div>
+
+            <!-- Button to go leave a review on the user -->
+            <div class="auth-buttons" style= "display: inline-block; margin-left: 10px;">
+                <button type="review" style = "font-size: 12px; padding: 5px 10px;">Leave a Review</button>
+            </div>
+        </div>
+
+        <!-- User's Profile Picture -->
+        <div class ="Profile_Picture" style = "text-align: center;">
+            <img id="profilePic" src="" alt="Profile Picture" />
+        </div>
+
+        <!-- The User's Bio -->
+        <div class="Bio"></div>
+
+        <!-- All of the posts the user has made-->
+        <div class="Posts"></div>
+
+        <!-- All of the user's reviews (if we add this) -->
+        <div class="Reviews"></div>
     </div>
+
 
     <!-- Footer section -->
     <footer>
         <p>&copy; 2024 Foxswap. All rights reserved.</p>
-        <p> Twitter-Instagram-Facebook </p>
+        <p>Twitter - Instagram - Facebook</p>
     </footer>
 
     <script>
@@ -88,9 +112,9 @@
 
     <!-- Import session check script -->
     <!-- This ensures the user will not be able to skip this page
-     by just entering the URL-->
+    by just entering the URL-->
     <script src="sessionCheck.js"></script>
 
-</body>
 
+</body>
 </html>
