@@ -123,8 +123,11 @@ JOIN
 
 // Route for posting a book (create a listing)
 router.post('/public/post', upload.single('coverPicture'), (req, res) => {
-  const { author, isbn, title, bookSubject, status, className, price, bookCondition, transactionType, dueDate } = req.body;
+  const { author, isbn, title, bookSubject, className, price, bookCondition, transactionType, dueDate } = req.body;
   const coverPicture = req.file ? `/uploads/${req.file.filename}` : null;
+
+  // Check if the dueDate is empty, and if so, set it to null
+  const dueDateValue = dueDate ? dueDate : null;
 
   const checkQuery = "SELECT * FROM Books WHERE ISBN = ?";
   req.db.query(checkQuery, [isbn], (error, results) => {
@@ -150,12 +153,12 @@ router.post('/public/post', upload.single('coverPicture'), (req, res) => {
       // Get the Book_ID of the newly inserted book
       const bookID = result.insertId; // Use insertId directly after insert
       console.log("Inserted Book ID:", bookID);
-
+      const status = 'Available';  // Default status to 'Available' 
       // Now you can insert into the Posts table
       const seller = req.session.username;
 
       const insertPost = `INSERT INTO Posts (Seller, Book_ID, Status, Price, Class_Name, Book_Condition, Due_Date, Transaction_Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-      req.db.query(insertPost, [seller, bookID, status, price, className, bookCondition, dueDate, transactionType], (err, result) => {
+      req.db.query(insertPost, [seller, bookID, status, price, className, bookCondition, dueDateValue, transactionType], (err, result) => {
         if (err) {
           return res.status(500).json({ error: err.message });
         }

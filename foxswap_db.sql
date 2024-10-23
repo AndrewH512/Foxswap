@@ -41,12 +41,12 @@ CREATE TABLE Posts (
     Post_ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL, -- Post ID as the primary key, auto-incremented
     Seller VARCHAR(50) NOT NULL,                     -- Foreign key referencing username from users table
     Book_ID INT NOT NULL,                            -- Foreign key referencing Book_ID from a books table
-    Status VARCHAR(50) DEFAULT 'Available' NOT NULL, -- Status of the post (available, sold, pending)
+    Status VARCHAR(50) NOT NULL, -- Status of the post (available, sold, pending)
     Price VARCHAR(20) NOT NULL,                      -- Price of the book
     Class_Name VARCHAR(100) NOT NULL,                -- Class name for which the book 
     Book_Condition VARCHAR(50) NOT NULL,             -- Condition of the book (bad, used, acceptable)
-    Due_Date DATE,                                   -- Due date for rentals or listings if applicable
-    Transaction_Type BOOLEAN DEFAULT 0 NOT NULL,     -- Transaction type (0: sale, 1: rental)
+    Due_Date DATE NULL,                              -- Due date for rentals or listings if applicable. Can be NULL! (if seller is not renting)
+    Transaction_Type VARCHAR(50) NOT NULL,           -- Transaction type (Sale, Rental)
     Display_Post BOOLEAN DEFAULT 1,                  -- Flag for whether the post is visible (default: true)
 
     -- Foreign key constraints
