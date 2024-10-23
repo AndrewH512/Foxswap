@@ -18,39 +18,39 @@ const storage = multer.diskStorage({
   }
 });
 
+// Now Initialize multer with the defined storage configuration
 const upload = multer({ storage: storage });
 
-// Route to get all users (TESTING DATABASE)
-router.get('/api/users', (req, res) => {
-  const query = 'SELECT * FROM Users';
-  req.db.query(query, (err, results) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.json(results);
-  });
-});
-
+// Start of Routes
+//
 // Route for login functionality
 router.post('/public/login', upload.none(), (req, res) => {
+  // Retrieve the username and password from the request body
   const username = req.body.username;
   const password = req.body.password;
 
+  // Now we want to check if username or password is missing
   if (!password || !username) {
     return res.status(400).json({ error: "Username or password not provided" });
   }
 
+  // Hash the password using SHA-256, salt??
   const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
+  // Query to find user by username
   const query = "SELECT * FROM Users WHERE Username = ?";
   req.db.query(query, [username], (error, results) => {
     if (error) {
+      // Handles database error
       return res.status(500).json({ error: error.message });
     }
 
+    // If no user is found, redirect to the login page with a username error
     if (results.length === 0) {
       return res.redirect("/login.html?error=username");
-    } else if (results[0].Password !== hashedPassword) {
+    } 
+    // If the password does not match, redirect with a password error
+    else if (results[0].Password !== hashedPassword) {
       return res.redirect(`/login.html?error=password&username=${encodeURIComponent(username)}`);
     }
 
@@ -62,16 +62,19 @@ router.post('/public/login', upload.none(), (req, res) => {
 
 // Route for user signup (registering a new user)
 router.post('/public/signup', upload.single('profilePicture'), (req, res) => {
+  // Get user information from the request body
   const { username, firstName, lastName, phoneNumber, email, password, bio } = req.body;
   const profilePicture = req.file ? `/uploads/${req.file.filename}` : null;
   const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
+   // Check if the username or email already exists in the database
   const checkQuery = "SELECT * FROM Users WHERE Username = ? OR Email = ?";
   req.db.query(checkQuery, [username, email], (error, results) => {
     if (error) {
       return res.status(500).json({ error: error.message });
     }
 
+     // If the username or email already exists, return an error
     if (results.length > 0) {
       const errors = results.map(user => {
         if (user.Username === username) return 'username';
@@ -81,12 +84,15 @@ router.post('/public/signup', upload.single('profilePicture'), (req, res) => {
       return res.redirect(`/signup.html?error=${errors.join('&')}`);
     }
 
+    // Insert the new user into the database
     const query = `INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Admin, Banned, Profile_Picture, Bio) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     req.db.query(query, [username, firstName, lastName, phoneNumber, email, hashedPassword, false, false, profilePicture, bio], (error, results) => {
       if (error) {
         return res.status(500).json({ error: error.message });
       }
+
+      // Save the username in the session after successful registration
       req.session.username = username;
       res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
     });
@@ -95,6 +101,7 @@ router.post('/public/signup', upload.single('profilePicture'), (req, res) => {
 
 // API route to get data from two tables
 router.get('/data', (req, res) => {
+  // SQL query to join Books and Posts tables and select relevant fields
   const query = `
     SELECT 
     Books.Author, 
@@ -123,18 +130,21 @@ JOIN
 
 // Route for posting a book (create a listing)
 router.post('/public/post', upload.single('coverPicture'), (req, res) => {
+  // Extract book and post data from the request body
   const { author, isbn, title, bookSubject, className, price, bookCondition, transactionType, dueDate } = req.body;
   const coverPicture = req.file ? `/uploads/${req.file.filename}` : null;
 
   // Check if the dueDate is empty, and if so, set it to null
   const dueDateValue = dueDate ? dueDate : null;
 
+  // Check if a book with the same ISBN already exists
   const checkQuery = "SELECT * FROM Books WHERE ISBN = ?";
   req.db.query(checkQuery, [isbn], (error, results) => {
     if (error) {
       return res.status(500).json({ error: error.message });
     }
 
+    // If the ISBN already exists, return an error
     if (results.length > 0) {
       const errors = results.map(book => {
         if (book.ISBN === isbn) return 'ISBN';
@@ -152,11 +162,12 @@ router.post('/public/post', upload.single('coverPicture'), (req, res) => {
 
       // Get the Book_ID of the newly inserted book
       const bookID = result.insertId; // Use insertId directly after insert
-      console.log("Inserted Book ID:", bookID);
+      console.log("Inserted Book ID:", bookID); // Testing
       const status = 'Available';  // Default status to 'Available' 
       // Now you can insert into the Posts table
-      const seller = req.session.username;
+      const seller = req.session.username; // Get the seller's username from the session
 
+      // Insert the post data into the Posts table
       const insertPost = `INSERT INTO Posts (Seller, Book_ID, Status, Price, Class_Name, Book_Condition, Due_Date, Transaction_Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
       req.db.query(insertPost, [seller, bookID, status, price, className, bookCondition, dueDateValue, transactionType], (err, result) => {
         if (err) {
@@ -168,10 +179,6 @@ router.post('/public/post', upload.single('coverPicture'), (req, res) => {
     });
   });
 });
-
-
-
-
 
 // Route to check if the user is logged in (for frontend session management)
 router.get('/api/check-session', (req, res) => {
@@ -189,3 +196,15 @@ router.use('/uploads', express.static(path.join(__dirname, '../public/uploads'))
 
 // Export the router
 module.exports = router;
+
+// Route to get all users (TESTING DATABASE)
+// Will get deleted later
+router.get('/api/users', (req, res) => {
+  const query = 'SELECT * FROM Users';
+  req.db.query(query, (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(results);
+  });
+});
