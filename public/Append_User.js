@@ -1,8 +1,6 @@
 // Get the current URL
 const url = window.location.href;
 
-console.log("hello!!!")
-
 // Create a URLSearchParams object to parse the query string
 const params = new URLSearchParams(window.location.search);
 
