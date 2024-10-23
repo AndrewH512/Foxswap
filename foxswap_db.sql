@@ -132,8 +132,8 @@ VALUES
 -- Insert records into the books table (example data)
 INSERT INTO Books (Author, ISBN, Title, Book_Subject, Cover_Picture)
 VALUES 
-('Author One', '1234567890123', 'Book Title One', 'Computer Science', '/images/book1.jpg'),
-('Author Two', '9876543210987', 'Book Title Two', 'Literature', '/images/book2.jpg');
+('John Smith', '1234567890123', 'Mathematics', 'Math', '/uploads/testbook1.jpg'),
+('Steve Steven', '9876543210987', 'The Nature of Science', 'Science', '/images/testbook2.jpg');
 
 -- Insert records into the posts table (example data)
 INSERT INTO Posts (Seller, Book_ID, Status, Price, Class_Name, Book_Condition, Due_Date, Transaction_Type, Display_Post)
