@@ -1,115 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Link to CSS file -->
-    <link rel="stylesheet" href="front-end.css">
+    <link rel="stylesheet" href="front-end.css" />
+  </head>
 
-</head>
-
-<body>
+  <body
+    style="
+      background-image: url(uploads/FOXSWAP.png);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 85% 85%;
+    "
+  >
     <!-- Header section -->
     <header>
-        <h1>Welcome to Foxswap</h1>
-        <!-- Foxswap logo will print to the top left on screen -->
-        <img src="Fox_Swap_Logo.png" alt="Logo" class="logo"
-            style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
+      <h1>Welcome to Foxswap</h1>
+      <!-- Foxswap logo will print to the top left on screen -->
+      <a href="homepage.html"
+        ><img
+          src="Fox_Swap_Logo.png"
+          alt="Logo"
+          class="logo"
+          style="
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+          "
+      /></a>
     </header>
 
     <!-- Navigation bar -->
     <nav>
-        <a href="homepage.html">Homepage</a>
-        <a href="browse.html">Browse</a>
-        <a href="messages.html">Messages</a>
-        <a href="myprofile.html">My Profile</a>
-        <a href="favorites.html">Favorites</a>
-        <a href="search.html">Search</a>
-        <a href="post.html">Post</a>
-        <a href="yourposts.html">Your Posts</a>
-        <a href="myprofile.html">Profile</a>
+      <a href="homepage.html">Homepage</a>
+      <a href="browse.html">Browse</a>
+      <a href="messages.html">Messages</a>
+      <a href="myprofile.html">My Profile</a>
+      <a href="favorites.html">Favorites</a>
+      <a href="search.html">Search</a>
+      <a href="post.html">Post</a>
+      <a href="yourposts.html">Your Posts</a>
+      <a href="myprofile.html">Profile</a>
     </nav>
+
+    <!-- Insert Space nav bar and profile container-->
+    &nbsp;
 
     <!-- Profile Container -->
     <div class="Profile">
+      <!-- Profile Title -->
+      <h2 style="text-align: center; font-size: 300%">Profile</h2>
 
-        <!-- Profile Title -->
-        <h2 style="text-align: center;">Profile</h2>
+      <!-- User's Profile Picture -->
+      <div class="Profile_Picture" style="text-align: center">
+        <img id="profilePic" src="" alt="Profile Picture" />
+      </div>
+      &nbsp;
 
-        <!-- User's First Name -->
-        <div class="First_Name"> </div>
+      <!-- User's First Name -->
+      <div class="First_Name">First Name:</div>
+      &nbsp;
 
-        <!-- User's Last Name -->
-        <div class="Last_Name"> </div>
+      <!-- User's Last Name -->
+      <div class="Last_Name">Last Name:</div>
+      &nbsp;
 
-        <!-- Division for Buttons! -->
-        <div style="text-align: center" ;>
-            <!-- Button to go message the user -->
-            <div class="auth-buttons" style="display: inline-block;">
-                <button type="message" style="font-size: 12px; padding: 5px 10px;">Message User</button>
-            </div>
+      <!-- The User's Bio -->
+      <div class="Bio">Bio:</div>
+      &nbsp;
 
-            <!-- Button to go leave a review on the user -->
-            <div class="auth-buttons" style="display: inline-block; margin-left: 10px;">
-                <button type="review" style="font-size: 12px; padding: 5px 10px;">Leave a Review</button>
-            </div>
+      <!-- All of the posts the user has made-->
+      <div class="Posts">Posts:</div>
+      &nbsp;
+
+      <!-- All of the user's reviews (if we add this) -->
+      <div class="Reviews">Review:</div>
+      &nbsp;
+
+      <!-- Division for Buttons! -->
+      <div style="text-align: center" ;>
+        <!-- Button to go message the user -->
+        <div class="auth-buttons" style="display: inline-block">
+          <button type="message" style="font-size: 12px; padding: 5px 10px">
+            Message User
+          </button>
         </div>
 
-        <!-- User's Profile Picture -->
-        <div class="Profile_Picture" style="text-align: center;">
-            <img id="profilePic" src="" alt="Profile Picture" />
+        <!-- Button to go leave a review on the user -->
+        <div
+          class="auth-buttons"
+          style="display: inline-block; margin-left: 10px"
+        >
+          <button type="review" style="font-size: 12px; padding: 5px 10px">
+            Leave a Review
+          </button>
         </div>
-
-        <!-- The User's Bio -->
-        <div class="Bio"></div>
-
-        <!-- All of the posts the user has made-->
-        <div class="Posts"></div>
-
-        <!-- All of the user's reviews (if we add this) -->
-        <div class="Reviews"></div>
+      </div>
     </div>
-
 
     <!-- Footer section -->
     <footer>
-        <p>&copy; 2024 Foxswap. All rights reserved.</p>
-        <p>Twitter - Instagram - Facebook</p>
+      <p>&copy; 2024 Foxswap. All rights reserved.</p>
+      <p>Twitter - Instagram - Facebook</p>
     </footer>
 
     <script>
-        // Extract username from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username');
+      // Extract username from the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const username = urlParams.get("username");
 
-        if (username) {
-            // Fetch user data from the database based on the username
-            fetch(`/api/Users?username=${encodeURIComponent(username)}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data); // Log the entire response for debugging
-                    if (data.length > 0) {
-                        const user = data.find(u => u.Username === username);
-                        console.log("what up BOY:  " + user.First_Name)
-                        const profilePic = document.getElementById('profilePic');
-                        // Set the profile picture source
-                        profilePic.src = user.Profile_Picture || '/uploads/defaultProfilePic.jpg';
-                        profilePic.alt = `${user.First_Name}'s profile picture`;
-                    } else {
-                        console.log("User not found.");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error fetching user data:", error);
-                });
-        } else {
-            console.log("No username found in the URL.");
-        }
+      if (username) {
+        // Fetch user data from the database based on the username
+        fetch(`/api/Users?username=${encodeURIComponent(username)}`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data); // Log the entire response for debugging
+            if (data.length > 0) {
+              const user = data.find((u) => u.Username === username);
+              console.log("what up BOY:  " + user.First_Name);
+              const profilePic = document.getElementById("profilePic");
+              // Set the profile picture source
+              profilePic.src =
+                user.Profile_Picture || "/uploads/defaultProfilePic.jpg";
+              profilePic.alt = `${user.First_Name}'s profile picture`;
+            } else {
+              console.log("User not found.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+      } else {
+        console.log("No username found in the URL.");
+      }
     </script>
-
 
     <!-- This appends the username to the url.-->
     <script src="Append_User.js"></script>
@@ -118,8 +148,5 @@
     <!-- This ensures the user will not be able to skip this page
     by just entering the URL-->
     <script src="sessionCheck.js"></script>
-
-
-</body>
-
+  </body>
 </html>

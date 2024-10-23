@@ -1,175 +1,184 @@
 /* Basic styling and css that every page uses */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 /* Header styling */
 header {
-    background-color: #B3261E;
-    color: white;
-    padding: 20px;
-    text-align: center;
+  background-color: #b3261e;
+  color: white;
+  padding: 20px;
+  text-align: center;
 }
 
 /* Main content styling */
 .main-content {
-    padding: 20px;
-    background-color: white;
-    margin: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  background-color: white;
+  margin: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Use this to center text */
 .center-text {
-    text-align: center; 
+  text-align: center;
 }
 
 /* Footer styling */
 footer {
-    background-color: #B3261E;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+  background-color: #b3261e;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 
 /* Navigation bar on the top of each page */
 nav {
-    background-color: #B3261E;
-    overflow: hidden;
+  background-color: #b3261e;
+  overflow: hidden;
 }
 
 /* Navigation link styling */
 nav a {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 20px;
-    text-decoration: none;
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
 }
 
 /* Navigation link hover effect */
 nav a:hover {
-    background-color: #ddd;
-    color: black;
+  background-color: #ddd;
+  color: black;
 }
 
 /* Basic button styling */
 .auth-buttons {
-    display: flex;
-    justify-content: center; /* Centers the buttons horizontally */
-    gap: 20px; /* Space between buttons */
-    margin-top: 20px;
+  display: flex;
+  justify-content: center; /* Centers the buttons horizontally */
+  gap: 20px; /* Space between buttons */
+  margin-top: 20px;
 }
 
 /* Individual button styling */
 .auth-buttons button {
-    background-color: #000000; 
-    border: none;
-    color: white;
-    padding: 15px 25px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 33px;
-    cursor: pointer;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow */
-    transition: 0.3s ease-in-out; /* Smooth transitions */
+  background-color: #000000;
+  border: none;
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 33px;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow */
+  transition: 0.3s ease-in-out; /* Smooth transitions */
 }
 
 /* Button hover effect */
 .auth-buttons button:hover {
-    background-color: #e41e1e; 
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+  background-color: #e41e1e;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
 }
 
 /* CSS for specific things on pages */
 
 /* Search bar styling under nav in browse.html */
 .search-container {
-    text-align: center;
-    padding: 20px;
-    background-color: #f0f0f0;
+  text-align: center;
+  padding: 20px;
+  background-color: #f0f0f0;
 }
 
 .search-container input[type="text"] {
-    padding: 10px;
-    width: 300px;
-    border: none;
-    border-radius: 4px;
-    margin-right: 10px;
+  padding: 10px;
+  width: 300px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
 }
 
 .search-container button {
-    padding: 10px 20px;
-    background-color: #B3261E;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 10px 20px;
+  background-color: #b3261e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .search-container button:hover {
-    background-color: #ddd;
-    color: black;
+  background-color: #ddd;
+  color: black;
 }
 
 /* CSS specific to login page */
 .login-container {
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Login header styling */
 .login-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 /* Common form styles of signin and login pages */
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 /* Label styling */
 .form-group label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 /* Input and textarea styling */
 .form-group input,
 .form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; 
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 /* Signup container styling */
 .signup-container {
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Signup header styling */
 .signup-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+/* Profile styling */
+.Profile {
+  width: 300px;
+  border: 5px solid black;
+  padding: 50px;
+  border-radius: 25px;
+  margin-left: 1100px;
+  height: 500px;
 }
