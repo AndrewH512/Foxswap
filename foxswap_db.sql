@@ -32,7 +32,7 @@ CREATE TABLE Books (
     Author VARCHAR(100) NOT NULL,                     -- Author of the book
     ISBN VARCHAR(20) NOT NULL UNIQUE,                 -- ISBN of the book (unique constraint)
     Title VARCHAR(255) NOT NULL,                      -- Title of the book
-    Subject VARCHAR(100) NOT NULL,                    -- Subject or category of the book
+    Book_Subject VARCHAR(100) NOT NULL,               -- Subject or category of the book
     Cover_Picture VARCHAR(100)                        -- Path to the cover picture 
 );
 
@@ -41,7 +41,7 @@ CREATE TABLE Posts (
     Post_ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL, -- Post ID as the primary key, auto-incremented
     Seller VARCHAR(50) NOT NULL,                     -- Foreign key referencing username from users table
     Book_ID INT NOT NULL,                            -- Foreign key referencing Book_ID from a books table
-    Status VARCHAR(50) NOT NULL,                     -- Status of the post (available, sold, pending)
+    Status VARCHAR(50) DEFAULT 'Available' NOT NULL, -- Status of the post (available, sold, pending)
     Price VARCHAR(20) NOT NULL,                      -- Price of the book
     Class_Name VARCHAR(100) NOT NULL,                -- Class name for which the book 
     Book_Condition VARCHAR(50) NOT NULL,             -- Condition of the book (bad, used, acceptable)
@@ -130,7 +130,7 @@ VALUES
 ;
 
 -- Insert records into the books table (example data)
-INSERT INTO Books (Author, ISBN, Title, Subject, Cover_Picture)
+INSERT INTO Books (Author, ISBN, Title, Book_Subject, Cover_Picture)
 VALUES 
 ('Author One', '1234567890123', 'Book Title One', 'Computer Science', '/images/book1.jpg'),
 ('Author Two', '9876543210987', 'Book Title Two', 'Literature', '/images/book2.jpg');
@@ -142,4 +142,22 @@ VALUES
 ('steven', 2, 'sold', '15.00', 'ENG201', 'acceptable', '2024-11-15', 0, 1);
 
 
+SELECT 
+    Books.Author, 
+    Books.ISBN, 
+    Books.Title, 
+    Books.Book_Subject, 
+    Books.Cover_Picture,
+    Posts.Seller, 
+    Posts.Status, 
+    Posts.Price, 
+    Posts.Class_Name, 
+    Posts.Book_Condition, 
+    Posts.Due_Date, 
+    Posts.Transaction_Type
+FROM 
+    Books
+JOIN 
+    Posts ON Books.Book_ID = Posts.Book_ID;
+    
 ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'marist123';

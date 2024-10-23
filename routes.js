@@ -93,6 +93,83 @@ router.post('/public/signup', upload.single('profilePicture'), (req, res) => {
   });
 });
 
+// API route to get data from two tables
+router.get('/data', (req, res) => {
+  const query = `
+    SELECT 
+    Books.Author, 
+    Books.ISBN, 
+    Books.Title, 
+    Books.Book_Subject, 
+    Books.Cover_Picture,
+    Posts.Seller, 
+    Posts.Status, 
+    Posts.Price, 
+    Posts.Class_Name, 
+    Posts.Book_Condition, 
+    Posts.Due_Date, 
+    Posts.Transaction_Type
+FROM 
+    Books
+JOIN 
+    Posts ON Books.Book_ID = Posts.Book_ID;`;
+  req.db.query(query, (error, results) => {
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+    res.json(results);
+  });
+});
+
+// Route for posting a book (create a listing)
+router.post('/public/post', upload.single('coverPicture'), (req, res) => {
+  const { author, isbn, title, bookSubject, status, className, price, bookCondition, transactionType, dueDate } = req.body;
+  const coverPicture = req.file ? `/uploads/${req.file.filename}` : null;
+
+  const checkQuery = "SELECT * FROM Books WHERE ISBN = ?";
+  req.db.query(checkQuery, [isbn], (error, results) => {
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    if (results.length > 0) {
+      const errors = results.map(book => {
+        if (book.ISBN === isbn) return 'ISBN';
+        return null;
+      }).filter(Boolean);
+      return res.redirect(`/post.html?error=${errors.join('&')}`);
+    }
+
+    // Insert into the book table
+    const insertBook = `INSERT INTO Books (Author, ISBN, Title, Book_Subject, Cover_Picture) VALUES (?, ?, ?, ?, ?)`;
+    req.db.query(insertBook, [author, isbn, title, bookSubject, coverPicture], (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+
+      // Get the Book_ID of the newly inserted book
+      const bookID = result.insertId; // Use insertId directly after insert
+      console.log("Inserted Book ID:", bookID);
+
+      // Now you can insert into the Posts table
+      const seller = req.session.username;
+
+      const insertPost = `INSERT INTO Posts (Seller, Book_ID, Status, Price, Class_Name, Book_Condition, Due_Date, Transaction_Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+      req.db.query(insertPost, [seller, bookID, status, price, className, bookCondition, dueDate, transactionType], (err, result) => {
+        if (err) {
+          return res.status(500).json({ error: err.message });
+        }
+        console.log('Post Complete.');
+        res.redirect(`/homepage.html?username=${encodeURIComponent(seller)}`);
+      });
+    });
+  });
+});
+
+
+
+
+
 // Route to check if the user is logged in (for frontend session management)
 router.get('/api/check-session', (req, res) => {
   if (req.session && req.session.username) {

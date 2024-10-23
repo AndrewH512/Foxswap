@@ -15,7 +15,8 @@
     <!-- Header section -->
     <header>
         <h1>Welcome to Foxswap</h1>
-        <img src="Fox_Swap_Logo.png" alt="Logo" class="logo" style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
+        <img src="Fox_Swap_Logo.png" alt="Logo" class="logo"
+            style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
     </header>
 
     <!-- Sign Up Container -->
@@ -44,7 +45,8 @@
             <!-- Divsion to Enter Phone Number -->
             <div class="form-group">
                 <label for="phoneNumber">Phone Number</label>
-                <input type="text" id="phoneNumber" name="phoneNumber" required pattern="\d{10}" maxlength="10" title="Enter Phone Number">
+                <input type="text" id="phoneNumber" name="phoneNumber" required pattern="\d{10}" maxlength="10"
+                    title="Enter Phone Number">
             </div>
             <!-- Divsion to Enter Email -->
             <div class="form-group">
@@ -101,17 +103,17 @@
         }
 
         // Validate phone number on form submission
-         document.querySelector('form').addEventListener('submit', function (event) {
-        const phoneNumberInput = document.getElementById('phoneNumber');
-        const phoneNumber = phoneNumberInput.value;
+        document.querySelector('form').addEventListener('submit', function (event) {
+            const phoneNumberInput = document.getElementById('phoneNumber');
+            const phoneNumber = phoneNumberInput.value;
 
-        // Check if the phone number is exactly 10 digits
-        if (!/^\d{10}$/.test(phoneNumber)) {
-            // Prevent form submission
-            event.preventDefault(); 
-            document.getElementById('error-message').innerHTML += 'Error: Phone number must be exactly 10 digits.<br>';
-        }
-    });
+            // Check if the phone number is exactly 10 digits
+            if (!/^\d{10}$/.test(phoneNumber)) {
+                // Prevent form submission
+                event.preventDefault();
+                document.getElementById('error-message').innerHTML += 'Error: Phone number must be exactly 10 digits.<br>';
+            }
+        });
     </script>
 
 </body>

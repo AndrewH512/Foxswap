@@ -22,21 +22,21 @@
 
     <!-- Navigation bar -->
     <nav>
-		<a href="homepage.html">Homepage</a>
+        <a href="homepage.html">Homepage</a>
         <a href="browse.html">Browse</a>
         <a href="messages.html">Messages</a>
         <a href="myprofile.html">My Profile</a>
         <a href="favorites.html">Favorites</a>
-		<a href="search.html">Search</a>
-		<a href="post.html">Post</a>
-		<a href="yourposts.html">Your Posts</a>
+        <a href="search.html">Search</a>
+        <a href="post.html">Post</a>
+        <a href="yourposts.html">Your Posts</a>
         <a href="myprofile.html">Profile</a>
     </nav>
 
     <!-- Create Textbook Container -->
     <div class="signup-container">
         <h2>Create a Textbook Listing</h2>
-        <form action="/public/create-textbook" method="POST">
+        <form action="/public/post" method="POST" enctype="multipart/form-data">
             <!-- Division to Enter Author -->
             <div class="form-group">
                 <label for="author">Author</label>
@@ -55,7 +55,7 @@
             <!-- Division to Enter Subject -->
             <div class="form-group">
                 <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" required>
+                <input type="text" id="subject" name="bookSubject" required>
             </div>
             <!-- Division to Enter Class Name -->
             <div class="form-group">
@@ -74,8 +74,8 @@
             </div>
             <!-- Division to Enter Book Condition -->
             <div class="form-group">
-                <label for="condition">Book Condition</label>
-                <select id="condition" name="condition" required>
+                <label for="bookCondition">Book Condition</label>
+                <select id="bookCondition" name="bookCondition" required>
                     <option value="new">New</option>
                     <option value="good">Good</option>
                     <option value="fair">Fair</option>
@@ -122,6 +122,9 @@
             }
         }
     </script>
+
+    <!-- This appends the username to the url.-->
+    <script src="Append_User.js"></script>
 
     <!-- Import session check script -->
     <script src="sessionCheck.js"></script>
