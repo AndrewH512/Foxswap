@@ -65,6 +65,8 @@
                     const card = document.createElement('div');
                     // Add class to the card
                     card.classList.add('card');
+                    // Set the data-id attribute to store the textbook ID
+                    card.setAttribute('data-id', post.id); // Assuming post.id exists
                     card.innerHTML = `
                         <img src="${post.Cover_Picture}" alt="Cover Image">
                         <h3>${post.Title}</h3>
@@ -72,6 +74,10 @@
                         <p class="seller"><strong>Seller:</strong> ${post.Seller}</p>
                         <p class="price"><strong>Price:</strong> $${post.Price}</p>
                     `;
+                    // Append the click event to the card
+                    card.addEventListener('click', function() {
+                        window.location.href = `textbook_info.html?id=${post.id}`;
+                    });
                     // Append the card to the posts container
                     postsContainer.appendChild(card);
                 });

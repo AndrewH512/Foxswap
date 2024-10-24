@@ -138,8 +138,8 @@ VALUES
 -- Insert records into the posts table (example data)
 INSERT INTO Posts (Seller, Book_ID, Status, Price, Class_Name, Book_Condition, Due_Date, Transaction_Type, Display_Post)
 VALUES 
-('andrew512', 1, 'available', '20.00', 'CS101', 'used', '2024-12-31', 0, 1),
-('steven', 2, 'sold', '15.00', 'ENG201', 'acceptable', '2024-11-15', 0, 1);
+('andrew512', 1, 'Available', '20.00', 'CS101', 'Used', '2024-12-31', 0, 1),
+('steven', 2, 'Sold', '15.00', 'ENG201', 'Acceptable', '2024-11-15', 0, 1);
 
 
 SELECT 
