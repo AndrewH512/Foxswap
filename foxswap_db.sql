@@ -133,13 +133,26 @@ VALUES
 INSERT INTO Books (Author, ISBN, Title, Book_Subject, Cover_Picture)
 VALUES 
 ('John Smith', '1234567890123', 'Mathematics', 'Math', '/uploads/testbook1.jpg'),
-('Steve Steven', '9876543210987', 'The Nature of Science', 'Science', '/uploads/testbook2.jpg');
+('Steve Steven', '9876543210987', 'The Nature of Science', 'Science', '/uploads/testbook2.jpg'),
+('Mary Brown', '98321421411241', 'Macmillian English', 'English', '/uploads/Mac_English.jpg'),
+('Alice Green', '1234567890124', 'Introduction to Programming', 'Computer Science', '/uploads/book4.jpg'),
+('Bob White', '9876543210988', 'Physics Fundamentals', 'Physics', '/uploads/book5.jpg'),
+('Jane Doe', '1234567890125', 'Chemistry 101', 'Chemistry', '/uploads/book6.jpg'),
+('Tom Brown', '1234567890126', 'Biology Basics', 'Biology', '/uploads/book7.jpg'),
+('Mike Johnson', '1234567890127', 'History of Art', 'Art', '/uploads/book8.jpg'),
+('Emily Davis', '1234567890128', 'Statistics for Beginners', 'Statistics', '/uploads/book9.jpg'),
+('Laura Smith', '1234567890129', 'Ethics in Technology', 'Philosophy', '/uploads/book10.jpg');
 
 -- Insert records into the posts table (example data)
 INSERT INTO Posts (Seller, Book_ID, Status, Price, Class_Name, Book_Condition, Due_Date, Transaction_Type, Display_Post)
 VALUES 
-('andrew512', 1, 'Available', '20.00', 'CS101', 'Used', '2024-12-31', 0, 1),
-('steven', 2, 'Sold', '15.00', 'ENG201', 'Acceptable', '2024-11-15', 0, 1);
+('andrew512', 1, 'Available', '20.00', 'CS101', 'Good', NULL, 'Sale', 1),
+('steven', 2, 'Sold', '30.00', 'BIO202', 'New', NULL, 'Sale', 0),
+('steven', 3, 'Pending', '15.00', 'ENG303', 'Used', '2024-11-30', 'Rental', 1),
+('steven', 1, 'Available', '25.00', 'MATH101', 'Acceptable', NULL, 'Rental', 1),
+('andrew512', 2, 'Sold', '35.00', 'PHY102', 'New', NULL, 'Sale', 0),
+('andrew512', 4, 'Available', '15.00', 'CS201', 'Good', '2025-11-30', 'Rental', 1),
+('steven', 5, 'Pending', '10.00', 'ART101', 'Acceptable', '2024-11-30', 'Rental', 1);
 
 
 SELECT 
