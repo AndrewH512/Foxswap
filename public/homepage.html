@@ -14,9 +14,11 @@
     <!-- Header section -->
     <header>
         <h1>Welcome to Foxswap</h1>
-        <!-- Foxswap logo will print to the top left on screen -->
-        <img src="Fox_Swap_Logo.png" alt="Logo" class="logo"
-            style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
+        <!-- Clickable Foxswap logo that links to the homepage -->
+        <a href="homepage.html">
+            <img src="art/Fox_Swap_Logo.png" alt="Logo" class="logo"
+                style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
+        </a>
     </header>
 
     <!-- Navigation bar -->
@@ -32,9 +34,16 @@
 
     <!-- Main content section -->
     <div class="main-content">
-        <h2>Welcome to Foxswap!</h2>
-        <p>Buy, sell and save: Your campus marketplace for used textbooks</p>
-        <img id="profilePic" src="" alt="Profile Picture" />
+        <!-- Displays Welcome Message to Username -->
+        <h1 style="text-align: center;" id="usernameDisplay"></h1>
+        <p style="text-align: center;">Buy, sell and save: Your campus marketplace for used textbooks</p>
+    
+        <!-- Button to navigate to the browse page -->
+        <div class="center-text">
+            <button id="browseButton" style="padding: 10px 20px; font-size: 18px; background-color: #b3261e; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Go to Browse
+            </button>
+        </div>
     </div>
 
     <!-- Footer section -->
@@ -47,6 +56,9 @@
         // Extract username from the URL
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
+
+        // Display the username in the designated element
+        usernameDisplay.textContent = `Hey ${username}, Welcome to Foxswap!`;
 
         if (username) {
             // Fetch user data from the database based on the username
@@ -71,6 +83,17 @@
         } else {
             console.log("No username found in the URL.");
         }
+
+        // Adding an event listener to the button
+        document.getElementById('browseButton').addEventListener('click', function() {
+        // Construct the URL with the username parameter
+        const username = urlParams.get('username');
+        if (username) {
+             window.location.href = `browse.html?username=${encodeURIComponent(username)}`;
+        } else {
+            window.location.href = 'browse.html'; // Fallback in case username is not found
+        }
+        });
     </script>
 
     <!-- This appends the username to the url.-->

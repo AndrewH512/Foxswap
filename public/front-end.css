@@ -43,12 +43,12 @@ footer {
 nav {
   background-color: #b3261e;
   overflow: hidden;
+  text-align: center;
 }
 
 /* Navigation link styling */
 nav a {
-  float: left;
-  display: block;
+  display: inline-block; 
   color: white;
   text-align: center;
   padding: 14px 20px;
