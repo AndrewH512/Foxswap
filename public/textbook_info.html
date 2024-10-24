@@ -30,7 +30,7 @@
     </nav>
 
     <main>
-        <h2>Textbook Title</h2>
+        <h2 style="text-align: center">Textbook Title</h2>
         <p>Detailed information about the textbook goes here.</p>
 
     </main>
@@ -47,17 +47,28 @@
         const postId = urlParams.get('id');  // Extract the post id
         const username = urlParams.get('username');  // Extract the username
 
-        // Display the username somewhere on the page if needed
-        document.querySelector('h2').textContent += ` - Welcome, ${username}!`;
-
         // Fetch the specific textbook information using the post ID
         fetch(`/api/getPost?id=${postId}`)
             .then(response => response.json())
             .then(data => {
-                // Display the textbook data on the page
-                document.querySelector('h2').textContent = data.Title;
-                document.querySelector('p').textContent = `Author: ${data.Author} | Price: $${data.Price}`;
-                // Add more details as needed
+            // Populate the page with textbook data
+            document.querySelector('h2').textContent = data.Title;
+            document.querySelector('p').innerHTML = `
+            <div style="text-align: center;"> <!-- Center the content -->
+                <strong>Cover Image:</strong> <br>
+                <img src="${data.Cover_Picture}" alt="Cover Image" style="width: 150px; height: auto;">
+                <br>
+                <strong>Author:</strong> ${data.Author} <br>
+                <strong>ISBN:</strong> ${data.ISBN} <br>
+                <strong>Subject:</strong> ${data.Book_Subject} <br>
+                <strong>Seller:</strong> ${data.Seller} <br>
+                <strong>Status:</strong> ${data.Status} <br>
+                <strong>Price:</strong> $${data.Price} <br>
+                <strong>Class Name:</strong> ${data.Class_Name} <br>
+                <strong>Condition:</strong> ${data.Book_Condition} <br>
+                <strong>Due Date:</strong> ${data.Due_Date || 'N/A'} <br>
+                <strong>Transaction Type:</strong> ${data.Transaction_Type} <br>
+            </div>`;
             })
             .catch(error => {
                 console.error('Error fetching textbook data:', error);

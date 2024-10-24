@@ -209,3 +209,39 @@ router.get('/api/users', (req, res) => {
     res.json(results);
   });
 });
+
+
+// Route to get detailed textbook information
+router.get('/api/getPost', (req, res) => {
+  const postId = req.query.id;
+
+  const query = `
+      SELECT 
+          Books.Title,
+          Books.Author,
+          Books.ISBN,
+          Books.Book_Subject,
+          Books.Cover_Picture,
+          Posts.Seller,
+          Posts.Status,
+          Posts.Price,
+          Posts.Class_Name,
+          Posts.Book_Condition,
+          Posts.Due_Date,
+          Posts.Transaction_Type
+      FROM Posts
+      INNER JOIN Books ON Posts.Book_ID = Books.Book_ID
+      WHERE Posts.Post_ID = ?
+  `;
+
+  req.db.query(query, [postId], (error, results) => {
+      if (error) {
+          console.error('Error fetching post information:', error);
+          res.status(500).json({ error: 'Internal server error' });
+      } else if (results.length === 0) {
+          res.status(404).json({ error: 'Post not found' });
+      } else {
+          res.json(results[0]);
+      }
+  });
+});
