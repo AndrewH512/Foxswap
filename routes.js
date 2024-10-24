@@ -48,7 +48,7 @@ router.post('/public/login', upload.none(), (req, res) => {
     // If no user is found, redirect to the login page with a username error
     if (results.length === 0) {
       return res.redirect("/login.html?error=username");
-    } 
+    }
     // If the password does not match, redirect with a password error
     else if (results[0].Password !== hashedPassword) {
       return res.redirect(`/login.html?error=password&username=${encodeURIComponent(username)}`);
@@ -67,14 +67,14 @@ router.post('/public/signup', upload.single('profilePicture'), (req, res) => {
   const profilePicture = req.file ? `/uploads/${req.file.filename}` : null;
   const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
-   // Check if the username or email already exists in the database
+  // Check if the username or email already exists in the database
   const checkQuery = "SELECT * FROM Users WHERE Username = ? OR Email = ?";
   req.db.query(checkQuery, [username, email], (error, results) => {
     if (error) {
       return res.status(500).json({ error: error.message });
     }
 
-     // If the username or email already exists, return an error
+    // If the username or email already exists, return an error
     if (results.length > 0) {
       const errors = results.map(user => {
         if (user.Username === username) return 'username';
@@ -109,6 +109,7 @@ router.get('/data', (req, res) => {
     Books.Title, 
     Books.Book_Subject, 
     Books.Cover_Picture,
+    Posts.Post_ID,
     Posts.Seller, 
     Posts.Status, 
     Posts.Price, 

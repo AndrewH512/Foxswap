@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse</title>
 
-     <!-- Link to CSS file -->
+    <!-- Link to CSS file -->
     <link rel="stylesheet" href="front-end.css">
 </head>
 
@@ -42,7 +42,7 @@
 
     <!-- Main content section -->
     <div class="main-content">
-        <h2 style = "text-align: center;">Available Posts</h2>
+        <h2 style="text-align: center;">Available Posts</h2>
         <div class="card-container" id="postsContainer">
             <!-- Cards will be dynamically inserted here -->
         </div>
@@ -55,7 +55,11 @@
     </footer>
 
     <script>
-        // Fetch posts from the API and display them as cards
+        // Fetch the username from the current URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username'); // Assuming 'username' is in the URL
+
+        // Fetch posts and display them
         fetch('/data')
             .then(response => response.json())
             .then(data => {
@@ -63,10 +67,9 @@
                 data.forEach(post => {
                     // Create a new card element
                     const card = document.createElement('div');
-                    // Add class to the card
                     card.classList.add('card');
-                    // Set the data-id attribute to store the textbook ID
-                    card.setAttribute('data-id', post.id); // Assuming post.id exists
+                    card.setAttribute('data-id', post.Post_ID);  // Store the post id in the card
+
                     card.innerHTML = `
                         <img src="${post.Cover_Picture}" alt="Cover Image">
                         <h3>${post.Title}</h3>
@@ -74,10 +77,12 @@
                         <p class="seller"><strong>Seller:</strong> ${post.Seller}</p>
                         <p class="price"><strong>Price:</strong> $${post.Price}</p>
                     `;
-                    // Append the click event to the card
-                    card.addEventListener('click', function() {
-                        window.location.href = `textbook_info.html?id=${post.id}`;
+
+                    // On click, redirect to textbook_info.html with post id and username in the URL
+                    card.addEventListener('click', function () {
+                        window.location.href = `textbook_info.html?id=${post.Post_ID}&username=${encodeURIComponent(username)}`;
                     });
+
                     // Append the card to the posts container
                     postsContainer.appendChild(card);
                 });
@@ -89,11 +94,11 @@
 
     <!-- This appends the username to the url.-->
     <script src="Append_User.js"></script>
-    
+
     <!-- Import session check script -->
     <!-- This ensures the user will not be able to skip this page
      by just entering the URL-->
-     <script src="sessionCheck.js"></script>
+    <script src="sessionCheck.js"></script>
 
 </body>
 
