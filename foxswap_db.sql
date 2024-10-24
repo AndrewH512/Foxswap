@@ -41,7 +41,7 @@ CREATE TABLE Posts (
     Post_ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL, -- Post ID as the primary key, auto-incremented
     Seller VARCHAR(50) NOT NULL,                     -- Foreign key referencing username from users table
     Book_ID INT NOT NULL,                            -- Foreign key referencing Book_ID from a books table
-    Status VARCHAR(50) NOT NULL, -- Status of the post (available, sold, pending)
+    Status VARCHAR(50) NOT NULL,                     -- Status of the post (available, sold, pending)
     Price VARCHAR(20) NOT NULL,                      -- Price of the book
     Class_Name VARCHAR(100) NOT NULL,                -- Class name for which the book 
     Book_Condition VARCHAR(50) NOT NULL,             -- Condition of the book (bad, used, acceptable)
@@ -133,7 +133,7 @@ VALUES
 INSERT INTO Books (Author, ISBN, Title, Book_Subject, Cover_Picture)
 VALUES 
 ('John Smith', '1234567890123', 'Mathematics', 'Math', '/uploads/testbook1.jpg'),
-('Steve Steven', '9876543210987', 'The Nature of Science', 'Science', '/images/testbook2.jpg');
+('Steve Steven', '9876543210987', 'The Nature of Science', 'Science', '/uploads/testbook2.jpg');
 
 -- Insert records into the posts table (example data)
 INSERT INTO Posts (Seller, Book_ID, Status, Price, Class_Name, Book_Condition, Due_Date, Transaction_Type, Display_Post)

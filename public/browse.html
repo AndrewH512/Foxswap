@@ -6,24 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse</title>
+
+     <!-- Link to CSS file -->
     <link rel="stylesheet" href="front-end.css">
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 
 <body>
@@ -57,25 +42,10 @@
 
     <!-- Main content section -->
     <div class="main-content">
-        <h2>Available Posts</h2>
-        <table id="postsTable">
-            <thead>
-                <tr>
-                    <th>Author</th>
-                    <th>ISBN</th>
-                    <th>Title</th>
-                    <th>Subject</th>
-                    <th>Class Name</th>
-                    <th>Cover Picture</th>
-                    <th>Price</th>
-                    <th>Book Condition</th>
-                    <th>Transaction Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Data will be populated here -->
-            </tbody>
-        </table>
+        <h2 style = "text-align: center;">Available Posts</h2>
+        <div class="card-container" id="postsContainer">
+            <!-- Cards will be dynamically inserted here -->
+        </div>
     </div>
 
     <!-- Footer section -->
@@ -85,25 +55,25 @@
     </footer>
 
     <script>
-        // Fetch posts from the API and display them in the table
+        // Fetch posts from the API and display them as cards
         fetch('/data')
             .then(response => response.json())
             .then(data => {
-                const tableBody = document.querySelector('#postsTable tbody'); // Corrected ID
-                data.forEach(row => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-            <td>${row.Author}</td>
-            <td>${row.ISBN}</td>
-            <td>${row.Title}</td>
-            <td>${row.Book_Subject}</td>
-            <td>${row.Class_Name}</td>
-            <td>${row.Cover_Picture}</td>
-            <td>${row.Price}</td>
-            <td>${row.Book_Condition}</td>
-            <td>${row.Transaction_Type}</td>
-          `;
-                    tableBody.appendChild(tr);
+                const postsContainer = document.querySelector('#postsContainer');
+                data.forEach(post => {
+                    // Create a new card element
+                    const card = document.createElement('div');
+                    // Add class to the card
+                    card.classList.add('card');
+                    card.innerHTML = `
+                        <img src="${post.Cover_Picture}" alt="Cover Image">
+                        <h3>${post.Title}</h3>
+                        <p class="condition"><strong>Status:</strong> ${post.Book_Condition}</p>
+                        <p class="seller"><strong>Seller:</strong> ${post.Seller}</p>
+                        <p class="price"><strong>Price:</strong> $${post.Price}</p>
+                    `;
+                    // Append the card to the posts container
+                    postsContainer.appendChild(card);
                 });
             })
             .catch(error => {
@@ -112,10 +82,12 @@
     </script>
 
     <!-- This appends the username to the url.-->
-    <script src="js/Append_User.js"></script>
-
-    <script src="js/sessionCheck.js"></script>
-
+    <script src="Append_User.js"></script>
+    
+    <!-- Import session check script -->
+    <!-- This ensures the user will not be able to skip this page
+     by just entering the URL-->
+     <script src="sessionCheck.js"></script>
 
 </body>
 
