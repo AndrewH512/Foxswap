@@ -192,6 +192,18 @@ router.get('/api/check-session', (req, res) => {
   }
 });
 
+// Route for logging out
+router.get('/public/logout', (req, res) => {
+  // Destroy the session
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to log out' });
+    }
+    // Redirect to the login page after logout
+    res.redirect('/login.html');
+  });
+});
+
 // Ensure that the uploaded files can be accessed by the client.
 router.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
 
