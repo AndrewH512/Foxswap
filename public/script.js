@@ -1,17 +1,17 @@
 // Get the current URL
-const url = window.location.href;
+const url2 = window.location.href;
 
 // Create a URLSearchParams object to parse the query string
-const params = new URLSearchParams(window.location.search);
+const params2 = new URLSearchParams(window.location.search);
 
 // Get the value of the 'username' parameter
-const username = params.get('username');
+const username3 = params2.get('username');
 
 // Connect to the server
 const socket = io();
 
 // When a user connects, register their username with the server
-socket.emit('register', username);
+socket.emit('register', username3);
 
 // Form elements
 const messageForm = document.getElementById('messageForm');

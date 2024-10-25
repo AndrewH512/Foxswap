@@ -70,10 +70,6 @@
                     if (data.length > 0) {
                         const user = data.find(u => u.Username === username);
                         console.log("what up BOY:  " + user.First_Name)
-                        const profilePic = document.getElementById('profilePic');
-                        // Set the profile picture source
-                        profilePic.src = user.Profile_Picture || '/uploads/defaultProfilePic.jpg';
-                        profilePic.alt = `${user.First_Name}'s profile picture`;
                     } else {
                         console.log("User not found.");
                     }

@@ -34,6 +34,9 @@
     <main>
         <h2 style="text-align: center">Textbook Title</h2>
         <p>Detailed information about the textbook goes here.</p>
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="messageSellerButton" style="padding: 10px 20px; font-size: 16px;">Message Seller</button>
+        </div>
 
     </main>
 
@@ -53,24 +56,29 @@
         fetch(`/api/getPost?id=${postId}`)
             .then(response => response.json())
             .then(data => {
-            // Populate the page with textbook data
-            document.querySelector('h2').textContent = data.Title;
-            document.querySelector('p').innerHTML = `
-            <div style="text-align: center;"> <!-- Center the content -->
-                <strong>Cover Image:</strong> <br>
-                <img src="${data.Cover_Picture}" alt="Cover Image" style="width: 150px; height: auto;">
-                <br>
-                <strong>Author:</strong> ${data.Author} <br>
-                <strong>ISBN:</strong> ${data.ISBN} <br>
-                <strong>Subject:</strong> ${data.Book_Subject} <br>
-                <strong>Seller:</strong> ${data.Seller} <br>
-                <strong>Status:</strong> ${data.Status} <br>
-                <strong>Price:</strong> $${data.Price} <br>
-                <strong>Class Name:</strong> ${data.Class_Name} <br>
-                <strong>Condition:</strong> ${data.Book_Condition} <br>
-                <strong>Due Date:</strong> ${data.Due_Date || 'N/A'} <br>
-                <strong>Transaction Type:</strong> ${data.Transaction_Type} <br>
-            </div>`;
+                // Populate the page with textbook data
+                document.querySelector('h2').textContent = data.Title;
+                document.querySelector('p').innerHTML = `
+                <div style="text-align: center;">
+                    <strong>Cover Image:</strong> <br>
+                    <img src="${data.Cover_Picture}" alt="Cover Image" style="width: 150px; height: auto;">
+                    <br>
+                    <strong>Author:</strong> ${data.Author} <br>
+                    <strong>ISBN:</strong> ${data.ISBN} <br>
+                    <strong>Subject:</strong> ${data.Book_Subject} <br>
+                    <strong>Seller:</strong> <span id="sellerName">${data.Seller}</span> <br>
+                    <strong>Status:</strong> ${data.Status} <br>
+                    <strong>Price:</strong> $${data.Price} <br>
+                    <strong>Class Name:</strong> ${data.Class_Name} <br>
+                    <strong>Condition:</strong> ${data.Book_Condition} <br>
+                    <strong>Due Date:</strong> ${data.Due_Date || 'N/A'} <br>
+                    <strong>Transaction Type:</strong> ${data.Transaction_Type} <br>
+                </div>`;
+                
+                // Set up the Message Seller button to direct to the messages page
+                document.getElementById('messageSellerButton').addEventListener('click', () => {
+                    window.location.href = `messages.html?username=${encodeURIComponent(username)}&recipient=${encodeURIComponent(data.Seller)}`;
+                });
             })
             .catch(error => {
                 console.error('Error fetching textbook data:', error);
