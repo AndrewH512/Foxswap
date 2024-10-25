@@ -72,7 +72,7 @@ nav a:hover {
 /* Individual button styling */
 .auth-buttons button {
   background-color: #000000;
-  border: none;
+  border: 2px solid red;
   color: white;
   padding: 15px 25px;
   text-align: center;

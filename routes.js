@@ -200,7 +200,7 @@ router.get('/public/logout', (req, res) => {
       return res.status(500).json({ error: 'Failed to log out' });
     }
     // Redirect to the login page after logout
-    res.redirect('/login.html');
+    res.redirect('/welcomepage.html');
   });
 });
 
