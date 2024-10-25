@@ -68,40 +68,58 @@ app.get('/homepage.html', (req, res) => {
 });
 
 
+// Retrieve and emit users from the database
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`);
 
-  // Store the user's socket ID and username
+  // Register the username in memory and send the user list on initial connection
   socket.on('register', (username) => {
-    users[username] = socket.id; // Map the username to the socket ID
-    sockets[socket.id] = username; // Map the socket ID to the username
-    console.log(`Registered ${username} with ID: ${socket.id}`);
+      users[username] = socket.id;
+      sockets[socket.id] = username;
+      console.log(`Registered ${username} with ID: ${socket.id}`);
+
+      // Fetch all users from the database
+      db.query('SELECT Username FROM Users', (err, results) => {
+          if (err) {
+              console.error('Error fetching users from database:', err);
+              return;
+          }
+          // Emit the list of usernames to the client
+          const userList = results.map((row) => row.Username);
+          io.emit('user list', userList);
+          console.log(userList)
+      });
   });
 
+  // Handle private messaging
   socket.on('private message', ({ to, message }) => {
-    const targetSocketId = users[to];
-    const senderUsername = sockets[socket.id];
+      const targetSocketId = users[to];
+      const senderUsername = sockets[socket.id];
 
-    if (targetSocketId) {
-      // Send message to the recipient
-      io.to(targetSocketId).emit('private message', { from: senderUsername, message });
-
-      // Also send the message back to the sender
-      socket.emit('private message', { from: 'You', message });
-      console.log(`Message from ${senderUsername} to ${to}: ${message}`);
-    } else {
-      console.log(`User ${to} not found`);
-    }
+      if (targetSocketId) {
+          io.to(targetSocketId).emit('private message', { from: senderUsername, message });
+          socket.emit('private message', { from: 'You', message });
+          console.log(`Message from ${senderUsername} to ${to}: ${message}`);
+      } else {
+          console.log(`User ${to} not found`);
+      }
   });
 
   // Clean up on disconnect
   socket.on('disconnect', () => {
-    const username = sockets[socket.id];
-    if (username) {
-      delete users[username];
-      delete sockets[socket.id];
-    }
-    console.log(`User disconnected: ${socket.id}`);
+      const username = sockets[socket.id];
+      if (username) {
+          delete users[username];
+          delete sockets[socket.id];
+          // Update user list for all clients
+          db.query('SELECT Username FROM Users', (err, results) => {
+              if (!err) {
+                  const userList = results.map((row) => row.username);
+                  io.emit('user list', userList);
+              }
+          });
+      }
+      console.log(`User disconnected: ${socket.id}`);
   });
 });
 

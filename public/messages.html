@@ -34,6 +34,13 @@
         button {
             padding: 10px;
         }
+        .user-item {
+            cursor: pointer;
+            padding: 5px;
+        }
+        .user-item:hover {
+            background-color: #f0f0f0;
+        }
     </style>
 
 </head>
@@ -62,9 +69,10 @@
     </nav>
 
     <!-- Main content section -->
-    <div class="main-content">
-        <h2>About Me</h2>
-        <p>Welcome to the messages page! Here you can see your messages and connect with buyers or sellers.</p>
+
+    <div class="user-list">
+        <h2>Available Users</h2>
+        <ul id="userList"></ul>
     </div>
 
 
