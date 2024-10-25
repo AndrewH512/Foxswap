@@ -7,6 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messages</title>
     <link rel="stylesheet" href="front-end.css">
+
+    <style>
+        /* Optional basic styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #messages {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
+        }
+
+        #messageForm {
+            display: flex;
+        }
+
+        #messageInput {
+            flex-grow: 1;
+            padding: 10px;
+        }
+
+        button {
+            padding: 10px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -38,6 +67,25 @@
         <p>Welcome to the messages page! Here you can see your messages and connect with buyers or sellers.</p>
     </div>
 
+
+    <!-- Start of Messaging -->
+
+    <div class="messaging">
+        <h1>Foxswap Chat</h1>
+        <div id="messages"></div>
+        <form id="messageForm">
+            <input id="messageInput" autocomplete="off" placeholder="Type a message..." />
+            <button type="submit">Send</button>
+        </form>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="script.js"></script>
+    </div>
+
+
+
+
+
+
     <!-- Footer section -->
     <footer>
         <p>&copy; 2024 Foxswap. All rights reserved.</p>
@@ -46,11 +94,11 @@
 
     <!-- This appends the username to the url.-->
     <script src="Append_User.js"></script>
-    
+
     <!-- Import session check script -->
     <!-- This ensures the user will not be able to skip this page
      by just entering the URL-->
-     <script src="sessionCheck.js"></script>
+    <script src="sessionCheck.js"></script>
 
 </body>
 
