@@ -1,78 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Browse</title>
 
     <!-- Link to CSS file -->
-    <link rel="stylesheet" href="front-end.css">
-</head>
+    <link rel="stylesheet" href="front-end.css" />
+  </head>
 
-<body>
+  <body>
     <!-- Header section -->
     <header>
-        <h1>Welcome to Foxswap</h1>
-        <!-- Clickable Foxswap logo that links to the homepage -->
-        <a href="homepage.html">
-            <img src="art/Fox_Swap_Logo.png" alt="Logo" class="logo"
-                style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
-        </a>
+      <h1>Welcome to Foxswap</h1>
+      <!-- Clickable Foxswap logo that links to the homepage -->
+      <a href="homepage.html">
+        <img
+          src="art/Fox_Swap_Logo.png"
+          alt="Logo"
+          class="logo"
+          style="
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+          "
+        />
+      </a>
     </header>
 
     <!-- Navigation bar -->
     <nav>
-        <a href="homepage.html">Homepage</a>
-        <a href="browse.html">Browse</a>
-        <a href="messages.html">Messages</a>
-        <a href="myprofile.html">My Profile</a>
-        <a href="favorites.html">Favorites</a>
-        <a href="post.html">Post</a>
-        <a href="yourposts.html">Your Posts</a>
-        <a href="/public/logout" id="logoutButton">Logout</a>
+      <a href="homepage.html">Homepage</a>
+      <a href="browse.html">Browse</a>
+      <a href="messages.html">Messages</a>
+      <a href="myprofile.html">My Profile</a>
+      <a href="favorites.html">Favorites</a>
+      <a href="post.html">Post</a>
+      <a href="yourposts.html">Your Posts</a>
+      <a href="/public/logout" id="logoutButton">Logout</a>
     </nav>
 
     <!-- Search bar under navigation -->
     <div class="search-container">
-        <form action="/search" method="GET">
-            <input type="text" placeholder="Search by Textbook Name, ISBN, Author, Class" name="query">
-            <button type="submit">Search</button>
-        </form>
+      <form action="/search" method="GET">
+        <input
+          type="text"
+          placeholder="Search by Textbook Name, ISBN, Author, Class"
+          name="query"
+        />
+        <button type="submit">Search</button>
+      </form>
     </div>
 
     <!-- Main content section -->
     <div class="main-content">
-        <h2 style="text-align: center;">Available Posts</h2>
-        <div class="card-container" id="postsContainer">
-            <!-- Cards will be dynamically inserted here -->
-        </div>
+      <h2 style="text-align: center">Available Posts</h2>
+      <div class="card-container" id="postsContainer">
+        <!-- Cards will be dynamically inserted here -->
+      </div>
     </div>
 
     <!-- Footer section -->
     <footer>
-        <p>&copy; 2024 Foxswap. All rights reserved.</p>
-        <p>Twitter-Instagram-Facebook</p>
+      <p>&copy; 2024 Foxswap. All rights reserved.</p>
+      <p>Twitter-Instagram-Facebook</p>
     </footer>
 
     <script>
-        // Fetch the username from the current URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username'); // Assuming 'username' is in the URL
+      // Fetch the username from the current URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const username = urlParams.get("username"); // Assuming 'username' is in the URL
 
-        // Fetch posts and display them
-        fetch('/data')
-            .then(response => response.json())
-            .then(data => {
-                const postsContainer = document.querySelector('#postsContainer');
-                data.forEach(post => {
-                    // Create a new card element
-                    const card = document.createElement('div');
-                    card.classList.add('card');
-                    card.setAttribute('data-id', post.Post_ID);  // Store the post id in the card
+      // Fetch posts and display them
+      fetch("/data")
+        .then((response) => response.json())
+        .then((data) => {
+          const postsContainer = document.querySelector("#postsContainer");
+          data.forEach((post) => {
+            // Create a new card element
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.setAttribute("data-id", post.Post_ID); // Store the post id in the card
 
-                    card.innerHTML = `
+            card.innerHTML = `
                         <img src="${post.Cover_Picture}" alt="Cover Image">
                         <h3>${post.Title}</h3>
                         <p class="condition"><strong>Condition:</strong> ${post.Book_Condition}</p>
@@ -80,18 +93,20 @@
                         <p class="price"><strong>Price:</strong> $${post.Price}</p>
                     `;
 
-                    // On click, redirect to textbook_info.html with post id and username in the URL
-                    card.addEventListener('click', function () {
-                        window.location.href = `textbook_info.html?id=${post.Post_ID}&username=${encodeURIComponent(username)}`;
-                    });
-
-                    // Append the card to the posts container
-                    postsContainer.appendChild(card);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
+            // On click, redirect to textbook_info.html with post id and username in the URL
+            card.addEventListener("click", function () {
+              window.location.href = `textbook_info.html?id=${
+                post.Post_ID
+              }&username=${encodeURIComponent(username)}`;
             });
+
+            // Append the card to the posts container
+            postsContainer.appendChild(card);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
     </script>
 
     <!-- This appends the username to the url.-->
@@ -101,7 +116,5 @@
     <!-- This ensures the user will not be able to skip this page
      by just entering the URL-->
     <script src="sessionCheck.js"></script>
-
-</body>
-
+  </body>
 </html>
