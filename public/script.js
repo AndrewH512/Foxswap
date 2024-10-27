@@ -27,19 +27,19 @@ console.log("Retrieved username:", username3);
 socket.on('user list', (users) => {
     // Clear the existing list
     userList.innerHTML = '';
-    
+
     // Create a list item for each user
     users.forEach((user) => {
-        console.log(user)
         if (user !== username3) { // Don't display the current user in the list
             const userItem = document.createElement('div');
             userItem.textContent = user;
             userItem.classList.add('user-item');
-            
+
             // When a user is clicked, set them as the recipient
             userItem.addEventListener('click', () => {
                 selectedRecipient = user;
                 alert(`You are now messaging ${user}`);
+                loadChatHistory(selectedRecipient); // Load chat history when a recipient is selected
             });
 
             userList.appendChild(userItem); // Append the user to the list
@@ -65,3 +65,19 @@ socket.on('private message', ({ from, message }) => {
     messageElement.textContent = `${from}: ${message}`;
     messagesDiv.appendChild(messageElement); // Append the message to the messages div
 });
+
+// Fetch chat history when a recipient is selected
+function loadChatHistory(selectedRecipient) {
+    fetch(`/chat-history/${username3}/${selectedRecipient}`)
+        .then(response => response.json())
+        .then(messages => {
+            messagesDiv.innerHTML = ''; // Clear previous messages
+            messages.forEach(msg => {
+                const messageElement = document.createElement('div');
+                messageElement.textContent = `${msg.Sender}: ${msg.Message}`;
+                messagesDiv.appendChild(messageElement);
+            });
+        })
+        .catch(error => console.error('Error fetching chat history:', error));
+}
+

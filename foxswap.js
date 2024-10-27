@@ -74,52 +74,83 @@ io.on('connection', (socket) => {
 
   // Register the username in memory and send the user list on initial connection
   socket.on('register', (username) => {
-      users[username] = socket.id;
-      sockets[socket.id] = username;
-      console.log(`Registered ${username} with ID: ${socket.id}`);
+    users[username] = socket.id;
+    sockets[socket.id] = username;
+    console.log(`Registered ${username} with ID: ${socket.id}`);
 
-      // Fetch all users from the database
-      db.query('SELECT Username FROM Users', (err, results) => {
-          if (err) {
-              console.error('Error fetching users from database:', err);
-              return;
-          }
-          // Emit the list of usernames to the client
-          const userList = results.map((row) => row.Username);
-          io.emit('user list', userList);
-          console.log(userList)
-      });
-  });
-
-  // Handle private messaging
-  socket.on('private message', ({ to, message }) => {
-      const targetSocketId = users[to];
-      const senderUsername = sockets[socket.id];
-
-      if (targetSocketId) {
-          io.to(targetSocketId).emit('private message', { from: senderUsername, message });
-          socket.emit('private message', { from: 'You', message });
-          console.log(`Message from ${senderUsername} to ${to}: ${message}`);
-      } else {
-          console.log(`User ${to} not found`);
+    // Fetch all users from the database
+    db.query('SELECT Username FROM Users', (err, results) => {
+      if (err) {
+        console.error('Error fetching users from database:', err);
+        return;
       }
+      // Emit the list of usernames to the client
+      const userList = results.map((row) => row.Username);
+      io.emit('user list', userList);
+      console.log(userList)
+    });
   });
+
+  // Handle private messaging and save chat history
+  socket.on('private message', ({ to, message }) => {
+    const targetSocketId = users[to];
+    const senderUsername = sockets[socket.id];
+
+    if (targetSocketId) {
+      // Emit the message to the recipient
+      io.to(targetSocketId).emit('private message', { from: senderUsername, message });
+      // Send the message back to the sender (for confirmation)
+      socket.emit('private message', { from: 'You', message });
+      console.log(`Message from ${senderUsername} to ${to}: ${message}`);
+
+      // Save message to MySQL database
+      const query = 'INSERT INTO Messages (Sender, Recipient, Message) VALUES (?, ?, ?)';
+      db.query(query, [senderUsername, to, message], (err, result) => {
+        if (err) {
+          console.error('Error saving message to database:', err);
+        } else {
+          console.log('Message saved to database:', result.insertId);
+        }
+      });
+    } else {
+      console.log(`User ${to} not found`);
+    }
+  });
+
 
   // Clean up on disconnect
   socket.on('disconnect', () => {
-      const username = sockets[socket.id];
-      if (username) {
-          delete users[username];
-          delete sockets[socket.id];
-          // Update user list for all clients
-          db.query('SELECT Username FROM Users', (err, results) => {
-              if (!err) {
-                  const userList = results.map((row) => row.username);
-                  io.emit('user list', userList);
-              }
-          });
-      }
-      console.log(`User disconnected: ${socket.id}`);
+    const username = sockets[socket.id];
+    if (username) {
+      delete users[username];
+      delete sockets[socket.id];
+      // Update user list for all clients
+      db.query('SELECT Username FROM Users', (err, results) => {
+        if (!err) {
+          const userList = results.map((row) => row.username);
+          io.emit('user list', userList);
+        }
+      });
+    }
+    console.log(`User disconnected: ${socket.id}`);
+  });
+});
+
+// Retrieve Chat History
+app.get('/chat-history/:user1/:user2', (req, res) => {
+  const { user1, user2 } = req.params;
+  const query = `
+      SELECT * FROM Messages 
+      WHERE (Sender = ? AND Recipient = ?) OR (Sender = ? AND Recipient = ?)
+      ORDER BY Timestamp ASC
+  `;
+  db.query(query, [user1, user2, user2, user1], (err, results) => {
+    if (err) {
+      console.error('Error retrieving chat history:', err);
+      res.status(500).send('Error retrieving chat history');
+    } else {
+      res.json(results); // Send the chat history as JSON
+    }
   });
 });
 
