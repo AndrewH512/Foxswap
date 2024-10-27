@@ -91,17 +91,17 @@ CREATE TABLE Favorites (
     FOREIGN KEY (Post_ID) REFERENCES Posts(Post_ID) ON DELETE CASCADE
 );
 
--- Create the Messages table
 CREATE TABLE Messages (
-    Message_ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,        -- Message ID as the primary key, auto-incremented
-    Users_From VARCHAR(50) NOT NULL,                           -- Foreign key referencing the sender's username
-    User_To VARCHAR(50) NOT NULL,                              -- Foreign key referencing the receiver's username
-    Body TEXT NOT NULL,                                        -- Message body/content
-    Create_Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,  -- Timestamp for when the message was created
+    Message_ID INT AUTO_INCREMENT PRIMARY KEY,               -- Message ID as the primary key, auto-incremented
+    Sender VARCHAR(255) NOT NULL,                            -- Foreign key referencing the sender's username
+    Recipient VARCHAR(255) NOT NULL,                         -- Foreign key referencing the receiver's username
+    Message TEXT NOT NULL,                                   -- Message body/content
+    Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,            -- Timestamp for when the message was created
 
     -- Foreign key constraints
-    FOREIGN KEY (Users_From) REFERENCES Users(Username) ON DELETE CASCADE,
-    FOREIGN KEY (User_To) REFERENCES Users(Username) ON DELETE CASCADE
+    FOREIGN KEY (Sender) REFERENCES Users(Username) ON DELETE CASCADE,
+    FOREIGN KEY (Recipient) REFERENCES Users(Username) ON DELETE CASCADE
+
 );
 
 -- Create the Transaction table
