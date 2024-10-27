@@ -89,32 +89,59 @@ io.on('connection', (socket) => {
       io.emit('user list', userList);
       console.log(userList)
     });
+
+    // New code below
+
+    // Send any undelivered messages to the connected user
+    const query = 'SELECT * FROM Messages WHERE Recipient = ? AND isDelivered = FALSE ORDER BY Timestamp ASC';
+    db.query(query, [username], (err, results) => {
+      if (err) {
+        console.error('Error fetching undelivered messages:', err);
+        return;
+      }
+      results.forEach((msg) => {
+        socket.emit('private message', { from: msg.Sender, message: msg.Message });
+      });
+
+      // Mark messages as delivered
+      if (results.length > 0) {
+        const updateQuery = 'UPDATE Messages SET isDelivered = TRUE WHERE Recipient = ? AND isDelivered = FALSE';
+        db.query(updateQuery, [username], (err) => {
+          if (err) console.error('Error updating message delivery status:', err);
+        });
+      }
+    });
+
+
+
   });
+
 
   // Handle private messaging and save chat history
   socket.on('private message', ({ to, message }) => {
     const targetSocketId = users[to];
     const senderUsername = sockets[socket.id];
 
-    if (targetSocketId) {
-      // Emit the message to the recipient
-      io.to(targetSocketId).emit('private message', { from: senderUsername, message });
-      // Send the message back to the sender (for confirmation)
-      socket.emit('private message', { from: 'You', message });
-      console.log(`Message from ${senderUsername} to ${to}: ${message}`);
-
-      // Save message to MySQL database
-      const query = 'INSERT INTO Messages (Sender, Recipient, Message) VALUES (?, ?, ?)';
-      db.query(query, [senderUsername, to, message], (err, result) => {
-        if (err) {
-          console.error('Error saving message to database:', err);
+    // Save message to MySQL database
+    const query = 'INSERT INTO Messages (Sender, Recipient, Message, isDelivered) VALUES (?, ?, ?, ?)';
+    const isDelivered = targetSocketId ? true : false; // Determine delivery status
+    db.query(query, [senderUsername, to, message, isDelivered], (err, result) => {
+      if (err) {
+        console.error('Error saving message to database:', err);
+      } else {
+        console.log('Message saved to database:', result.insertId);
+        // If the recipient is online, emit the message to them
+        if (targetSocketId) {
+          // Emit the message to the recipient
+          io.to(targetSocketId).emit('private message', { from: senderUsername, message });
+          // Send the message back to the sender (for confirmation)
+          socket.emit('private message', { from: 'You', message });
+          console.log(`Message from ${senderUsername} to ${to}: ${message}`);
         } else {
-          console.log('Message saved to database:', result.insertId);
+          console.log(`User ${to} not found`);
         }
-      });
-    } else {
-      console.log(`User ${to} not found`);
-    }
+      }
+    });
   });
 
 

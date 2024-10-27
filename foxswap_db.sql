@@ -97,6 +97,7 @@ CREATE TABLE Messages (
     Recipient VARCHAR(255) NOT NULL,                         -- Foreign key referencing the receiver's username
     Message TEXT NOT NULL,                                   -- Message body/content
     Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,            -- Timestamp for when the message was created
+    isDelivered BOOLEAN DEFAULT FALSE,                       -- Variable for whether the message is delivered
 
     -- Foreign key constraints
     FOREIGN KEY (Sender) REFERENCES Users(Username) ON DELETE CASCADE,
