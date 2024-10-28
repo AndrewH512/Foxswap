@@ -29,14 +29,15 @@ header {
 }
 
 /* Footer styling */
+
 footer {
-  background-color: #b3261e;
-  color: white;
-  text-align: center;
-  padding: 0px;
+  display: none; /* Hide the footer initially */
   position: fixed;
-  width: 100%;
   bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #b3261e;
+  padding: 10px;
 }
 
 /* Navigation bar on the top of each page */

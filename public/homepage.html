@@ -52,6 +52,24 @@
         <p>&copy; 2024 Foxswap. All rights reserved.</p>
         <p> Twitter-Instagram-Facebook </p>
     </footer>
+    <!--Footer visabilty-->
+    <script>
+        function toggleFooterVisibility() {
+          const footer = document.querySelector("footer");
+          // Check if the user is at the bottom of the page
+          if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            footer.style.display = "block"; // Show the footer
+          } else {
+            footer.style.display = "none"; // Hide the footer
+          }
+        }
+    
+        // Listen for scroll events
+        window.addEventListener("scroll", toggleFooterVisibility);
+    
+        // Initial check in case the page is already scrolled to the bottom
+        toggleFooterVisibility();
+      </script>
 
     <script>
         // Extract username from the URL
