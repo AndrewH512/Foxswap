@@ -23,30 +23,6 @@ let selectedRecipient = null;
 
 console.log("Retrieved username:", username3);
 
-// Listen for the user list from the server and display it
-socket.on('user list', (users) => {
-    // Clear the existing list
-    userList.innerHTML = '';
-
-    // Create a list item for each user
-    users.forEach((user) => {
-        if (user !== username3) { // Don't display the current user in the list
-            const userItem = document.createElement('div');
-            userItem.textContent = user;
-            userItem.classList.add('user-item');
-
-            // When a user is clicked, set them as the recipient
-            userItem.addEventListener('click', () => {
-                selectedRecipient = user;
-                alert(`You are now messaging ${user}`);
-                loadChatHistory(selectedRecipient); // Load chat history when a recipient is selected
-            });
-
-            userList.appendChild(userItem); // Append the user to the list
-        }
-    });
-});
-
 // Send a message to the selected recipient
 messageForm.addEventListener('submit', (e) => {
     e.preventDefault();
