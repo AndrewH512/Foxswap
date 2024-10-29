@@ -131,18 +131,10 @@ io.on('connection', (socket) => {
       } else {
         console.log('Message saved to database:', result.insertId);
         // If the recipient is online, emit the message to them
-        if (targetSocketId) {
-          // Emit the message to the recipient
-          io.to(targetSocketId).emit('private message', { from: senderUsername, message });
-          // Send the message back to the sender (for confirmation)
-          socket.emit('private message', { from: 'You', message });
-          console.log(`Message from ${senderUsername} to ${to}: ${message}`);
-        } else {
-          // Send Message anyways even if the user is offline
-          io.to(targetSocketId).emit('private message', { from: senderUsername, message });
-          socket.emit('private message', { from: 'You', message });
-          console.log(`User ${to} not found`);
-        }
+        io.to(targetSocketId).emit('private message', { from: senderUsername, message });
+        // Send the message back to the sender (for confirmation)
+        socket.emit('private message', { from: 'You', message });
+        console.log(`Message from ${senderUsername} to ${to}: ${message}`);
       }
     });
   });
