@@ -247,13 +247,29 @@ router.get('/api/getPost', (req, res) => {
   `;
 
   req.db.query(query, [postId], (error, results) => {
-      if (error) {
-          console.error('Error fetching post information:', error);
-          res.status(500).json({ error: 'Internal server error' });
-      } else if (results.length === 0) {
-          res.status(404).json({ error: 'Post not found' });
-      } else {
-          res.json(results[0]);
-      }
+    if (error) {
+      console.error('Error fetching post information:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } else if (results.length === 0) {
+      res.status(404).json({ error: 'Post not found' });
+    } else {
+      res.json(results[0]);
+    }
   });
 });
+
+
+router.get('/search-user/:query', (req, res) => {
+  const query = req.params.query;
+  const sqlQuery = 'SELECT Username FROM Users WHERE Username LIKE ?';
+  req.db.query(sqlQuery, [`%${query}%`], (err, results) => {
+    if (err) {
+      console.error('Error searching users:', err);
+      res.status(500).send('Error searching users');
+    } else {
+      const usernames = results.map(row => row.Username);
+      res.json(usernames); // Send back matching usernames as JSON
+    }
+  });
+});
+

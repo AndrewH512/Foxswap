@@ -81,3 +81,35 @@ function loadChatHistory(selectedRecipient) {
         .catch(error => console.error('Error fetching chat history:', error));
 }
 
+
+const userSearch = document.getElementById('userSearch');
+const searchResults = document.getElementById('searchResults');
+
+userSearch.addEventListener('input', () => {
+    const query = userSearch.value;
+    if (query.length > 0) {
+        fetch(`/search-user/${query}`)
+            .then(response => response.json())
+            .then(users => {
+                searchResults.innerHTML = ''; // Clear previous results
+                users.forEach(user => {
+                    if (user !== username3) { // Exclude the current user
+                        const userItem = document.createElement('div');
+                        userItem.textContent = user;
+                        userItem.classList.add('user-item');
+                        userItem.addEventListener('click', () => {
+                            selectedRecipient = user;
+                            alert(`You are now messaging ${user}`);
+                            loadChatHistory(selectedRecipient);
+                            searchResults.innerHTML = ''; // Clear search results
+                            userSearch.value = ''; // Clear search input
+                        });
+                        searchResults.appendChild(userItem);
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching users:', error));
+    } else {
+        searchResults.innerHTML = ''; // Clear results if query is empty
+    }
+});
