@@ -138,6 +138,9 @@ io.on('connection', (socket) => {
           socket.emit('private message', { from: 'You', message });
           console.log(`Message from ${senderUsername} to ${to}: ${message}`);
         } else {
+          // Send Message anyways even if the user is offline
+          io.to(targetSocketId).emit('private message', { from: senderUsername, message });
+          socket.emit('private message', { from: 'You', message });
           console.log(`User ${to} not found`);
         }
       }
