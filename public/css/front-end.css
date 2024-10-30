@@ -30,8 +30,7 @@ header {
 
 /* Footer styling */
 footer {
-  margin-top: auto;
-  display: block;
+  display: none;
   position: fixed;
   bottom: 0;
   left: 0;
