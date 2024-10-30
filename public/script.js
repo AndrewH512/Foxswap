@@ -94,6 +94,11 @@ userSearch.addEventListener('input', () => {
     }
 });
 
+// Listen for the custom event to update the chat list
+socket.on('update user list', () => {
+    loadChatUsers();
+});
+
 
 // Fetch the list of chat users that you have already messaged and display them
 function loadChatUsers() {
@@ -103,17 +108,25 @@ function loadChatUsers() {
             const userList = document.getElementById('userList');
             userList.innerHTML = ''; // Clear previous entries
 
-            users.forEach(user => {
-                const userItem = document.createElement('div');
-                userItem.textContent = user;
-                userItem.classList.add('user-item');
-                userItem.addEventListener('click', () => {
-                    selectedRecipient = user;
-                    document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
-                    loadChatHistory(selectedRecipient);
+            if (users.length === 0) {
+                // Display a default message if there are no chat users
+                const noChatsMessage = document.createElement('div');
+                noChatsMessage.textContent = "No chats yet. Start a conversation by searching for a user!";
+                noChatsMessage.style.color = "#888";
+                userList.appendChild(noChatsMessage);
+            } else {
+                users.forEach(user => {
+                    const userItem = document.createElement('div');
+                    userItem.textContent = user;
+                    userItem.classList.add('user-item');
+                    userItem.addEventListener('click', () => {
+                        selectedRecipient = user;
+                        document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
+                        loadChatHistory(selectedRecipient);
+                    });
+                    userList.appendChild(userItem);
                 });
-                userList.appendChild(userItem);
-            });
+            }
         })
         .catch(error => console.error('Error fetching chat users:', error));
 }

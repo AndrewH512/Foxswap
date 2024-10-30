@@ -135,9 +135,14 @@ io.on('connection', (socket) => {
         // Send the message back to the sender (for confirmation)
         socket.emit('private message', { from: 'You', message });
         console.log(`Message from ${senderUsername} to ${to}: ${message}`);
+        // Emit to the sender to update their chat user list
+        socket.emit('update user list');
       }
     });
   });
+
+
+
 
 
   // Clean up on disconnect
