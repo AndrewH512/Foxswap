@@ -79,6 +79,9 @@ userSearch.addEventListener('input', () => {
                             loadChatHistory(selectedRecipient);
                             searchResults.innerHTML = ''; // Clear search results
                             userSearch.value = ''; // Clear search input
+
+                            // Display the selected recipient's name at the top
+                            document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
                         });
                         searchResults.appendChild(userItem);
                     }
