@@ -1,3 +1,4 @@
+
 // Get the current URL
 const url2 = window.location.href;
 
@@ -92,3 +93,30 @@ userSearch.addEventListener('input', () => {
         searchResults.innerHTML = ''; // Clear results if query is empty
     }
 });
+
+
+// Fetch the list of chat users that you have already messaged and display them
+function loadChatUsers() {
+    fetch(`/chat-users/${username3}`)
+        .then(response => response.json())
+        .then(users => {
+            const userList = document.getElementById('userList');
+            userList.innerHTML = ''; // Clear previous entries
+
+            users.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.textContent = user;
+                userItem.classList.add('user-item');
+                userItem.addEventListener('click', () => {
+                    selectedRecipient = user;
+                    document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
+                    loadChatHistory(selectedRecipient);
+                });
+                userList.appendChild(userItem);
+            });
+        })
+        .catch(error => console.error('Error fetching chat users:', error));
+}
+
+// Call this function on page load
+document.addEventListener('DOMContentLoaded', loadChatUsers);

@@ -183,3 +183,25 @@ server.listen(PORT, () => {
 });
 
 
+// Endpoint to retrieve unique chat users
+app.get('/chat-users/:username', (req, res) => {
+  const { username } = req.params;
+  const query = `
+      SELECT DISTINCT 
+          CASE 
+              WHEN Sender = ? THEN Recipient 
+              ELSE Sender 
+          END AS chatUser 
+      FROM Messages 
+      WHERE Sender = ? OR Recipient = ?
+  `;
+  req.db.query(query, [username, username, username], (err, results) => {
+    if (err) {
+      console.error('Error retrieving chat users:', err);
+      res.status(500).send('Error retrieving chat users');
+    } else {
+      const chatUsers = results.map(row => row.chatUser);
+      res.json(chatUsers);
+    }
+  });
+});

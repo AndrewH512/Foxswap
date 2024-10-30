@@ -43,6 +43,13 @@
         .user-item:hover {
             background-color: #f0f0f0;
         }
+
+        #userList {
+            display: block;
+            visibility: visible;
+            z-index: 1;
+            /* Brings it to the front if something else is overlapping */
+        }
     </style>
 
 </head>
@@ -80,8 +87,11 @@
 
 
     <!-- Start of Messaging -->
-
     <div class="messaging">
+        <h2>Your Chats</h2>
+        <div id="userList" style="margin-bottom: 20px;">
+            <!-- Users with chat history will appear here -->
+        </div>
         <h1>Foxswap Chat</h1>
         <div id="currentRecipient" style="font-weight: bold; margin-bottom: 10px;"></div>
         <div id="messages"></div>
