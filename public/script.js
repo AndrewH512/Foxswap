@@ -154,6 +154,11 @@ function deleteChat(user) {
             .then(response => {
                 if (response.ok) {
                     loadChatUsers(); // Refresh the chat users list
+                    // Clear the selected chat messages if the deleted user is currently selected
+                    if (selectedRecipient === user) {
+                        messagesDiv.innerHTML = '';
+                        document.getElementById('currentRecipient').textContent = '';
+                    }
                 } else {
                     alert('Error deleting chat.');
                 }

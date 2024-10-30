@@ -99,6 +99,8 @@ CREATE TABLE Messages (
     Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,            -- Timestamp for when the message was created
     isDelivered BOOLEAN DEFAULT FALSE,                       -- Variable for whether the message is delivered
     isRead BOOLEAN DEFAULT FALSE,							 -- Variable for whether the message is read
+    isDeletedBySender BOOLEAN DEFAULT FALSE,				 -- Variable for whther sender deletes message
+    isDeletedByRecipient BOOLEAN DEFAULT FALSE,				 -- Variable for whther recipient deletes message
 
     -- Foreign key constraints
     FOREIGN KEY (Sender) REFERENCES Users(Username) ON DELETE CASCADE,

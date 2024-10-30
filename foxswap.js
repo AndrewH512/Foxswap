@@ -166,10 +166,12 @@ io.on('connection', (socket) => {
 app.get('/chat-history/:user1/:user2', (req, res) => {
   const { user1, user2 } = req.params;
   const query = `
-      SELECT * FROM Messages 
-      WHERE (Sender = ? AND Recipient = ?) OR (Sender = ? AND Recipient = ?)
-      ORDER BY Timestamp ASC
-  `;
+  SELECT * FROM Messages 
+  WHERE 
+    ((Sender = ? AND Recipient = ? AND isDeletedBySender = FALSE) 
+    OR (Sender = ? AND Recipient = ? AND isDeletedByRecipient = FALSE))
+  ORDER BY Timestamp ASC
+`;
   db.query(query, [user1, user2, user2, user1], (err, results) => {
     if (err) {
       console.error('Error retrieving chat history:', err);
@@ -210,19 +212,23 @@ app.get('/chat-users/:username', (req, res) => {
   });
 });
 
-// Route to delete chat history between two users
 app.delete('/delete-chat/:user1/:user2', (req, res) => {
   const { user1, user2 } = req.params;
   const query = `
-      DELETE FROM Messages 
-      WHERE (Sender = ? AND Recipient = ?) OR (Sender = ? AND Recipient = ?)
+    UPDATE Messages 
+    SET 
+      isDeletedBySender = CASE WHEN Sender = ? THEN TRUE ELSE isDeletedBySender END,
+      isDeletedByRecipient = CASE WHEN Recipient = ? THEN TRUE ELSE isDeletedByRecipient END
+    WHERE 
+      (Sender = ? AND Recipient = ?) 
+      OR (Sender = ? AND Recipient = ?)
   `;
-  req.db.query(query, [user1, user2, user2, user1], (err) => {
+  req.db.query(query, [user1, user1, user1, user2, user2, user1], (err) => {
     if (err) {
-      console.error('Error deleting chat:', err);
-      return res.status(500).send('Error deleting chat');
+      console.error('Error marking chat as deleted:', err);
+      return res.status(500).send('Error marking chat as deleted');
     }
-    res.sendStatus(204); // No content to send back, deletion successful
+    res.sendStatus(204); // No content to send back, operation successful
   });
 });
 
