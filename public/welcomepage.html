@@ -6,36 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Link to CSS file -->
-    <link rel="stylesheet" href="front-end.css">
-    <style>
-    body {
-        background-image: url('art/welcomepage.jpg'); 
-        background-size: cover; 
-        background-position: center; 
-        background-repeat: no-repeat; 
-        margin: 0;
-        height: 100vh;
-        color: white; 
-    }
-    /* Welcome Page */
-    .main-content {
-        color:white; 
-        background-color: #000000;
-        border: 2px solid red;
-        width: 80%; 
-        max-width: 600px; 
-        margin: 40px auto; 
-        padding: 20px; 
-        border-radius: 10px; 
-        text-align: center;
-    }
+    <link rel="stylesheet" href="css/front-end.css">
+    <link rel="stylesheet" href="css/welcome.css">
 
-    .auth-buttons {
-        margin-top: 200px; /* Move buttons down the page */
-        text-align: center; /* Center the buttons */
-    }
-    </style>
-    
 </head>
 <body>
     <!-- Header section -->
@@ -70,24 +43,7 @@
     </footer>
 
     <!--Footer visabilty-->
-    <script>
-        function toggleFooterVisibility() {
-          const footer = document.querySelector("footer");
-          // Check if the user is at the bottom of the page
-          if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            footer.style.display = "block"; // Show the footer
-          } else {
-            footer.style.display = "none"; // Hide the footer
-          }
-        }
-    
-        // Listen for scroll events
-        window.addEventListener("scroll", toggleFooterVisibility);
-    
-        // Initial check in case the page is already scrolled to the bottom
-        toggleFooterVisibility();
-      </script>
-
+    <script src="window.js"></script>
 </body>
 </html>
 

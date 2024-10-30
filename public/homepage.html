@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Link to CSS file -->
-    <link rel="stylesheet" href="front-end.css" />
+    <link rel="stylesheet" href="css/front-end.css">
   </head>
   <!-- Testing mutiple color background-->
   <style>
@@ -21,18 +21,7 @@
       <h1>Welcome to Foxswap</h1>
       <!-- Clickable Foxswap logo that links to the homepage -->
       <a href="homepage.html">
-        <img
-          src="art/Fox_Swap_Logo.png"
-          alt="Logo"
-          class="logo"
-          style="
-            width: 100px;
-            height: 100px;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-          "
-        />
+        <img src="art/Fox_Swap_Logo.png" alt="Logo" class="logo" style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;"/>
       </a>
     </header>
 
@@ -91,24 +80,6 @@
       <p>&copy; 2024 Foxswap. All rights reserved.</p>
       <p>Twitter-Instagram-Facebook</p>
     </footer>
-    <!--Footer visabilty-->
-    <script>
-      function toggleFooterVisibility() {
-        const footer = document.querySelector("footer");
-        // Check if the user is at the bottom of the page
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-          footer.style.display = "block"; // Show the footer
-        } else {
-          footer.style.display = "none"; // Hide the footer
-        }
-      }
-
-      // Listen for scroll events
-      window.addEventListener("scroll", toggleFooterVisibility);
-
-      // Initial check in case the page is already scrolled to the bottom
-      toggleFooterVisibility();
-    </script>
 
     <script>
       // Extract username from the URL
@@ -153,6 +124,9 @@
           }
         });
     </script>
+
+    <!--Footer visabilty-->
+    <script src="window.js"></script>
 
     <!-- This appends the username to the url.-->
     <script src="Append_User.js"></script>

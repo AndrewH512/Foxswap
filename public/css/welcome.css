@@ -1,0 +1,26 @@
+body {
+    background-image: url('../art/welcomepage.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    margin: 0;
+    height: 100vh;
+    color: white; 
+}
+/* Welcome Page */
+.main-content {
+    color:white; 
+    background-color: #000000;
+    border: 2px solid red;
+    width: 80%; 
+    max-width: 600px; 
+    margin: 40px auto; 
+    padding: 20px; 
+    border-radius: 10px; 
+    text-align: center;
+}
+
+.auth-buttons {
+    margin-top: 200px; /* Move buttons down the page */
+    text-align: center; /* Center the buttons */
+}
