@@ -1,124 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Link to CSS file -->
-    <link rel="stylesheet" href="front-end.css">
-</head>
+    <link rel="stylesheet" href="front-end.css" />
+  </head>
 
-<body>
+  <body>
     <!-- Header section -->
     <header>
-        <h1>Welcome to Foxswap</h1>
-        <!-- Clickable Foxswap logo that links to the homepage -->
-        <a href="homepage.html">
-            <img src="art/Fox_Swap_Logo.png" alt="Logo" class="logo"
-                style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
-        </a>
+      <h1>Welcome to Foxswap</h1>
+      <!-- Clickable Foxswap logo that links to the homepage -->
+      <a href="homepage.html">
+        <img
+          src="art/Fox_Swap_Logo.png"
+          alt="Logo"
+          class="logo"
+          style="
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+          "
+        />
+      </a>
     </header>
 
     <!-- Navigation bar -->
     <nav>
-        <a href="homepage.html">Homepage</a>
-        <a href="browse.html">Browse</a>
-        <a href="messages.html">Messages</a>
-        <a href="myprofile.html">My Profile</a>
-        <a href="favorites.html">Favorites</a>
-        <a href="post.html">Post</a>
-        <a href="yourposts.html">Your Posts</a>
-        <a href="/public/logout" id="logoutButton">Logout</a>
+      <a href="homepage.html">Homepage</a>
+      <a href="browse.html">Browse</a>
+      <a href="messages.html">Messages</a>
+      <a href="myprofile.html">My Profile</a>
+      <a href="favorites.html">Favorites</a>
+      <a href="post.html">Post</a>
+      <a href="yourposts.html">Your Posts</a>
+      <a href="/public/logout" id="logoutButton">Logout</a>
     </nav>
 
     <!-- Main content section -->
     <div class="main-content">
-        <!-- Displays Welcome Message to Username -->
-        <h1 style="text-align: center;" id="usernameDisplay"></h1>
-        <p style="text-align: center;">Buy, sell and save: Your campus marketplace for used textbooks</p>
-    
-        <!-- Button to navigate to the browse page -->
-        <div class="center-text">
-            <button id="browseButton" style="padding: 10px 20px; font-size: 18px; background-color: #b3261e; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                Go to Browse
-            </button>
-        </div>
+      <!-- Displays Welcome Message to Username -->
+      <h1 style="text-align: center" id="usernameDisplay"></h1>
+      <p style="text-align: center">
+        Buy, sell and save: Your campus marketplace for used textbooks
+      </p>
+
+      <!-- Button to navigate to the browse page -->
+      <div class="center-text">
+        <button
+          id="browseButton"
+          style="
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #b3261e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          "
+        >
+          Go to Browse
+        </button>
+      </div>
     </div>
+
+    <img
+      src="uploads/homepage_Pic.png"
+      style="
+        width: 490px;
+        height: 490px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      "
+    />
 
     <!-- Footer section -->
     <footer>
-        <p>&copy; 2024 Foxswap. All rights reserved.</p>
-        <p> Twitter-Instagram-Facebook </p>
+      <p>&copy; 2024 Foxswap. All rights reserved.</p>
+      <p>Twitter-Instagram-Facebook</p>
     </footer>
     <!--Footer visabilty-->
     <script>
-        function toggleFooterVisibility() {
-          const footer = document.querySelector("footer");
-          // Check if the user is at the bottom of the page
-          if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            footer.style.display = "block"; // Show the footer
-          } else {
-            footer.style.display = "none"; // Hide the footer
-          }
+      function toggleFooterVisibility() {
+        const footer = document.querySelector("footer");
+        // Check if the user is at the bottom of the page
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+          footer.style.display = "block"; // Show the footer
+        } else {
+          footer.style.display = "none"; // Hide the footer
         }
-    
-        // Listen for scroll events
-        window.addEventListener("scroll", toggleFooterVisibility);
-    
-        // Initial check in case the page is already scrolled to the bottom
-        toggleFooterVisibility();
-      </script>
+      }
+
+      // Listen for scroll events
+      window.addEventListener("scroll", toggleFooterVisibility);
+
+      // Initial check in case the page is already scrolled to the bottom
+      toggleFooterVisibility();
+    </script>
 
     <script>
-        // Extract username from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username');
+      // Extract username from the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const username = urlParams.get("username");
 
-        // Display the username in the designated element
-        usernameDisplay.textContent = `Hey ${username}, Welcome to Foxswap!`;
+      // Display the username in the designated element
+      usernameDisplay.textContent = `Hey ${username}, Welcome to Foxswap!`;
 
-        if (username) {
-            // Fetch user data from the database based on the username
-            fetch(`/api/Users?username=${encodeURIComponent(username)}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data); // Log the entire response for debugging
-                    if (data.length > 0) {
-                        const user = data.find(u => u.Username === username);
-                        console.log("what up BOY:  " + user.First_Name)
-                    } else {
-                        console.log("User not found.");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error fetching user data:", error);
-                });
-        } else {
-            console.log("No username found in the URL.");
-        }
+      if (username) {
+        // Fetch user data from the database based on the username
+        fetch(`/api/Users?username=${encodeURIComponent(username)}`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data); // Log the entire response for debugging
+            if (data.length > 0) {
+              const user = data.find((u) => u.Username === username);
+              console.log("what up BOY:  " + user.First_Name);
+            } else {
+              console.log("User not found.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+      } else {
+        console.log("No username found in the URL.");
+      }
 
-        // Adding an event listener to the button
-        document.getElementById('browseButton').addEventListener('click', function() {
-        // Construct the URL with the username parameter
-        const username = urlParams.get('username');
-        if (username) {
-             window.location.href = `browse.html?username=${encodeURIComponent(username)}`;
-        } else {
-            window.location.href = 'browse.html'; // Fallback in case username is not found
-        }
+      // Adding an event listener to the button
+      document
+        .getElementById("browseButton")
+        .addEventListener("click", function () {
+          // Construct the URL with the username parameter
+          const username = urlParams.get("username");
+          if (username) {
+            window.location.href = `browse.html?username=${encodeURIComponent(
+              username
+            )}`;
+          } else {
+            window.location.href = "browse.html"; // Fallback in case username is not found
+          }
         });
     </script>
 
     <!-- This appends the username to the url.-->
     <script src="Append_User.js"></script>
-    
+
     <!-- Import session check script -->
     <!-- This ensures the user will not be able to skip this page
      by just entering the URL-->
-     <script src="sessionCheck.js"></script>
-
-</body>
-
+    <script src="sessionCheck.js"></script>
+  </body>
 </html>
