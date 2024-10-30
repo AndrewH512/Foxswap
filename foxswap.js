@@ -117,11 +117,7 @@ io.on('connection', (socket) => {
         });
       }
     });
-
-
-
   });
-
 
   // Handle private messaging and save chat history
   socket.on('private message', ({ to, message }) => {
@@ -140,17 +136,13 @@ io.on('connection', (socket) => {
         // If the recipient is online, emit the message to them
         io.to(targetSocketId).emit('private message', { from: senderUsername, message });
         // Send the message back to the sender (for confirmation)
-        socket.emit('private message', { from: 'You', message });
+        socket.emit('private message', { from: senderUsername, message });
         console.log(`Message from ${senderUsername} to ${to}: ${message}`);
         // Emit to the sender to update their chat user list
         socket.emit('update user list');
       }
     });
   });
-
-
-
-
 
   // Clean up on disconnect
   socket.on('disconnect', () => {
