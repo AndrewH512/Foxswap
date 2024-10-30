@@ -210,3 +210,19 @@ app.get('/chat-users/:username', (req, res) => {
     }
   });
 });
+
+// Route to delete chat history between two users
+app.delete('/delete-chat/:user1/:user2', (req, res) => {
+  const { user1, user2 } = req.params;
+  const query = `
+      DELETE FROM Messages 
+      WHERE (Sender = ? AND Recipient = ?) OR (Sender = ? AND Recipient = ?)
+  `;
+  req.db.query(query, [user1, user2, user2, user1], (err) => {
+    if (err) {
+      console.error('Error deleting chat:', err);
+      return res.status(500).send('Error deleting chat');
+    }
+    res.sendStatus(204); // No content to send back, deletion successful
+  });
+});

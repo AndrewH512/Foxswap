@@ -109,7 +109,6 @@ function loadChatUsers() {
             userList.innerHTML = ''; // Clear previous entries
 
             if (users.length === 0) {
-                // Display a default message if there are no chat users
                 const noChatsMessage = document.createElement('div');
                 noChatsMessage.textContent = "No chats yet. Start a conversation by searching for a user!";
                 noChatsMessage.style.color = "#888";
@@ -118,18 +117,43 @@ function loadChatUsers() {
                 users.forEach(user => {
                     const userItem = document.createElement('div');
                     userItem.textContent = user;
+
+                    // Create delete button (X symbol)
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'X';
+                    deleteButton.style.marginLeft = '10px';
+                    deleteButton.style.color = 'red';
+                    deleteButton.onclick = () => deleteChat(user);
+
                     userItem.classList.add('user-item');
+                    userItem.appendChild(deleteButton); // Append delete button to the user item
                     userItem.addEventListener('click', () => {
                         selectedRecipient = user;
                         document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
                         loadChatHistory(selectedRecipient);
                     });
+
                     userList.appendChild(userItem);
                 });
             }
         })
         .catch(error => console.error('Error fetching chat users:', error));
 }
+
+function deleteChat(user) {
+    if (confirm(`Are you sure you want to delete the chat with ${user}?`)) {
+        fetch(`/delete-chat/${username3}/${user}`, { method: 'DELETE' })
+            .then(response => {
+                if (response.ok) {
+                    loadChatUsers(); // Refresh the chat users list
+                } else {
+                    alert('Error deleting chat.');
+                }
+            })
+            .catch(error => console.error('Error deleting chat:', error));
+    }
+}
+
 
 // Call this function on page load
 document.addEventListener('DOMContentLoaded', loadChatUsers);
