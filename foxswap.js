@@ -1,12 +1,12 @@
 // Import necessary modules
-const mysql = require('mysql2');
-const http = require('http');
-const { Server } = require('socket.io');
-const express = require('express');
-const path = require('path');
-const bodyParser = require("body-parser");
+const mysql = require('mysql2'); // MySQL database connection
+const http = require('http'); // HTTP server creation
+const { Server } = require('socket.io'); // Socket.IO for real-time communication
+const express = require('express'); // Express framework for handling routes
+const path = require('path'); // Path utilities for file and directory paths
+const bodyParser = require("body-parser"); // Middleware for parsing request bodies
 const session = require('express-session'); // Add session import
-const encoder = bodyParser.urlencoded({ extended: true });
+const encoder = bodyParser.urlencoded({ extended: true }); // Parse URL-encoded request bodies
 
 // Initialize Express app
 const app = express();
@@ -17,6 +17,7 @@ const sockets = {}; // Object to map socket IDs to usernames
 
 // Serve static files from the 'public' directory (HTML, CSS, JS files)
 app.use(express.static(path.join(__dirname, 'public')));
+// Use body parser middleware to handle form data
 app.use(encoder);
 
 // Set up session middleware
@@ -68,7 +69,7 @@ app.get('/homepage.html', (req, res) => {
 });
 
 
-// Retrieve and emit users from the database
+// Start of Set up real-time communication and user management with Socket.IO
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`);
 
@@ -90,9 +91,7 @@ io.on('connection', (socket) => {
       console.log(userList)
     });
 
-    // New code below
-
-    // Send any undelivered messages to the connected user
+    // Fetch undelivered messages for the user
     const query = 'SELECT * FROM Messages WHERE Recipient = ? AND isDelivered = FALSE ORDER BY Timestamp ASC';
     db.query(query, [username], (err, results) => {
       if (err) {
@@ -124,7 +123,7 @@ io.on('connection', (socket) => {
     const targetSocketId = users[to];
     const senderUsername = sockets[socket.id];
 
-    // Save message to MySQL database
+    /// Save message to MySQL database with delivery and read status
     const query = 'INSERT INTO Messages (Sender, Recipient, Message, isDelivered, isRead) VALUES (?, ?, ?, ?, ?)';
     const isDelivered = targetSocketId ? true : false; // Determine delivery status
     const isRead = false; // New messages are unread by default
@@ -144,7 +143,7 @@ io.on('connection', (socket) => {
     });
   });
 
-  // Clean up on disconnect
+   // Clean up users and update user list when a user disconnects
   socket.on('disconnect', () => {
     const username = sockets[socket.id];
     if (username) {
@@ -182,13 +181,6 @@ app.get('/chat-history/:user1/:user2', (req, res) => {
   });
 });
 
-// Start server on port 3000
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
-
-
 // Endpoint to retrieve unique chat users
 app.get('/chat-users/:username', (req, res) => {
   const { username } = req.params;
@@ -207,11 +199,13 @@ app.get('/chat-users/:username', (req, res) => {
       res.status(500).send('Error retrieving chat users');
     } else {
       const chatUsers = results.map(row => row.chatUser);
+      // Send unique chat users as JSON
       res.json(chatUsers);
     }
   });
 });
 
+// Mark all messages as deleted for a specific conversation
 app.delete('/delete-chat/:user1/:user2', (req, res) => {
   const { user1, user2 } = req.params;
   const query = `
@@ -232,8 +226,7 @@ app.delete('/delete-chat/:user1/:user2', (req, res) => {
   });
 });
 
-
-// Update isRead status for messages between two users:
+// Mark all messages as read for a conversation between two users
 app.post('/mark-as-read/:user1/:user2', (req, res) => {
   const { user1, user2 } = req.params;
   const query = `
@@ -248,4 +241,10 @@ app.post('/mark-as-read/:user1/:user2', (req, res) => {
     }
     res.sendStatus(204); // No content to send back, operation successful
   });
+});
+
+// Start server on port 3000
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -1,10 +1,10 @@
 // Import necessary modules
-const express = require('express');
-const router = express.Router();
-const mysql = require('mysql2');
-const crypto = require('crypto');
-const multer = require('multer');
-const path = require('path');
+const express = require('express'); // Express framework for creating the server and routing
+const router = express.Router();  // Router object to handle routes
+const mysql = require('mysql2'); // MySQL library for database interactions
+const crypto = require('crypto'); // Crypto library for hashing passwords
+const multer = require('multer'); // Multer library for handling file uploads
+const path = require('path');  // Path library for handling file paths
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -21,8 +21,8 @@ const storage = multer.diskStorage({
 // Now Initialize multer with the defined storage configuration
 const upload = multer({ storage: storage });
 
-// Start of Routes
-//
+// Start of Routes Here
+
 // Route for login functionality
 router.post('/public/login', upload.none(), (req, res) => {
   // Retrieve the username and password from the request body
@@ -162,11 +162,13 @@ router.post('/public/post', upload.single('coverPicture'), (req, res) => {
       }
 
       // Get the Book_ID of the newly inserted book
-      const bookID = result.insertId; // Use insertId directly after insert
-      console.log("Inserted Book ID:", bookID); // Testing
-      const status = 'Available';  // Default status to 'Available' 
+      // Use insert_Id directly after insert
+      const bookID = result.insertId; 
+      // Default status to 'Available' 
+      const status = 'Available';  
       // Now you can insert into the Posts table
-      const seller = req.session.username; // Get the seller's username from the session
+      // Get the seller's username from the session
+      const seller = req.session.username; 
 
       // Insert the post data into the Posts table
       const insertPost = `INSERT INTO Posts (Seller, Book_ID, Status, Price, Class_Name, Book_Condition, Due_Date, Transaction_Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -245,28 +247,38 @@ router.get('/api/getPost', (req, res) => {
       INNER JOIN Books ON Posts.Book_ID = Books.Book_ID
       WHERE Posts.Post_ID = ?
   `;
-
+   // Execute the query with the postId parameter to prevent SQL injection
   req.db.query(query, [postId], (error, results) => {
     if (error) {
+      // Log error and respond with a 500 status code if an error occurs
       console.error('Error fetching post information:', error);
       res.status(500).json({ error: 'Internal server error' });
     } else if (results.length === 0) {
+      // If no results, send a 404 response indicating post not found
       res.status(404).json({ error: 'Post not found' });
     } else {
+       // Send the first result as JSON, as only one post is expected
       res.json(results[0]);
     }
   });
 });
 
-
+// Route to search for users by a partial username
 router.get('/search-user/:query', (req, res) => {
+  // Extract search query from route parameter
   const query = req.params.query;
+
+  // SQL query to search for usernames that contain the search query 
   const sqlQuery = 'SELECT Username FROM Users WHERE Username LIKE ?';
+  
+  // Execute query with wildcard search to match usernames containing the query string
   req.db.query(sqlQuery, [`%${query}%`], (err, results) => {
     if (err) {
+      // Log error and respond with a 500 status code if an error occurs
       console.error('Error searching users:', err);
       res.status(500).send('Error searching users');
     } else {
+      // Extract the 'Username' field from each row in the results and send as JSON
       const usernames = results.map(row => row.Username);
       res.json(usernames); // Send back matching usernames as JSON
     }
