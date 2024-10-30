@@ -103,6 +103,12 @@ io.on('connection', (socket) => {
         socket.emit('private message', { from: msg.Sender, message: msg.Message });
       });
 
+      // Notify the user of the number of unread messages
+      const unreadCount = results.length;
+      if (unreadCount > 0) {
+        socket.emit('notification', { count: unreadCount });
+      }
+
       // Mark messages as delivered
       if (results.length > 0) {
         const updateQuery = 'UPDATE Messages SET isDelivered = TRUE WHERE Recipient = ? AND isDelivered = FALSE';
@@ -123,9 +129,10 @@ io.on('connection', (socket) => {
     const senderUsername = sockets[socket.id];
 
     // Save message to MySQL database
-    const query = 'INSERT INTO Messages (Sender, Recipient, Message, isDelivered) VALUES (?, ?, ?, ?)';
+    const query = 'INSERT INTO Messages (Sender, Recipient, Message, isDelivered, isRead) VALUES (?, ?, ?, ?, ?)';
     const isDelivered = targetSocketId ? true : false; // Determine delivery status
-    db.query(query, [senderUsername, to, message, isDelivered], (err, result) => {
+    const isRead = false; // New messages are unread by default
+    db.query(query, [senderUsername, to, message, isDelivered, isRead], (err, result) => {
       if (err) {
         console.error('Error saving message to database:', err);
       } else {
@@ -224,5 +231,23 @@ app.delete('/delete-chat/:user1/:user2', (req, res) => {
       return res.status(500).send('Error deleting chat');
     }
     res.sendStatus(204); // No content to send back, deletion successful
+  });
+});
+
+
+// Update isRead status for messages between two users:
+app.post('/mark-as-read/:user1/:user2', (req, res) => {
+  const { user1, user2 } = req.params;
+  const query = `
+      UPDATE Messages 
+      SET isRead = TRUE 
+      WHERE (Sender = ? AND Recipient = ?) OR (Sender = ? AND Recipient = ?)
+  `;
+  req.db.query(query, [user1, user2, user2, user1], (err) => {
+    if (err) {
+      console.error('Error marking messages as read:', err);
+      return res.status(500).send('Error marking messages as read');
+    }
+    res.sendStatus(204); // No content to send back, operation successful
   });
 });

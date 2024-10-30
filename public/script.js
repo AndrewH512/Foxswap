@@ -54,6 +54,14 @@ function loadChatHistory(selectedRecipient) {
                 messageElement.textContent = `${msg.Sender}: ${msg.Message}`;
                 messagesDiv.appendChild(messageElement);
             });
+
+            // Mark messages as read
+            fetch(`/mark-as-read/${username3}/${selectedRecipient}`, { method: 'POST' })
+                .then(response => {
+                    if (!response.ok) {
+                        console.error('Error marking messages as read');
+                    }
+                });
         })
         .catch(error => console.error('Error fetching chat history:', error));
 }
@@ -154,6 +162,25 @@ function deleteChat(user) {
     }
 }
 
+// Listen for notification of unread messages
+socket.on('notification', ({ count }) => {
+    const notificationDiv = document.createElement('div');
+    notificationDiv.textContent = `You have ${count} unread message(s)`;
+    notificationDiv.style.color = 'red'; // Optional styling
+    notificationDiv.style.position = 'fixed'; // Fixed position on the screen
+    notificationDiv.style.top = '10px';
+    notificationDiv.style.right = '10px';
+    notificationDiv.style.zIndex = '1000';
+    notificationDiv.style.background = 'white'; // Background color
+    notificationDiv.style.border = '1px solid red'; // Border styling
+    notificationDiv.style.padding = '5px'; // Padding for aesthetics
+    document.body.appendChild(notificationDiv);
+
+    // Remove the notification after a few seconds
+    setTimeout(() => {
+        notificationDiv.remove();
+    }, 5000);
+});
 
 // Call this function on page load
 document.addEventListener('DOMContentLoaded', loadChatUsers);
