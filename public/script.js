@@ -186,9 +186,9 @@ function loadChatUsers() {
                     userItem.classList.add('user-item');
                     userItem.appendChild(deleteButton); // Append delete button to the user item
                     userItem.addEventListener('click', () => {
-                        selectedRecipient = user;
+                        selectedRecipient = user; // Set the selected recipient
                         document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
-                        loadChatHistory(selectedRecipient);
+                        loadChatHistory(selectedRecipient); // Load chat history when the user is clicked
                     });
 
                     userList.appendChild(userItem);
@@ -212,9 +212,12 @@ function deleteChat(user) {
 
         // Clear the selected chat messages if the deleted user is currently selected
         if (selectedRecipient === user) {
+            // Clear the messages display area
             messagesDiv.innerHTML = '';
-            document.getElementById('currentRecipient').textContent = '';
-            console.log(`Cleared messages for: ${selectedRecipient}`);
+            // Reset selectedRecipient to null
+            selectedRecipient = null; 
+            document.getElementById('currentRecipient').textContent = ''; // Clear recipient display
+            console.log(`Cleared messages for: ${user}`);
         }
     }
 }
