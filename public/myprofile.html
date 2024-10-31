@@ -37,13 +37,13 @@
     &nbsp;
 
     <!-- Profile Container -->
-    <div class="Profile">
+    <div class="Profile" style = "background-attachment: fixed; width: auto; height: auto;">
       <!-- Profile Title -->
       <h2 style="text-align: center; font-size: 300%">Profile</h2>
 
       <!-- User's Profile Picture -->
       <div class="Profile_Picture" style="text-align: center">
-        <img id="profilePic" src="" alt="Profile Picture" />
+        <img id="profilePic" src="" alt="Profile Picture" style="max-width: 100%; max-height: 100%; object-fit: cover;" />
       </div>
       &nbsp;
 
@@ -66,25 +66,6 @@
       <!-- All of the user's reviews (if we add this) -->
       <div class="Reviews">Review:</div>
       &nbsp;
-
-      <!-- Division for Buttons! -->
-      <div style="text-align: center" ;>
-        <!-- Button to go message the user -->
-        <div class="auth-buttons" style="display: inline-block">
-          <button type="message" style="font-size: 12px; padding: 5px 10px">
-            Message User
-          </button>
-        </div>
-
-        <!-- Button to go leave a review on the user -->
-        <div
-          class="auth-buttons"
-          style="display: inline-block; margin-left: 10px"
-        >
-          <button type="review" style="font-size: 12px; padding: 5px 10px">
-            Leave a Review
-          </button>
-        </div>
       </div>
     </div>
 
@@ -110,8 +91,7 @@
               console.log("what up BOY:  " + user.First_Name);
               const profilePic = document.getElementById("profilePic");
               // Set the profile picture source
-              profilePic.src =
-                user.Profile_Picture || "/uploads/defaultProfilePic.jpg";
+              profilePic.src = user.Profile_Picture || "/uploads/defaultProfilePic.jpg";
               profilePic.alt = `${user.First_Name}'s profile picture`;
             } else {
               console.log("User not found.");
