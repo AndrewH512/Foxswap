@@ -39,6 +39,14 @@ messageForm.addEventListener('submit', (e) => {
         socket.emit('private message', { to: selectedRecipient, message }); 
         // Clear the input field after sending
         messageInput.value = '';
+        // Check if the selected recipient is in the removed users list
+        if (removedUsers.includes(selectedRecipient)) {
+            // If yes, remove them from the removed users list
+            removedUsers = removedUsers.filter(user => user !== selectedRecipient);
+            saveRemovedUsers(); // Save updated removed users to local storage
+            loadChatUsers(); // Refresh the chat users list to show the added user
+        }
+
     } else if (!selectedRecipient) {
         alert("Please select a user to message.");
     }
@@ -180,7 +188,7 @@ function loadChatUsers() {
                     userItem.addEventListener('click', () => {
                         selectedRecipient = user;
                         document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
-                        loadChatHistory(selectedRecipient);
+                        //loadChatHistory(selectedRecipient);
                     });
 
                     userList.appendChild(userItem);
@@ -206,6 +214,7 @@ function deleteChat(user) {
         if (selectedRecipient === user) {
             messagesDiv.innerHTML = '';
             document.getElementById('currentRecipient').textContent = '';
+            console.log(`Cleared messages for: ${selectedRecipient}`);
         }
     }
 }
