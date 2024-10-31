@@ -151,24 +151,28 @@ function loadChatUsers() {
                 users.forEach(user => {
                     // Create a div for each user
                     const userItem = document.createElement('div');
-                    userItem.textContent = user;
-
+                    userItem.textContent = user; // Set the text to the username
+                
                     // Create delete button (X symbol)
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'X';
                     deleteButton.style.marginLeft = '10px';
                     deleteButton.style.color = 'red';
-                    deleteButton.onclick = () => deleteChat(user);
-
-                    userItem.classList.add('user-item');
+                    deleteButton.onclick = () => {
+                        deleteChat(user); // Call the function to delete the chat data from the backend
+                    };
+                
+                    userItem.classList.add('user-item'); // Add a class for styling
                     userItem.appendChild(deleteButton); // Append delete button to the user item
+                
+                    // Set up click event to select a chat with the user
                     userItem.addEventListener('click', () => {
                         selectedRecipient = user;
                         document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
-                        loadChatHistory(selectedRecipient);
+                        loadChatHistory(selectedRecipient); // Load chat history when user is clicked
                     });
-
-                    userList.appendChild(userItem);
+                
+                    userList.appendChild(userItem); // Append the user item to the user list
                 });
             }
         })
@@ -181,7 +185,15 @@ function deleteChat(user) {
         fetch(`/delete-chat/${username3}/${user}`, { method: 'DELETE' })
             .then(response => {
                 if (response.ok) {
-                    loadChatUsers(); // Refresh the chat users list
+                    // Remove the user from the UI without reloading the entire list
+                    const userList = document.getElementById('userList');
+                    const userItem = Array.from(userList.children).find(
+                        item => item.textContent.includes(user)
+                    );
+                    if (userItem) {
+                        userList.removeChild(userItem);
+                    }
+
                     // Clear the selected chat messages if the deleted user is currently selected
                     if (selectedRecipient === user) {
                         messagesDiv.innerHTML = '';
@@ -217,3 +229,24 @@ socket.on('notification', ({ count }) => {
 
 // Call this function on page load
 document.addEventListener('DOMContentLoaded', loadChatUsers);
+
+// Function to show a notification
+function showNotification(message) {
+    const notificationDiv = document.getElementById('globalNotification');
+    notificationDiv.textContent = message;
+    notificationDiv.style.display = 'block';
+    notificationDiv.style.color = 'red'; // Optional styling
+    notificationDiv.style.background = 'white'; // Background color
+    notificationDiv.style.border = '1px solid red'; // Border styling
+    notificationDiv.style.padding = '5px'; // Padding for aesthetics
+
+    // Remove the notification after a few seconds
+    setTimeout(() => {
+        notificationDiv.style.display = 'none';
+    }, 5000);
+}
+
+// Listen for notification of unread messages
+socket.on('notification', ({ count }) => {
+    showNotification(`You have ${count} unread message(s)`);
+});
