@@ -262,3 +262,26 @@ function showNotification(message) {
 socket.on('notification', ({ count }) => {
     showNotification(`You have ${count} unread message(s)`);
 });
+
+
+// Get the value of the 'chatWith' parameter from the URL
+const chatWith = params2.get('recipient'); // This should match the key used in the URL
+
+if (chatWith) {
+    if (chatWith != username3) {
+        console.log('here');
+        selectedRecipient = chatWith; // Set the selected recipient
+
+        // Load chat history with the seller
+        loadChatHistory(selectedRecipient);
+
+        // Display the selected recipient's name at the top
+        document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
+
+        alert(`You are now messaging ${chatWith}`); // Inform the user
+    } else {
+        console.log('the same user redirect!!!')
+        // Inform the user
+        alert(`You can't message ${chatWith} because thats you!`); 
+    }
+}
