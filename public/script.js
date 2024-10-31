@@ -188,7 +188,7 @@ function loadChatUsers() {
                     userItem.addEventListener('click', () => {
                         selectedRecipient = user;
                         document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
-                        //loadChatHistory(selectedRecipient);
+                        loadChatHistory(selectedRecipient);
                     });
 
                     userList.appendChild(userItem);
