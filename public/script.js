@@ -129,7 +129,21 @@ socket.on('update user list', () => {
     loadChatUsers();
 });
 
-// Fetch the list of chat users that you have already messaged and display them
+// Function to load removed users from local storage
+function getRemovedUsers() {
+    const removed = localStorage.getItem('removedUsers');
+    return removed ? JSON.parse(removed) : [];
+}
+
+// Function to save removed users to local storage
+function saveRemovedUsers() {
+    localStorage.setItem('removedUsers', JSON.stringify(removedUsers));
+}
+
+// Array to track removed users
+let removedUsers = getRemovedUsers();
+
+// Function to load chat users
 function loadChatUsers() {
     // Fetch chat users from the server
     fetch(`/chat-users/${username3}`)
@@ -137,42 +151,39 @@ function loadChatUsers() {
         .then(users => {
             const userList = document.getElementById('userList');
             // Clear previous entries
-            userList.innerHTML = ''; 
+            userList.innerHTML = '';
 
-            if (users.length === 0) {
+            // Filter out removed users
+            const filteredUsers = users.filter(user => !removedUsers.includes(user));
+
+            if (filteredUsers.length === 0) {
                 // Create a message for no chats
                 const noChatsMessage = document.createElement('div');
                 noChatsMessage.textContent = "No chats yet. Start a conversation by searching for a user!";
-                // Style for the no chats message
                 noChatsMessage.style.color = "#888";
-                // Append the message to the user list
                 userList.appendChild(noChatsMessage);
             } else {
-                users.forEach(user => {
+                filteredUsers.forEach(user => {
                     // Create a div for each user
                     const userItem = document.createElement('div');
-                    userItem.textContent = user; // Set the text to the username
-                
+                    userItem.textContent = user;
+
                     // Create delete button (X symbol)
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'X';
                     deleteButton.style.marginLeft = '10px';
                     deleteButton.style.color = 'red';
-                    deleteButton.onclick = () => {
-                        deleteChat(user); // Call the function to delete the chat data from the backend
-                    };
-                
-                    userItem.classList.add('user-item'); // Add a class for styling
+                    deleteButton.onclick = () => deleteChat(user);
+
+                    userItem.classList.add('user-item');
                     userItem.appendChild(deleteButton); // Append delete button to the user item
-                
-                    // Set up click event to select a chat with the user
                     userItem.addEventListener('click', () => {
                         selectedRecipient = user;
                         document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
-                        loadChatHistory(selectedRecipient); // Load chat history when user is clicked
+                        loadChatHistory(selectedRecipient);
                     });
-                
-                    userList.appendChild(userItem); // Append the user item to the user list
+
+                    userList.appendChild(userItem);
                 });
             }
         })
@@ -181,29 +192,21 @@ function loadChatUsers() {
 
 // Function to delete a chat with a specified user
 function deleteChat(user) {
-    if (confirm(`Are you sure you want to delete the chat with ${user}?`)) {
-        fetch(`/delete-chat/${username3}/${user}`, { method: 'DELETE' })
-            .then(response => {
-                if (response.ok) {
-                    // Remove the user from the UI without reloading the entire list
-                    const userList = document.getElementById('userList');
-                    const userItem = Array.from(userList.children).find(
-                        item => item.textContent.includes(user)
-                    );
-                    if (userItem) {
-                        userList.removeChild(userItem);
-                    }
+    if (confirm(`Are you sure you want to remove ${user} from your chat list?`)) {
+        // Add the user to the removed users list if not already present
+        if (!removedUsers.includes(user)) {
+            removedUsers.push(user);
+            saveRemovedUsers(); // Save updated removed users to local storage
+        }
 
-                    // Clear the selected chat messages if the deleted user is currently selected
-                    if (selectedRecipient === user) {
-                        messagesDiv.innerHTML = '';
-                        document.getElementById('currentRecipient').textContent = '';
-                    }
-                } else {
-                    alert('Error deleting chat.');
-                }
-            })
-            .catch(error => console.error('Error deleting chat:', error));
+        // Refresh the chat users list without this user
+        loadChatUsers();
+
+        // Clear the selected chat messages if the deleted user is currently selected
+        if (selectedRecipient === user) {
+            messagesDiv.innerHTML = '';
+            document.getElementById('currentRecipient').textContent = '';
+        }
     }
 }
 
