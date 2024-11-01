@@ -54,7 +54,7 @@ messageForm.addEventListener('submit', (e) => {
 
 // Listen for incoming private messages and display them
 socket.on('private message', ({ from, message }) => {
-    // Check if the message is from the selected recipient
+    // Check if the message is from the selected recipient or it's the message you sent ANDREW
     if (from === selectedRecipient || from === username3) {
         // Create a new div for the message
         const messageElement = document.createElement('div');
@@ -66,6 +66,14 @@ socket.on('private message', ({ from, message }) => {
         // If the message is from another user, show a notification
         loadChatUsers();
         showNotification(`New message from ${from}`);
+
+        // Check if the recipient is in the removedUsers list of the sender
+        if (removedUsers.includes(from)) {
+            // Remove the sender from the recipient's removedUsers list
+            removedUsers = removedUsers.filter(user => user !== from);
+            saveRemovedUsers(); // Save updated removed users to local storage
+            loadChatUsers(); // Refresh the chat users list to show the added user
+        }
     }
 });
 
@@ -165,12 +173,15 @@ function loadChatUsers() {
     fetch(`/chat-users/${username3}`)
         .then(response => response.json())
         .then(users => {
+            console.log("Fetched users:", users); // Log the users fetched from the server
             const userList = document.getElementById('userList');
             // Clear previous entries
             userList.innerHTML = '';
 
             // Filter out removed users
             const filteredUsers = users.filter(user => !removedUsers.includes(user));
+            console.log("Filtered users:", filteredUsers); // Log the filtered users
+            console.log("Removed users:", removedUsers); // Log the removed users
 
             if (filteredUsers.length === 0) {
                 // Create a message for no chats
