@@ -54,8 +54,6 @@ messageForm.addEventListener('submit', (e) => {
 
 // Listen for incoming private messages and display them
 socket.on('private message', ({ from, message }) => {
-    console.log("from: " + from)
-    console.log("username3: " + username3)
     // Check if the message is from the selected recipient
     if (from === selectedRecipient || from === username3) {
         // Create a new div for the message
@@ -65,9 +63,9 @@ socket.on('private message', ({ from, message }) => {
         // Append the message to the messages div
         messagesDiv.appendChild(messageElement);
     } else {
-        console.log("I am here! Part 3");
         // If the message is from another user, show a notification
-        showNotification(`New message from ${from}: ${message}`);
+        loadChatUsers();
+        showNotification(`New message from ${from}`);
     }
 });
 
