@@ -143,7 +143,7 @@ io.on('connection', (socket) => {
     });
   });
 
-   // Clean up users and update user list when a user disconnects
+  // Clean up users and update user list when a user disconnects
   socket.on('disconnect', () => {
     const username = sockets[socket.id];
     if (username) {

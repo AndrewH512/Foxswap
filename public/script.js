@@ -36,7 +36,7 @@ messageForm.addEventListener('submit', (e) => {
     const message = messageInput.value;
     if (message && selectedRecipient) {
         // Emit the private message to the server
-        socket.emit('private message', { to: selectedRecipient, message }); 
+        socket.emit('private message', { to: selectedRecipient, message });
         // Clear the input field after sending
         messageInput.value = '';
         // Check if the selected recipient is in the removed users list
@@ -54,13 +54,23 @@ messageForm.addEventListener('submit', (e) => {
 
 // Listen for incoming private messages and display them
 socket.on('private message', ({ from, message }) => {
-    // Create a new div for the message
-    const messageElement = document.createElement('div');
-    // Set the message text
-    messageElement.textContent = `${from}: ${message}`;
-    // Append the message to the messages div
-    messagesDiv.appendChild(messageElement); 
+    console.log("from: " + from)
+    console.log("username3: " + username3)
+    // Check if the message is from the selected recipient
+    if (from === selectedRecipient || from === username3) {
+        // Create a new div for the message
+        const messageElement = document.createElement('div');
+        // Set the message text
+        messageElement.textContent = `${from}: ${message}`;
+        // Append the message to the messages div
+        messagesDiv.appendChild(messageElement);
+    } else {
+        console.log("I am here! Part 3");
+        // If the message is from another user, show a notification
+        showNotification(`New message from ${from}: ${message}`);
+    }
 });
+
 
 // Fetch chat history when a recipient is selected
 function loadChatHistory(selectedRecipient) {
@@ -69,7 +79,7 @@ function loadChatHistory(selectedRecipient) {
         .then(response => response.json())
         .then(messages => {
             // Clear previous messages in the display area
-            messagesDiv.innerHTML = ''; 
+            messagesDiv.innerHTML = '';
             messages.forEach(msg => {
                 // Create a div for each message
                 const messageElement = document.createElement('div');
@@ -100,10 +110,10 @@ userSearch.addEventListener('input', () => {
             .then(response => response.json())
             .then(users => {
                 // Clear previous results
-                searchResults.innerHTML = ''; 
+                searchResults.innerHTML = '';
                 users.forEach(user => {
                     // Exclude the current user
-                    if (user !== username3) { 
+                    if (user !== username3) {
                         const userItem = document.createElement('div');
                         userItem.textContent = user;
                         userItem.classList.add('user-item');
@@ -112,9 +122,9 @@ userSearch.addEventListener('input', () => {
                             alert(`You are now messaging ${user}`);
                             loadChatHistory(selectedRecipient);
                             // Clear search results
-                            searchResults.innerHTML = ''; 
+                            searchResults.innerHTML = '';
                             // Clear search input
-                            userSearch.value = ''; 
+                            userSearch.value = '';
 
                             // Display the selected recipient's name at the top
                             document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
@@ -124,11 +134,11 @@ userSearch.addEventListener('input', () => {
                     }
                 });
             })
-             // Log any fetch errors
+            // Log any fetch errors
             .catch(error => console.error('Error fetching users:', error));
     } else {
         // Clear results if query is empty
-        searchResults.innerHTML = ''; 
+        searchResults.innerHTML = '';
     }
 });
 
@@ -215,7 +225,7 @@ function deleteChat(user) {
             // Clear the messages display area
             messagesDiv.innerHTML = '';
             // Reset selectedRecipient to null
-            selectedRecipient = null; 
+            selectedRecipient = null;
             document.getElementById('currentRecipient').textContent = ''; // Clear recipient display
             console.log(`Cleared messages for: ${user}`);
         }
@@ -247,17 +257,21 @@ document.addEventListener('DOMContentLoaded', loadChatUsers);
 
 // Function to show a notification
 function showNotification(message) {
-    const notificationDiv = document.getElementById('globalNotification');
+    const notificationDiv = document.createElement('div');
     notificationDiv.textContent = message;
-    notificationDiv.style.display = 'block';
     notificationDiv.style.color = 'red'; // Optional styling
+    notificationDiv.style.position = 'fixed'; // Fixed position on the screen
+    notificationDiv.style.top = '10px';
+    notificationDiv.style.right = '10px';
+    notificationDiv.style.zIndex = '1000';
     notificationDiv.style.background = 'white'; // Background color
     notificationDiv.style.border = '1px solid red'; // Border styling
     notificationDiv.style.padding = '5px'; // Padding for aesthetics
+    document.body.appendChild(notificationDiv);
 
     // Remove the notification after a few seconds
     setTimeout(() => {
-        notificationDiv.style.display = 'none';
+        notificationDiv.remove();
     }, 5000);
 }
 
@@ -285,6 +299,6 @@ if (chatWith) {
     } else {
         console.log('the same user redirect!!!')
         // Inform the user
-        alert(`You can't message ${chatWith} because thats you!`); 
+        alert(`You can't message ${chatWith} because thats you!`);
     }
 }
