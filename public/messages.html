@@ -35,23 +35,21 @@
 
     <!-- Main content section -->
 
-    <div class="user-list">
-        <h2>Available Users</h2>
-        <div id="userList"></div>
+    <div class="user-search">
+        <h2>Search for a User</h2>
+        <input type="text" id="userSearch" placeholder="Type a username..." />
+        <div id="searchResults"></div>
     </div>
 
 
     <!-- Start of Messaging -->
-
     <div class="messaging">
-<<<<<<< Updated upstream
-=======
-        <h2>Your Contacts</h2>
+        <h2>Your Chats</h2>
         <div id="userList" style="margin-bottom: 20px;">
             <!-- Users with chat history will appear here -->
         </div>
->>>>>>> Stashed changes
         <h1>Foxswap Chat</h1>
+        <div id="currentRecipient" style="font-weight: bold; margin-bottom: 10px;"></div>
         <div id="messages"></div>
         <form id="messageForm">
             <input id="messageInput" autocomplete="off" placeholder="Type a message..." />
@@ -67,23 +65,16 @@
         <p> Twitter-Instagram-Facebook </p>
     </footer>
 
-
     <!-- This appends the username to the url.-->
-    <script src="Append_User.js">
-        console.log("Append is working")
-    </script>
+    <script src="js/Append_User.js"></script>
 
     <!-- Import session check script -->
     <!-- This ensures the user will not be able to skip this page
      by just entering the URL-->
-<<<<<<< Updated upstream
-    <script src="sessionCheck.js">
-        console.log("Session check is working")
-    </script>
-
-=======
     <script src="js/sessionCheck.js"></script>
->>>>>>> Stashed changes
+
+    
+
 </body>
 
 </html>
