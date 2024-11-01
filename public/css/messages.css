@@ -1,0 +1,148 @@
+/* Apply a consistent background and padding to the messaging container */
+.messaging {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+/* Headings for the messaging section */
+.messaging h2, .messaging h1 {
+    color: #b3261e;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Chat history container */
+#messages {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+/* User list for chat history */
+#userList {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.user-item {
+    color: #333;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s;
+}
+
+.user-item:hover {
+    background-color: #e0e0e0;
+}
+
+/* Current recipient styling */
+#currentRecipient {
+    font-size: 1.1rem;
+    color: #333;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Style for the message form */
+#messageForm {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#messageInput {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #b3261e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e41e1e;
+}
+
+/* Chat bubble styles */
+.message {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.message.sent {
+    background-color: #b3261e;
+    color: white;
+    align-self: flex-end;
+}
+
+.message.received {
+    background-color: #f1f1f1;
+    color: #333;
+    align-self: flex-start;
+}
+
+/* Enhanced search bar styling */
+.user-search {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.user-search input[type="text"] {
+    width: 80%;
+    max-width: 400px;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    outline: none;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.user-search input[type="text"]:focus {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border-color: #b3261e;
+}
+
+.user-search button {
+    padding: 12px 20px;
+    background-color: #b3261e;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: -45px; /* Overlaps with the input for a sleeker look */
+    transition: background-color 0.3s ease;
+}
+
+.user-search button:hover {
+    background-color: #e41e1e;
+}
