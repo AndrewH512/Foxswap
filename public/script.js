@@ -215,9 +215,6 @@ function deleteChat(user) {
             saveRemovedUsers(); // Save updated removed users to local storage
         }
 
-        // Refresh the chat users list without this user
-        loadChatUsers();
-
         // Clear the selected chat messages if the deleted user is currently selected
         if (selectedRecipient === user) {
             // Clear the messages display area
@@ -225,8 +222,13 @@ function deleteChat(user) {
             // Reset selectedRecipient to null
             selectedRecipient = null;
             document.getElementById('currentRecipient').textContent = ''; // Clear recipient display
-            console.log(`Cleared messages for: ${user}`);
         }
+
+        // Refresh the chat users list without this user
+        loadChatUsers();
+
+        // Reload the page to reflect the changes
+        location.reload(); // Reload the page to reflect the changes
     }
 }
 
