@@ -1,0 +1,109 @@
+/* Youtube Video that helped with creating this footer: 
+ https://www.youtube.com/watch?v=JViuPwlP1mU
+*/
+
+/* Import Fonts */
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
+/* Style the Whole Page */
+
+/* Style for Body */
+.footer_body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  display: grid;
+  justify-content: center;
+  align-content: end;
+  min-height: 100vh; /* Minimum width of body element */
+  background: #e8e8e8;
+  padding: 50px;
+  max-width: 1600px;
+}
+
+/* Style for Footer */
+footer {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 50px 100px; /* Top/Bottom paddings are 50 px and Right/Left paddings are 100px*/
+  background: white;
+}
+
+/* Style the footer Container */
+footer .container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 2fr 1fr 1fr; /* Property specifies the number (and the widths) of columns in a grid layout. */
+  /* 1fr means it will take up one fraction of free space*/
+  grid-gap: 30px; /* Sets the size of the gap between rows and columns*/
+}
+
+/* Styling all elements in container class*/
+footer .container .sec h2 {
+  position: relative;
+  color: black;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+footer .container .sec p {
+  color: grey;
+}
+
+footer .container .sci {
+  margin-top: 20px;
+  display: grid; /* Grid container */
+  grid-template-columns: repeat(
+    4,
+    50px
+  ); /* Shares same pattern as above columns */
+}
+
+footer .container .sci li {
+  list-style: none; /* Gets rid of bullet points  */
+}
+
+footer .container .sci li a {
+  display: inline-block; /* Allows to set width and height on element */
+  width: 360px;
+  height: 36px;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+}
+
+footer .container .sci li a i {
+  color: black;
+  font-size: 30px;
+}
+
+footer .container .contact {
+  position: relative;
+}
+
+footer .container .contact .info li {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  margin-bottom: 16px;
+}
+
+footer .container .contact .info li span {
+  color: black;
+  font-size: 20px;
+}
+
+.copyrightText {
+  width: 100%;
+  background: white;
+  padding: 20px 100px 30px;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.logoicon {
+  width: 90px;
+  height: 90px;
+  display: grid;
+}
