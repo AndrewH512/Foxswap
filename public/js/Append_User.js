@@ -1,17 +1,15 @@
-// Get the current URL
-const url = window.location.href;
+document.addEventListener('DOMContentLoaded', () => {
+    const url = window.location.href;
+    const params = new URLSearchParams(window.location.search);
+    const username2 = params.get('username');
 
-// Create a URLSearchParams object to parse the query string
-const params = new URLSearchParams(window.location.search);
+    console.log("username: " + username2);
 
-// Get the value of the 'username' parameter
-const username2 = params.get('username');
-
-console.log("username: " + username2)
-
-document.querySelectorAll('a').forEach(link => {
-    const url = new URL(link.href);
-    url.searchParams.set('username', username2);
-    link.href = url.toString();
+    if (username2) {
+        document.querySelectorAll('a').forEach(link => {
+            const linkUrl = new URL(link.href);
+            linkUrl.searchParams.set('username', username2);
+            link.href = linkUrl.toString();
+        });
+    }
 });
-
