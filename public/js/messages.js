@@ -1,32 +1,23 @@
-// Get the current URL
+// Get the current URL and username parameter
 const url2 = window.location.href;
-
-// Create a URLSearchParams object to parse the query string
 const params2 = new URLSearchParams(window.location.search);
-
-// Get the value of the 'username' parameter
 const username3 = params2.get('username');
 
-// Connect to the server
+// Connect to the server register their username
 const socket = io();
-
-// When a user connects, register their username with the server
 socket.emit('register', username3);
 
-// Get DOM elements for user list, message form, message input, and messages display area
+// Get DOM elements for user list, message form, message input, messages display aream and search
 const userList = document.getElementById('userList');
 const messageForm = document.getElementById('messageForm');
 const messageInput = document.getElementById('messageInput');
 const messagesDiv = document.getElementById('messages');
-
-// Get the search input and search results elements from the DOM
 const userSearch = document.getElementById('userSearch');
 const searchResults = document.getElementById('searchResults');
-
-// Variable to store the selected recipient
 let selectedRecipient = null;
-// Log the retrieved username
-console.log("Retrieved username:", username3);
+
+// Call this function on page load
+document.addEventListener('DOMContentLoaded', loadChatUsers);
 
 // Send a message to the selected recipient
 messageForm.addEventListener('submit', (e) => {
@@ -77,7 +68,6 @@ socket.on('private message', ({ from, message }) => {
     }
 });
 
-
 // Fetch chat history when a recipient is selected
 function loadChatHistory(selectedRecipient) {
     // Fetch chat history for the selected recipient
@@ -107,65 +97,10 @@ function loadChatHistory(selectedRecipient) {
         .catch(error => console.error('Error fetching chat history:', error));
 }
 
-// Listen for input in the user search field to fetch users matching the query
-userSearch.addEventListener('input', () => {
-    // Get the current input value
-    const query = userSearch.value;
-    if (query.length > 0) {
-        fetch(`/search-user/${query}`)
-            .then(response => response.json())
-            .then(users => {
-                // Clear previous results
-                searchResults.innerHTML = '';
-                users.forEach(user => {
-                    // Exclude the current user
-                    if (user !== username3) {
-                        const userItem = document.createElement('div');
-                        userItem.textContent = user;
-                        userItem.classList.add('user-item');
-                        userItem.addEventListener('click', () => {
-                            selectedRecipient = user;
-                            alert(`You are now messaging ${user}`);
-                            loadChatHistory(selectedRecipient);
-                            // Clear search results
-                            searchResults.innerHTML = '';
-                            // Clear search input
-                            userSearch.value = '';
-
-                            // Display the selected recipient's name at the top
-                            document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
-                        });
-                        // Append the user item to search results
-                        searchResults.appendChild(userItem);
-                    }
-                });
-            })
-            // Log any fetch errors
-            .catch(error => console.error('Error fetching users:', error));
-    } else {
-        // Clear results if query is empty
-        searchResults.innerHTML = '';
-    }
-});
-
 // Listen for the custom event to update the chat list
 socket.on('update user list', () => {
     loadChatUsers();
 });
-
-// Function to load removed users from local storage
-function getRemovedUsers() {
-    const removed = localStorage.getItem('removedUsers');
-    return removed ? JSON.parse(removed) : [];
-}
-
-// Function to save removed users to local storage
-function saveRemovedUsers() {
-    localStorage.setItem('removedUsers', JSON.stringify(removedUsers));
-}
-
-// Array to track removed users
-let removedUsers = getRemovedUsers();
 
 // Function to load chat users
 function loadChatUsers() {
@@ -217,6 +152,47 @@ function loadChatUsers() {
         .catch(error => console.error('Error fetching chat users:', error));
 }
 
+// Listen for input in the user search field to fetch users matching the query
+userSearch.addEventListener('input', () => {
+    // Get the current input value
+    const query = userSearch.value;
+    if (query.length > 0) {
+        fetch(`/search-user/${query}`)
+            .then(response => response.json())
+            .then(users => {
+                // Clear previous results
+                searchResults.innerHTML = '';
+                users.forEach(user => {
+                    // Exclude the current user
+                    if (user !== username3) {
+                        const userItem = document.createElement('div');
+                        userItem.textContent = user;
+                        userItem.classList.add('user-item');
+                        userItem.addEventListener('click', () => {
+                            selectedRecipient = user;
+                            alert(`You are now messaging ${user}`);
+                            loadChatHistory(selectedRecipient);
+                            // Clear search results
+                            searchResults.innerHTML = '';
+                            // Clear search input
+                            userSearch.value = '';
+
+                            // Display the selected recipient's name at the top
+                            document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
+                        });
+                        // Append the user item to search results
+                        searchResults.appendChild(userItem);
+                    }
+                });
+            })
+            // Log any fetch errors
+            .catch(error => console.error('Error fetching users:', error));
+    } else {
+        // Clear results if query is empty
+        searchResults.innerHTML = '';
+    }
+});
+
 // Function to delete a chat with a specified user
 function deleteChat(user) {
     if (confirm(`Are you sure you want to remove ${user} from your chat list?`)) {
@@ -243,6 +219,20 @@ function deleteChat(user) {
     }
 }
 
+// Function to load removed users from local storage
+function getRemovedUsers() {
+    const removed = localStorage.getItem('removedUsers');
+    return removed ? JSON.parse(removed) : [];
+}
+
+// Function to save removed users to local storage
+function saveRemovedUsers() {
+    localStorage.setItem('removedUsers', JSON.stringify(removedUsers));
+}
+
+// Array to track removed users
+let removedUsers = getRemovedUsers();
+
 // Listen for notification of unread messages
 socket.on('notification', ({ count }) => {
     const notificationDiv = document.createElement('div');
@@ -263,8 +253,10 @@ socket.on('notification', ({ count }) => {
     }, 5000);
 });
 
-// Call this function on page load
-document.addEventListener('DOMContentLoaded', loadChatUsers);
+// Listen for notification of unread messages
+socket.on('notification', ({ count }) => {
+    showNotification(`You have ${count} unread message(s)`);
+});
 
 // Function to show a notification
 function showNotification(message) {
@@ -286,19 +278,14 @@ function showNotification(message) {
     }, 5000);
 }
 
-// Listen for notification of unread messages
-socket.on('notification', ({ count }) => {
-    showNotification(`You have ${count} unread message(s)`);
-});
-
-
 // Get the value of the 'chatWith' parameter from the URL
 const chatWith = params2.get('recipient'); // This should match the key used in the URL
 
 if (chatWith) {
     if (chatWith != username3) {
         console.log('here');
-        selectedRecipient = chatWith; // Set the selected recipient
+        // Set the selected recipient
+        selectedRecipient = chatWith; 
 
         // Load chat history with the seller
         loadChatHistory(selectedRecipient);
@@ -306,7 +293,8 @@ if (chatWith) {
         // Display the selected recipient's name at the top
         document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
 
-        alert(`You are now messaging ${chatWith}`); // Inform the user
+        // Inform the user
+        alert(`You are now messaging ${chatWith}`); 
     } else {
         console.log('the same user redirect!!!')
         // Inform the user
