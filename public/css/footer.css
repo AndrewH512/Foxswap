@@ -16,7 +16,7 @@
   display: grid;
   justify-content: center;
   align-content: end;
-  min-height: 100vh; /* Minimum width of body element */
+  min-height: 100vh; /* Minimum height of body element */
   background: #e8e8e8;
   padding: 50px;
   max-width: 1600px;
@@ -25,19 +25,24 @@
 /* Style for Footer */
 footer {
   position: relative;
-  width: 100%;
+  width: 100%; 
+  max-width: 1200px; /* Set a maximum width */
   height: auto;
-  padding: 50px 100px; /* Top/Bottom paddings are 50 px and Right/Left paddings are 100px*/
+  padding: 50px; /* Uniform padding */
   background: white;
+  margin: 0 auto; /* Center footer */
+  display: flex; /* Use flex to align content */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally */
 }
 
 /* Style the footer Container */
 footer .container {
   width: 100%;
   display: grid;
-  grid-template-columns: 3fr 2fr 1fr 1fr; /* Property specifies the number (and the widths) of columns in a grid layout. */
-  /* 1fr means it will take up one fraction of free space*/
-  grid-gap: 30px; /* Sets the size of the gap between rows and columns*/
+  grid-template-columns: 3fr 2fr 1fr 1fr; /* Column widths */
+  grid-gap: 30px; /* Size of the gap between rows and columns */
+  justify-items: center; /* Center items within each grid cell */
 }
 
 /* Styling all elements in container class*/
@@ -46,32 +51,32 @@ footer .container .sec h2 {
   color: black;
   font-weight: 600;
   margin-bottom: 15px;
+  text-align: center; /* Center text */
 }
 
 footer .container .sec p {
   color: grey;
+  text-align: center; /* Center text */
 }
 
 footer .container .sci {
   margin-top: 20px;
   display: grid; /* Grid container */
-  grid-template-columns: repeat(
-    4,
-    50px
-  ); /* Shares same pattern as above columns */
+  grid-template-columns: repeat(4, 50px); /* Shares same pattern as above columns */
+  justify-content: center; /* Center the icons */
 }
 
 footer .container .sci li {
-  list-style: none; /* Gets rid of bullet points  */
+  list-style: none; /* Removes bullet points  */
 }
 
 footer .container .sci li a {
   display: inline-block; /* Allows to set width and height on element */
-  width: 360px;
-  height: 36px;
+  width: 36px; /* Adjusted width */
+  height: 36px; /* Adjusted height */
   display: grid;
-  align-content: center;
-  justify-content: center;
+  align-content: center; /* Center icons vertically */
+  justify-content: center; /* Center icons horizontally */
 }
 
 footer .container .sci li a i {
@@ -87,6 +92,7 @@ footer .container .contact .info li {
   display: grid;
   grid-template-columns: 30px 1fr;
   margin-bottom: 16px;
+  align-items: center; /* Center items vertically */
 }
 
 footer .container .contact .info li span {
@@ -97,13 +103,17 @@ footer .container .contact .info li span {
 .copyrightText {
   width: 100%;
   background: white;
-  padding: 20px 100px 30px;
-  text-align: center;
+  padding: 20px; /* Use uniform padding */
+  text-align: center; /* Center the text */
   border: 1px solid rgba(0, 0, 0, 0.15);
+  margin-top: 20px; /* Optional: add spacing from elements above */
+  box-sizing: border-box; /* Ensure padding is included in total width */
 }
 
 .logoicon {
   width: 90px;
   height: 90px;
   display: grid;
+  justify-content: center; /* Center logo icon */
+  align-content: center; /* Center logo icon */
 }
