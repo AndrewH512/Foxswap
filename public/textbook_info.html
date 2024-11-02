@@ -1,88 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Textbook Information</title>
-    <link rel="stylesheet" href="css/front-end.css">
-</head>
+    <link rel="stylesheet" href="css/front-end.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
 
-<body>
+  <body>
     <!-- Header section -->
     <header>
-        <h1>Welcome to Foxswap</h1>
-        <!-- Clickable Foxswap logo that links to the homepage -->
-        <a href="homepage.html">
-            <img src="art/Fox_Swap_Logo.png" alt="Logo" class="logo"
-                style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
-        </a>
+      <h1>Welcome to Foxswap</h1>
+      <!-- Clickable Foxswap logo that links to the homepage -->
+      <a href="homepage.html">
+        <img
+          src="art/Fox_Swap_Logo.png"
+          alt="Logo"
+          class="logo"
+          style="
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+          "
+        />
+      </a>
     </header>
 
     <!-- Navigation bar -->
     <nav>
-        <a href="homepage.html">Homepage</a>
-        <a href="browse.html">Browse</a>
-        <a href="messages.html">Messages</a>
-        <a href="myprofile.html">My Profile</a>
-        <a href="favorites.html">Favorites</a>
-        <a href="post.html">Post</a>
-        <a href="yourposts.html">Your Posts</a>
-        <a href="/public/logout" id="logoutButton">Logout</a>
+      <a href="homepage.html"><i class="fas fa-home"></i>Homepage</a>
+      <a href="browse.html"><i class="fas fa-search"></i>Browse</a>
+      <a href="messages.html"><i class="fas fa-comments"></i>Messages</a>
+      <a href="myprofile.html"><i class="fas fa-user"></i>My Profile</a>
+      <a href="favorites.html"><i class="fas fa-heart"></i>Favorites</a>
+      <a href="post.html"><i class="fas fa-plus-circle"></i>Post</a>
+      <a href="yourposts.html"><i class="fas fa-file-alt"></i>Your Posts</a>
+      <a href="/public/logout" id="logoutButton"
+        ><i class="fas fa-sign-out-alt"></i>Logout</a
+      >
     </nav>
 
     <main>
-        <h2 style="text-align: center">Textbook Title</h2>
-        <p>Detailed information about the textbook goes here.</p>
-        <div style="text-align: center; margin-top: 20px;">
-            <button id="messageSellerButton" style="padding: 10px 20px; font-size: 16px;">Message Seller</button>
-        </div>
-
+      <h2 style="text-align: center">Textbook Title</h2>
+      <p>Detailed information about the textbook goes here.</p>
+      <div style="text-align: center; margin-top: 20px">
+        <button
+          id="messageSellerButton"
+          style="padding: 10px 20px; font-size: 16px"
+        >
+          Message Seller
+        </button>
+      </div>
     </main>
 
     <!-- Footer section -->
     <footer>
-        <p>&copy; 2024 Foxswap. All rights reserved.</p>
-        <p> Twitter-Instagram-Facebook </p>
+      <p>&copy; 2024 Foxswap. All rights reserved.</p>
+      <p>Twitter-Instagram-Facebook</p>
     </footer>
 
     <script>
-        // Get the post ID and username from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const postId = urlParams.get('id');  // Extract the post id
-        const username = urlParams.get('username');  // Extract the username
+      // Get the post ID and username from the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const postId = urlParams.get("id"); // Extract the post id
+      const username = urlParams.get("username"); // Extract the username
 
-        // Fetch the specific textbook information using the post ID
-        fetch(`/api/getPost?id=${postId}`)
-            .then(response => response.json())
-            .then(data => {
-                // Populate the page with textbook data
-                document.querySelector('h2').textContent = data.Title;
-                document.querySelector('p').innerHTML = `
+      // Fetch the specific textbook information using the post ID
+      fetch(`/api/getPost?id=${postId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          // Populate the page with textbook data
+          document.querySelector("h2").textContent = data.Title;
+          document.querySelector("p").innerHTML = `
                 <div style="text-align: center;">
                     <strong>Cover Image:</strong> <br>
-                    <img src="${data.Cover_Picture}" alt="Cover Image" style="width: 150px; height: auto;">
+                    <img src="${
+                      data.Cover_Picture
+                    }" alt="Cover Image" style="width: 150px; height: auto;">
                     <br>
                     <strong>Author:</strong> ${data.Author} <br>
                     <strong>ISBN:</strong> ${data.ISBN} <br>
                     <strong>Subject:</strong> ${data.Book_Subject} <br>
-                    <strong>Seller:</strong> <span id="sellerName">${data.Seller}</span> <br>
+                    <strong>Seller:</strong> <span id="sellerName">${
+                      data.Seller
+                    }</span> <br>
                     <strong>Status:</strong> ${data.Status} <br>
                     <strong>Price:</strong> $${data.Price} <br>
                     <strong>Class Name:</strong> ${data.Class_Name} <br>
                     <strong>Condition:</strong> ${data.Book_Condition} <br>
-                    <strong>Due Date:</strong> ${data.Due_Date || 'N/A'} <br>
-                    <strong>Transaction Type:</strong> ${data.Transaction_Type} <br>
+                    <strong>Due Date:</strong> ${data.Due_Date || "N/A"} <br>
+                    <strong>Transaction Type:</strong> ${
+                      data.Transaction_Type
+                    } <br>
                 </div>`;
-                
-                // Set up the Message Seller button to direct to the messages page
-                document.getElementById('messageSellerButton').addEventListener('click', () => {
-                    window.location.href = `messages.html?username=${encodeURIComponent(username)}&recipient=${encodeURIComponent(data.Seller)}`;
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching textbook data:', error);
+
+          // Set up the Message Seller button to direct to the messages page
+          document
+            .getElementById("messageSellerButton")
+            .addEventListener("click", () => {
+              window.location.href = `messages.html?username=${encodeURIComponent(
+                username
+              )}&recipient=${encodeURIComponent(data.Seller)}`;
             });
+        })
+        .catch((error) => {
+          console.error("Error fetching textbook data:", error);
+        });
     </script>
 
     <!--Footer visabilty-->
@@ -95,7 +124,5 @@
     <!-- This ensures the user will not be able to skip this page
      by just entering the URL-->
     <script src="js/sessionCheck.js"></script>
-
-</body>
-
+  </body>
 </html>

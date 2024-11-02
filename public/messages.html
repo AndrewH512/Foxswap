@@ -1,68 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Messages</title>
-    <link rel="stylesheet" href="css/front-end.css">
-    <link rel="stylesheet" href="css/messages.css">
-</head>
+    <link rel="stylesheet" href="css/front-end.css" />
+    <link rel="stylesheet" href="css/messages.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
 
-<body>
+  <body>
     <!-- Header section -->
     <header>
-        <h1>Welcome to Foxswap</h1>
-        <!-- Clickable Foxswap logo that links to the homepage -->
-        <a href="homepage.html">
-            <img src="art/Fox_Swap_Logo.png" alt="Logo" class="logo"
-                style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
-        </a>
+      <h1>Welcome to Foxswap</h1>
+      <!-- Clickable Foxswap logo that links to the homepage -->
+      <a href="homepage.html">
+        <img
+          src="art/Fox_Swap_Logo.png"
+          alt="Logo"
+          class="logo"
+          style="
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+          "
+        />
+      </a>
     </header>
 
     <!-- Navigation bar -->
     <nav>
-        <a href="homepage.html">Homepage</a>
-        <a href="browse.html">Browse</a>
-        <a href="messages.html">Messages</a>
-        <a href="myprofile.html">My Profile</a>
-        <a href="favorites.html">Favorites</a>
-        <a href="post.html">Post</a>
-        <a href="yourposts.html">Your Posts</a>
-        <a href="/public/logout" id="logoutButton">Logout</a>
+      <a href="homepage.html"><i class="fas fa-home"></i>Homepage</a>
+      <a href="browse.html"><i class="fas fa-search"></i>Browse</a>
+      <a href="messages.html"><i class="fas fa-comments"></i>Messages</a>
+      <a href="myprofile.html"><i class="fas fa-user"></i>My Profile</a>
+      <a href="favorites.html"><i class="fas fa-heart"></i>Favorites</a>
+      <a href="post.html"><i class="fas fa-plus-circle"></i>Post</a>
+      <a href="yourposts.html"><i class="fas fa-file-alt"></i>Your Posts</a>
+      <a href="/public/logout" id="logoutButton"
+        ><i class="fas fa-sign-out-alt"></i>Logout</a
+      >
     </nav>
 
     <!-- Main content section -->
 
     <div class="user-search">
-        <h2>Search for a User</h2>
-        <input type="text" id="userSearch" placeholder="Type a username..." />
-        <div id="searchResults"></div>
+      <h2>Search for a User</h2>
+      <input type="text" id="userSearch" placeholder="Type a username..." />
+      <div id="searchResults"></div>
     </div>
-
 
     <!-- Start of Messaging -->
     <div class="messaging">
-        <h2>Your Chats</h2>
-        <div id="userList" style="margin-bottom: 20px;">
-            <!-- Users with chat history will appear here -->
-        </div>
-        <h1>Foxswap Chat</h1>
-        <div id="currentRecipient" style="font-weight: bold; margin-bottom: 10px;"></div>
-        <div id="messages"></div>
-        <form id="messageForm">
-            <input id="messageInput" autocomplete="off" placeholder="Type a message..." />
-            <button type="submit">Send</button>
-        </form>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="js/messages.js"></script>
+      <h2>Your Chats</h2>
+      <div id="userList" style="margin-bottom: 20px">
+        <!-- Users with chat history will appear here -->
+      </div>
+      <h1>Foxswap Chat</h1>
+      <div
+        id="currentRecipient"
+        style="font-weight: bold; margin-bottom: 10px"
+      ></div>
+      <div id="messages"></div>
+      <form id="messageForm">
+        <input
+          id="messageInput"
+          autocomplete="off"
+          placeholder="Type a message..."
+        />
+        <button type="submit">Send</button>
+      </form>
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="js/messages.js"></script>
     </div>
 
     <!-- Footer section -->
     <footer>
-        <p>&copy; 2024 Foxswap. All rights reserved.</p>
-        <p> Twitter-Instagram-Facebook </p>
+      <p>&copy; 2024 Foxswap. All rights reserved.</p>
+      <p>Twitter-Instagram-Facebook</p>
     </footer>
 
     <!-- This appends the username to the url.-->
@@ -72,9 +93,5 @@
     <!-- This ensures the user will not be able to skip this page
      by just entering the URL-->
     <script src="js/sessionCheck.js"></script>
-
-    
-
-</body>
-
+  </body>
 </html>
