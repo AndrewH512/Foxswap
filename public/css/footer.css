@@ -27,8 +27,7 @@ footer {
   position: relative;
   width: 100%; 
   max-width: 1200px; /* Set a maximum width */
-  height: auto;
-  padding: 50px; /* Uniform padding */
+  padding: 30px; /* Reduced padding */
   background: white;
   margin: 0 auto; /* Center footer */
   display: flex; /* Use flex to align content */
@@ -50,12 +49,14 @@ footer .container .sec h2 {
   position: relative;
   color: black;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 10px; /* Reduced margin */
+  font-size: 18px; /* Reduced font size */
   text-align: center; /* Center text */
 }
 
 footer .container .sec p {
   color: grey;
+  font-size: 14px; /* Reduced font size */
   text-align: center; /* Center text */
 }
 
@@ -72,8 +73,8 @@ footer .container .sci li {
 
 footer .container .sci li a {
   display: inline-block; /* Allows to set width and height on element */
-  width: 36px; /* Adjusted width */
-  height: 36px; /* Adjusted height */
+  width: 30px; /* Adjusted width */
+  height: 30px; /* Adjusted height */
   display: grid;
   align-content: center; /* Center icons vertically */
   justify-content: center; /* Center icons horizontally */
@@ -81,7 +82,7 @@ footer .container .sci li a {
 
 footer .container .sci li a i {
   color: black;
-  font-size: 30px;
+  font-size: 24px; /* Reduced font size for icons */
 }
 
 footer .container .contact {
@@ -97,13 +98,13 @@ footer .container .contact .info li {
 
 footer .container .contact .info li span {
   color: black;
-  font-size: 20px;
+  font-size: 16px; /* Reduced font size */
 }
 
 .copyrightText {
   width: 100%;
   background: white;
-  padding: 20px; /* Use uniform padding */
+  padding: 10px; /* Reduced padding */
   text-align: center; /* Center the text */
   border: 1px solid rgba(0, 0, 0, 0.15);
   margin-top: 20px; /* Optional: add spacing from elements above */
@@ -116,4 +117,4 @@ footer .container .contact .info li span {
   display: grid;
   justify-content: center; /* Center logo icon */
   align-content: center; /* Center logo icon */
-}
+}  
