@@ -8,6 +8,7 @@
 
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="css/front-end.css">
+    <link rel="stylesheet" href="css/footer.css" />
 
 </head>
 
@@ -52,13 +53,21 @@
     </div>
 
     <!-- Footer section -->
-    <footer>
-        <p>&copy; 2024 Foxswap. All rights reserved.</p>
-        <p>Twitter - Instagram - Facebook</p>
-    </footer>
+    <body>
+        <div id="footer-placeholder"></div>
+      
+        <script>
+          fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+              document.getElementById("footer-placeholder").innerHTML = data;
+            })
+            .catch(error => console.error("Error loading footer:", error));
+        </script>
+      </body>
 
-    <!--Footer visabilty-->
-    <script src="js/window.js"></script>
+    <!--Footer visabilty
+    <script src="js/window.js"></script>-->
     
     <script>
         // Script to handle error messages

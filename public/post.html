@@ -7,6 +7,7 @@
 
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="css/front-end.css" />
+    <link rel="stylesheet" href="css/footer.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -130,10 +131,18 @@
     </div>
 
     <!-- Footer section -->
-    <footer>
-      <p>&copy; 2024 Foxswap. All rights reserved.</p>
-      <p>Twitter - Instagram - Facebook</p>
-    </footer>
+    <body>
+      <div id="footer-placeholder"></div>
+    
+      <script>
+        fetch("footer.html")
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+          })
+          .catch(error => console.error("Error loading footer:", error));
+      </script>
+    </body>
 
     <script>
       // Function to show or hide the Due Date field based on Transaction Type selection
@@ -150,8 +159,8 @@
       }
     </script>
 
-    <!--Footer visabilty-->
-    <script src="js/window.js"></script>
+    <!--Footer visabilty
+    <script src="js/window.js"></script>-->
 
     <!-- This appends the username to the url.-->
     <script src="js/Append_User.js"></script>
