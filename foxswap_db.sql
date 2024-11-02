@@ -126,37 +126,55 @@ CREATE TABLE Transaction (
 
 -- Inserting Data Into the tables
 -- Insert additional records into the users table (example data)
+-- Inserting Users
 INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Admin, Banned, Profile_Picture, Bio)
 VALUES 
-('andrew512', 'Andrew', 'Hennessy', '845-561-8782', 'andrewhenn512@gmail.com', SHA2('123random', 256), 1, 0, '/uploads/andrew.png', 'Bio goes here'),
-('steven', 'Steve', 'Stever', '987-654-3210', 'steve@gmail.com', SHA2('mynamesteve', 256), 0, 0, '/uploads/steve.png', 'Steve is a nerd'),
-('admin', 'Admin', 'Admin', '123-456-7890', 'admin@gmail.com', SHA2('marist123', 256), 1, 0, '/uploads/admin.jpeg', 'Admin');
-;
+    ('andrew512', 'Andrew', 'Hennessy', '845-561-8782', 'andrewhenn512@gmail.com', SHA2('123random', 256), 1, 0, '/uploads/andrew.png', 'Bio goes here'),
+    ('steven', 'Steve', 'Stever', '987-654-3210', 'steve@gmail.com', SHA2('mynamesteve', 256), 0, 0, '/uploads/steve.png', 'Steve is a nerd'),
+    ('admin', 'Admin', 'Admin', '123-456-7890', 'admin@gmail.com', SHA2('marist123', 256), 1, 0, '/uploads/admin.jpeg', 'Admin'),
+    ('mitch', 'Mitch', 'Levy', '845-699-9999', 'Mitchell.Levy1@outlook.com', SHA2('marist123', 256), 1, 0, '/uploads/admin.jpeg', 'Stupid Admin');
 
--- Insert records into the books table (example data)
-INSERT INTO Books (Author, ISBN, Title, Book_Subject, Cover_Picture)
+-- Inserting Books with Book_IDs
+INSERT INTO Books (Book_ID, Author, ISBN, Title, Book_Subject, Cover_Picture)
 VALUES 
-('John Smith', '1234567890123', 'Mathematics', 'Math', '/uploads/testbook1.jpg'),
-('Steve Steven', '9876543210987', 'The Nature of Science', 'Science', '/uploads/testbook2.jpg'),
-('Mary Brown', '98321421411241', 'Macmillian English', 'English', '/uploads/Mac_English.jpg'),
-('Alice Green', '1234567890124', 'Introduction to Programming', 'Computer Science', '/uploads/book4.jpg'),
-('Bob White', '9876543210988', 'Physics Fundamentals', 'Physics', '/uploads/book5.jpg'),
-('Jane Doe', '1234567890125', 'Chemistry 101', 'Chemistry', '/uploads/book6.jpg'),
-('Tom Brown', '1234567890126', 'Biology Basics', 'Biology', '/uploads/book7.jpg'),
-('Mike Johnson', '1234567890127', 'History of Art', 'Art', '/uploads/book8.jpg'),
-('Emily Davis', '1234567890128', 'Statistics for Beginners', 'Statistics', '/uploads/book9.jpg'),
-('Laura Smith', '1234567890129', 'Ethics in Technology', 'Philosophy', '/uploads/book10.jpg');
+    (1, 'Y. Daniel Liang', '0133761312', 'Introduction to Java Programming', 'CMPT', '/uploads/book66.jpeg'),
+    (2, 'Wendell Odum', '1587147149', 'CCNA 200-301 Official Cert Guide Library', 'CMPT', '/uploads/book67.jpeg'),
+    (3, 'Jane Valade', '0470527587', 'PHP & MySQL For Dummies, 4th Edition', 'CMPT', '/uploads/book68.jpeg'),
+    (4, 'Jon Kleinberg', '9780321295354', 'Algorithm Design', 'CMPT', '/uploads/book69.jpeg'),
+    (5, 'Jonathan Clayden', '9780199270293', 'Organic Chemistry 2nd Edition', 'BIO', '/uploads/book70.jpeg'),
+    (6, 'Michael Crichton', '9781405072960', 'Jurassic Park', 'ENG', '/uploads/book71.jpeg'),
+    (7, 'Michael Crichton', '0061990558', 'Sphere', 'ENG', '/uploads/book72.jpeg'),
+    (8, 'Michael Crichton', '0345468260', 'Timeline', 'ENG', '/uploads/book73.jpeg'),
+    (9, 'Michael Crichton', '0804171297', 'The Terminal Man', 'ENG', '/uploads/book74.jpeg'),
+    (10, 'Steve Alcorn', '9798652700775', 'Theme Park Design', 'ENGR', '/uploads/book75.jpeg'),
+    (11, 'Ron Larson and Bruce Edwards', '9781337275347', 'Calculus 11th Edition', 'MAT', '/uploads/book76.jpeg'),
+    (12, 'Chris McMullen', '1941691390', 'Differential Equations Essential Skills Practice Workbook with Answers', 'MAT', '/uploads/book77.jpeg'),
+    (13, 'Susanna Epp', '1337694193', 'Discrete Mathematics with Applications 5th Edition', 'MAT', '/uploads/book78.jpeg'),
+    (14, 'David J. Griffiths and Darrell F. Shroeter', '1107189632', 'Introduction to Quantum Mechanics 3rd Edition', 'PHY', '/uploads/book79.jpeg'),
+    (15, 'Hugh D. Young and Roger A. Freeman', '0133978044', 'University Physics with Modern Physics, Volume 1 (Chs. 1-20) (14th Edition)', 'PHY', '/uploads/book80.jpeg'),
+    (16, 'Charles N. Fischer and Richard Joseph LeBlanc', '9780136067054', 'Crafting a Compiler', 'CMPT', '/uploads/book81.jpeg');
 
--- Insert records into the posts table (example data)
+-- Inserting Posts with correct Book_ID references
 INSERT INTO Posts (Seller, Book_ID, Status, Price, Class_Name, Book_Condition, Due_Date, Transaction_Type, Display_Post)
 VALUES 
-('andrew512', 1, 'Available', '20.00', 'CS101', 'Good', NULL, 'Sale', 1),
-('steven', 2, 'Sold', '30.00', 'BIO202', 'New', NULL, 'Sale', 0),
-('steven', 3, 'Pending', '15.00', 'ENG303', 'Used', '2024-11-30', 'Rental', 1),
-('steven', 1, 'Available', '25.00', 'MATH101', 'Acceptable', NULL, 'Rental', 1),
-('andrew512', 2, 'Sold', '35.00', 'PHY102', 'New', NULL, 'Sale', 0),
-('andrew512', 4, 'Available', '15.00', 'CS201', 'Good', '2025-11-30', 'Rental', 1),
-('steven', 5, 'Pending', '10.00', 'ART101', 'Acceptable', '2024-11-30', 'Rental', 1);
+    ('mitch', 1, 'Available', '30.00', 'Software Dev 1', 'New', NULL, 'Sale', 1),
+    ('mitch', 2, 'Available', '35.00', 'Internetworking', 'Good', NULL, 'Sale', 1),
+    ('mitch', 3, 'Available', '10.00', 'Software Dev 2', 'Poor', NULL, 'Sale', 1),
+    ('mitch', 4, 'Available', '100.00', 'Algorithms and Analysis', 'New', NULL, 'Sale', 1),
+    ('mitch', 5, 'Available', '75.00', 'Organic Chemistry', 'Poor', NULL, 'Sale', 1),
+    ('mitch', 6, 'Available', '50.00', 'Creative Writing', 'New', NULL, 'Sale', 1),
+    ('mitch', 7, 'Available', '60.00', 'Modern Speculative Fiction', 'New', NULL, 'Sale', 1),
+    ('mitch', 8, 'Available', '24.00', 'English 1', 'Poor', NULL, 'Sale', 1),
+    ('mitch', 9, 'Available', '19.99', 'Classic Literature', 'Good', NULL, 'Sale', 1),
+    ('mitch', 10, 'Available', '39.99', 'Advanced Electrical Engineering', 'Good', NULL, 'Sale', 1),
+    ('mitch', 11, 'Available', '9.99', 'Calculus III', 'Fair', NULL, 'Sale', 1),
+    ('mitch', 12, 'Available', '150.00', 'Differential Equations', 'Good', NULL, 'Sale', 1),
+    ('mitch', 13, 'Available', '6.00', 'Discrete Mathematics', 'New', NULL, 'Sale', 1),
+    ('mitch', 14, 'Available', '25.00', 'Quantum Physics', 'Good', NULL, 'Sale', 1),
+    ('mitch', 15, 'Available', '30.00', 'Physics II', 'Poor', NULL, 'Sale', 1),
+    ('mitch', 16, 'Available', '24.00', 'Theory of Compilers', 'Poor', NULL, 'Sale', 1),
+    ('steven', 6, 'Available', '141.99', 'Modern Speculative Fiction', 'Poor', NULL, 'Sale', 1);
+
 
 
 SELECT 
