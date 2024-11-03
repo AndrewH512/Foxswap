@@ -1,139 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Link to CSS file -->
-    <link rel="stylesheet" href="css/front-end.css">
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-  />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Link to CSS file -->
+  <link rel="stylesheet" href="css/front-end.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="css/footer.css" />
 
-  </head>
+</head>
 
-  <body style=" background-image: url(art/FOXSWAP.png); background-repeat: no-repeat;
+<body style=" background-image: url(art/FOXSWAP.png); background-repeat: no-repeat;
       background-attachment: fixed; background-size: 85% 85%;">
-    <!-- Header section -->
-    <header>
-      <h1>Welcome to Foxswap</h1>
-      <!-- Clickable Foxswap logo that links to the homepage -->
-      <a href="homepage.html">
-          <img src="art/Fox_Swap_Logo.png" alt="Logo" class="logo"
-              style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
-      </a>
+  <!-- Header section -->
+  <header>
+    <h1>Welcome to Foxswap</h1>
+    <!-- Clickable Foxswap logo that links to the homepage -->
+    <a href="homepage.html">
+      <img src="art/Fox_Swap_Logo.png" alt="Logo" class="logo"
+        style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
+    </a>
   </header>
 
-    <!-- Navigation bar -->
-    <nav>
-      <a href="homepage.html"><i class="fas fa-home"></i>Homepage</a>
-      <a href="browse.html"><i class="fas fa-search"></i>Browse</a>
-      <a href="messages.html"><i class="fas fa-comments"></i>Messages</a>
-      <a href="myprofile.html"><i class="fas fa-user"></i>My Profile</a>
-      <a href="favorites.html"><i class="fas fa-heart"></i>Favorites</a>
-      <a href="post.html"><i class="fas fa-plus-circle"></i>Post</a>
-      <a href="yourposts.html"><i class="fas fa-file-alt"></i>Your Posts</a>
-      <a href="/public/logout" id="logoutButton"
-        ><i class="fas fa-sign-out-alt"></i>Logout</a
-      >
-    </nav>
-    <!-- Insert Space nav bar and profile container-->
+  <!-- Navigation bar -->
+  <nav>
+    <a href="homepage.html"><i class="fas fa-home"></i>Homepage</a>
+    <a href="browse.html"><i class="fas fa-search"></i>Browse</a>
+    <a href="messages.html"><i class="fas fa-comments"></i>Messages</a>
+    <a href="myprofile.html"><i class="fas fa-user"></i>My Profile</a>
+    <a href="favorites.html"><i class="fas fa-heart"></i>Favorites</a>
+    <a href="post.html"><i class="fas fa-plus-circle"></i>Post</a>
+    <a href="yourposts.html"><i class="fas fa-file-alt"></i>Your Posts</a>
+    <a href="/public/logout" id="logoutButton"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </nav>
+  <!-- Insert Space nav bar and profile container-->
+  &nbsp;
+
+  <!-- Profile Container -->
+  <div class="Profile" style="background-attachment: fixed; width: auto; height: auto;">
+    <!-- Profile Title -->
+    <h2 style="text-align: center; font-size: 300%">Profile</h2>
+
+    <!-- User's Profile Picture -->
+    <div class="Profile_Picture" style="text-align: center">
+      <img id="profilePic" src="" alt="Profile Picture" style="max-width: 100%; max-height: 100%; object-fit: cover;" />
+    </div>
     &nbsp;
 
-    <!-- Profile Container -->
-    <div class="Profile" style = "background-attachment: fixed; width: auto; height: auto;">
-      <!-- Profile Title -->
-      <h2 style="text-align: center; font-size: 300%">Profile</h2>
+    <!-- User's First Name -->
+    <div class="firstName">First Name: <span id="firstName"></span></div>
+    &nbsp;
 
-      <!-- User's Profile Picture -->
-      <div class="Profile_Picture" style="text-align: center">
-        <img id="profilePic" src="" alt="Profile Picture" style="max-width: 100%; max-height: 100%; object-fit: cover;" />
-      </div>
-      &nbsp;
+    <!-- User's Last Name -->
+    <div class="lastName">Last Name: <span id="lastName"></span></div>
+    &nbsp;
 
-      <!-- User's First Name -->
-      <div class="First_Name">First Name:</div>
-      &nbsp;
+    <!-- User's First Name -->
+    <div class="bio">Bio: <span id="bio"></span></div>
+    &nbsp;
 
-      <!-- User's Last Name -->
-      <div class="Last_Name">Last Name:</div>
-      &nbsp;
+    <!-- All of the posts the user has made-->
+    <div class="Posts">Posts:</div>
+    &nbsp;
 
-      <!-- The User's Bio -->
-      <div class="Bio">Bio:</div>
-      &nbsp;
+    <!-- All of the user's reviews (if we add this) -->
+    <div class="Reviews">Review:</div>
+    &nbsp;
+  </div>
+  </div>
 
-      <!-- All of the posts the user has made-->
-      <div class="Posts">Posts:</div>
-      &nbsp;
+  <!-- Footer section -->
 
-      <!-- All of the user's reviews (if we add this) -->
-      <div class="Reviews">Review:</div>
-      &nbsp;
-      </div>
-    </div>
-
-    <!-- Footer section -->
-    <body>
-      <div id="footer-placeholder"></div>
-    
-      <script>
-        fetch("footer.html")
-          .then(response => response.text())
-          .then(data => {
-            document.getElementById("footer-placeholder").innerHTML = data;
-          })
-          .catch(error => console.error("Error loading footer:", error));
-      </script>
-    </body>
-    
-    
-
-
+  <body>
+    <div id="footer-placeholder"></div>
 
     <script>
-      // Extract username from the URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const username = urlParams.get("username");
-
-      if (username) {
-        // Fetch user data from the database based on the username
-        fetch(`/api/Users?username=${encodeURIComponent(username)}`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data); // Log the entire response for debugging
-            if (data.length > 0) {
-              const user = data.find((u) => u.Username === username);
-              console.log("what up BOY:  " + user.First_Name);
-              const profilePic = document.getElementById("profilePic");
-              // Set the profile picture source
-              profilePic.src = user.Profile_Picture || "/uploads/defaultProfilePic.jpg";
-              profilePic.alt = `${user.First_Name}'s profile picture`;
-            } else {
-              console.log("User not found.");
-            }
-          })
-          .catch((error) => {
-            console.error("Error fetching user data:", error);
-          });
-      } else {
-        console.log("No username found in the URL.");
-      }
+      fetch("footer.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("footer-placeholder").innerHTML = data;
+        })
+        .catch(error => console.error("Error loading footer:", error));
     </script>
+  </body>
 
-    <!--Footer visabilty
+
+
+
+
+  <script>
+    // Extract username from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get("username");
+
+    if (username) {
+      // Fetch user data from the database based on the username
+      fetch(`/api/Users?username=${encodeURIComponent(username)}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data); // Log the entire response for debugging
+          if (data.length > 0) {
+            const user = data.find((u) => u.Username === username);
+            const profilePic = document.getElementById("profilePic");
+            // Set the profile picture source
+            profilePic.src = user.Profile_Picture || "/uploads/defaultProfilePic.jpg";
+            profilePic.alt = `${user.First_Name}'s profile picture`;
+
+            const firstNameElement = document.getElementById("firstName");
+            firstNameElement.textContent = user.First_Name || "Not provided";
+            const lastNameElement = document.getElementById("lastName");
+            lastNameElement.textContent = user.Last_Name || "Not provided";
+            const bioElement = document.getElementById("bio");
+            bioElement.textContent = user.Bio || "Not provided";
+          } else {
+            console.log("User not found.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    } else {
+      console.log("No username found in the URL.");
+    }
+  </script>
+
+  <!--Footer visabilty
     <script src="js/window.js"></script>-->
 
-    <!-- This appends the username to the url.-->
-    <script src="js/Append_User.js"></script>
+  <!-- This appends the username to the url.-->
+  <script src="js/Append_User.js"></script>
 
-    <!-- Import session check script -->
-    <!-- This ensures the user will not be able to skip this page
+  <!-- Import session check script -->
+  <!-- This ensures the user will not be able to skip this page
      by just entering the URL-->
-    <script src="js/sessionCheck.js"></script>
+  <script src="js/sessionCheck.js"></script>
 
-  </body>
+</body>
+
 </html>
