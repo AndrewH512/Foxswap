@@ -243,6 +243,44 @@ app.post('/mark-as-read/:user1/:user2', (req, res) => {
   });
 });
 
+
+app.get('/searchBooks', (req, res) => {
+  const query = req.query.query;
+
+  // SQL Query to search for books by Title, Author, ISBN, or Class_Name
+  const sql = `
+    SELECT 
+      Books.Title, 
+      Books.Author, 
+      Books.ISBN, 
+      Books.Book_Subject,
+      Books.Cover_Picture,
+      Posts.Class_Name,
+      Posts.Price
+    FROM 
+      Books
+    JOIN 
+      Posts ON Books.Book_ID = Posts.Book_ID
+    WHERE 
+      Books.Title LIKE ? 
+      OR Books.Author LIKE ? 
+      OR Books.ISBN LIKE ? 
+      OR Posts.Class_Name LIKE ?
+  `;
+  const likeQuery = `%${query}%`;
+
+  db.query(sql, [likeQuery, likeQuery, likeQuery, likeQuery], (error, results) => {
+    if (error) {
+      console.error("Error executing search query:", error);
+      res.status(500).json({ error: "Error fetching search results" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+
+
 // Start server on port 3000
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {

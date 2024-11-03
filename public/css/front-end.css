@@ -47,7 +47,8 @@ footer {
 nav {
   display: flex;
   justify-content: center;
-  background-color: #8b0000; /* Dark red */
+  background-color: #8b0000;
+  /* Dark red */
   padding: 10px 0;
 }
 
@@ -61,19 +62,24 @@ nav a {
 }
 
 nav a i {
-  margin-right: 8px; /* Space between icon and text */
+  margin-right: 8px;
+  /* Space between icon and text */
 }
 
 nav a:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* Light hover effect */
-  transform: scale(1.05); /* Slight zoom on hover */
+  background-color: rgba(255, 255, 255, 0.2);
+  /* Light hover effect */
+  transform: scale(1.05);
+  /* Slight zoom on hover */
 }
 
 /* Basic button styling */
 .auth-buttons {
   display: flex;
-  justify-content: center; /* Centers the buttons horizontally */
-  gap: 20px; /* Space between buttons */
+  justify-content: center;
+  /* Centers the buttons horizontally */
+  gap: 20px;
+  /* Space between buttons */
   margin-top: 20px;
 }
 
@@ -88,14 +94,17 @@ nav a:hover {
   font-size: 33px;
   cursor: pointer;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow */
-  transition: 0.3s ease-in-out; /* Smooth transitions */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Add some shadow */
+  transition: 0.3s ease-in-out;
+  /* Smooth transitions */
 }
 
 /* Button hover effect */
 .auth-buttons button:hover {
   background-color: #e41e1e;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  /* Increase shadow on hover */
 }
 
 /* CSS for specific things on pages */
@@ -181,6 +190,7 @@ nav a:hover {
   text-align: center;
   margin-bottom: 20px;
 }
+
 /* Profile styling */
 .Profile {
   width: 300px;
@@ -249,4 +259,12 @@ nav a:hover {
 .price {
   font-weight: bold;
   color: green;
+}
+
+.bookList {
+  padding: 20px;
+  background-color: white;
+  margin: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
