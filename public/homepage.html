@@ -21,12 +21,12 @@
       <!-- Clickable Foxswap logo that links to the homepage -->
       <a href="homepage.html">
         <img
-          src="art/Fox_Swap_Logo.png"
+          src="uploads/Fox_Swap_Logo.ico"
           alt="Logo"
           class="logo"
           style="
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             position: absolute;
             top: 20px;
             left: 20px;
@@ -76,23 +76,114 @@
       </div>
     </div>
 
+    <!-- Got help from Youtube Video: Learn Web -->
+    <div class="card-container">
+      <style>
+        .card-container * {
+          margin: 0px;
+          padding: 0px;
+          box-sizing: border-box;
+          font-family: sans-serif;
+        }
+        .card-container body {
+          background-color: #8299b0;
+        }
+        .card-container {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 25px;
+          margin-top: 50px;
+        }
+        .card {
+          width: 325px;
+          background-color: white;
+          border-color: red;
+          border-radius: 10px;
+          border-radius: 10px;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+          overflow: hidden;
+          transition: transform 0.6s ease;
+        }
+        .card:hover {
+          transform: translateY(-20px);
+        }
+        .card img {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+        }
+        .card-content {
+          padding: 20px;
+        }
+        .card-content h1 {
+          font-size: 30px;
+          margin-bottom: 10px;
+        }
+        .card-content p {
+          font-size: 18px;
+          color: black;
+          margin-bottom: 20px;
+        }
+      </style>
+      <div class="card">
+        <img src="art/hp1.png" />
+        <div class="card-content">
+          <h1>About Us</h1>
+          <p>
+            Are you tired of paying for overpriced books? Are you sick of
+            storing textbooks that you’ll never read again? College is expensive
+            enough already, and students need all the help they can get. With
+            Fox Swap, there’s a better way. Our easy to use website will connect
+            you with other students to buy and sell textbooks at reduced prices.
+            Simply log in, and begin your journey as a buyer or seller to unlock
+            great savings.
+          </p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="art/hp2.jpeg" />
+        <div class="card-content">
+          <h1>Meet the Team</h1>
+          <p>
+            A group of hardworking students that thought of making a change to
+            the textbook rental industry. <br />
+            <br />
+            Mitchell Levy - Team Lead and Backend <br />
+            David Ramsaroop - IS Leader and Frontend Developer <br />
+            Tania Hernandez-Martinez - Backend Developer<br />
+            Andrew Hennessy - Full Stack Developer <br />
+            Albiana Krasniqi - Frontend Developer
+          </p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="art/hp3.jpg" />
+        <div class="card-content">
+          <h1>Our Mission</h1>
+          <p>
+            Fox Swap aims to be the easiest place to buy and sell high-quality
+            used textbooks. Our mission is to ensure a stress free start to the
+            semester and give students an efficient way to save money on their
+            textbooks.
+          </p>
+        </div>
+      </div>
+    </div>
+
     <!-- Footer section -->
-    <body>
-      <div id="footer-placeholder"></div>
-    
-      <script>
-        fetch("footer.html")
-          .then(response => response.text())
-          .then(data => {
-            document.getElementById("footer-placeholder").innerHTML = data;
-          })
-          .catch(error => console.error("Error loading footer:", error));
-      </script>
-    </body>
-    
-    
-
-
+    <div class="copyrightText">
+      <p>&copy; 2024 Foxswap. All rights reserved.</p>
+    </div>
+    <style>
+      .copyrightText {
+        width: 100%;
+        background: white;
+        padding: 20px 100px 30px;
+        text-align: center;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+      }
+    </style>
 
     <script>
       // Extract username from the URL
@@ -137,9 +228,6 @@
           }
         });
     </script>
-
-    <!--Footer visabilty
-    <script src="js/window.js"></script>-->
 
     <!-- This appends the username to the url.-->
     <script src="js/Append_User.js"></script>
