@@ -255,8 +255,14 @@ app.get('/searchBooks', (req, res) => {
       Books.ISBN, 
       Books.Book_Subject,
       Books.Cover_Picture,
+      Posts.Post_ID,
       Posts.Class_Name,
-      Posts.Price
+      Posts.Price,
+      Posts.Seller, 
+      Posts.Due_Date,
+      Posts.Status,
+      Posts.Book_Condition,
+      Posts.Transaction_Type
     FROM 
       Books
     JOIN 
