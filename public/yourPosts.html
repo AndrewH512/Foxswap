@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Posts</title>
+
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="css/front-end.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+    <!-- Header section -->
+    <header>
+        <h1>Welcome to Foxswap</h1>
+        <!-- Clickable Foxswap logo that links to the homepage -->
+        <a href="homepage.html">
+            <img src="art/Fox_Swap_Logo.png" alt="Logo" class="logo" style="
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+          " />
+        </a>
+    </header>
+
+    <!-- Navigation bar -->
+    <nav>
+        <a href="homepage.html"><i class="fas fa-home"></i>Homepage</a>
+        <a href="browse.html"><i class="fas fa-search"></i>Browse</a>
+        <a href="messages.html"><i class="fas fa-comments"></i>Messages</a>
+        <a href="myprofile.html"><i class="fas fa-user"></i>My Profile</a>
+        <a href="favorites.html"><i class="fas fa-heart"></i>Favorites</a>
+        <a href="post.html"><i class="fas fa-plus-circle"></i>Post</a>
+        <a href="yourposts.html"><i class="fas fa-file-alt"></i>Your Posts</a>
+        <a href="/public/logout" id="logoutButton"><i class="fas fa-sign-out-alt"></i>Logout</a>
+    </nav>
+
+
+    <!-- Main content section -->
+    <div class="main-content">
+        <h2 style="text-align: center">Your Posts</h2>
+        <div class="card-container" id="postsContainer">
+            <!-- Cards will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!-- Footer section -->
+
+    <body>
+        <div id="footer-placeholder"></div>
+
+        <script>
+            fetch("footer.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("footer-placeholder").innerHTML = data;
+                })
+                .catch(error => console.error("Error loading footer:", error));
+        </script>
+
+    </body>
+
+    <script>
+        // Fetch the username from the current URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get("username"); // Assuming 'username' is in the URL
+
+        // Fetch posts and display them
+        fetch("/yourData")
+            .then((response) => response.json())
+            .then((data) => {
+                const postsContainer = document.querySelector("#postsContainer");
+                data.forEach((post) => {
+                    // Create a new card element
+                    const card = document.createElement("div");
+                    card.classList.add("card");
+                    card.setAttribute("data-id", post.Post_ID); // Store the post id in the card
+
+                    card.innerHTML = `
+                        <img src="${post.Cover_Picture}" alt="Cover Image">
+                        <h3>${post.Title}</h3>
+                        <p class="condition"><strong>Condition:</strong> ${post.Book_Condition}</p>
+                        <p class="seller"><strong>Seller:</strong> ${post.Seller}</p>
+                        <p class="price"><strong>Price:</strong> $${post.Price}</p>
+                    `;
+
+                    // On click, redirect to textbook_info.html with post id and username in the URL
+                    card.addEventListener("click", function () {
+                        window.location.href = `textbook_info.html?id=${post.Post_ID
+                            }&username=${encodeURIComponent(username)}`;
+                    });
+
+                    // Append the card to the posts container
+                    postsContainer.appendChild(card);
+                });
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    </script>
+
+    <!--Footer visabilty
+    <script src="js/window.js"></script>-->
+
+    <!-- This appends the username to the url.-->
+    <script src="js/Append_User.js"></script>
+
+    <!-- Import session check script -->
+    <!-- This ensures the user will not be able to skip this page
+     by just entering the URL-->
+    <script src="js/sessionCheck.js"></script>
+
+    <script src="js/Browse.js"></script>
+
+</body>
+
+</html>

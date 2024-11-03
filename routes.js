@@ -129,6 +129,39 @@ JOIN
   });
 });
 
+// API route to get your data
+router.get('/yourData', (req, res) => {
+  const username = req.session.username;
+  // SQL query to join Books and Posts tables and select relevant fields
+  const query = `
+    SELECT 
+    Books.Author, 
+    Books.ISBN, 
+    Books.Title, 
+    Books.Book_Subject, 
+    Books.Cover_Picture,
+    Posts.Post_ID,
+    Posts.Seller, 
+    Posts.Status, 
+    Posts.Price, 
+    Posts.Class_Name, 
+    Posts.Book_Condition, 
+    Posts.Due_Date, 
+    Posts.Transaction_Type
+FROM 
+    Books
+JOIN 
+    Posts ON Books.Book_ID = Posts.Book_ID
+Where
+    Posts.Seller = ?;`;
+  req.db.query(query, [username], (error, results) => {
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+    res.json(results);
+  });
+});
+
 // Route for posting a book (create a listing)
 router.post('/public/post', upload.single('coverPicture'), (req, res) => {
   // Extract book and post data from the request body
@@ -163,12 +196,12 @@ router.post('/public/post', upload.single('coverPicture'), (req, res) => {
 
       // Get the Book_ID of the newly inserted book
       // Use insert_Id directly after insert
-      const bookID = result.insertId; 
+      const bookID = result.insertId;
       // Default status to 'Available' 
-      const status = 'Available';  
+      const status = 'Available';
       // Now you can insert into the Posts table
       // Get the seller's username from the session
-      const seller = req.session.username; 
+      const seller = req.session.username;
 
       // Insert the post data into the Posts table
       const insertPost = `INSERT INTO Posts (Seller, Book_ID, Status, Price, Class_Name, Book_Condition, Due_Date, Transaction_Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -247,7 +280,7 @@ router.get('/api/getPost', (req, res) => {
       INNER JOIN Books ON Posts.Book_ID = Books.Book_ID
       WHERE Posts.Post_ID = ?
   `;
-   // Execute the query with the postId parameter to prevent SQL injection
+  // Execute the query with the postId parameter to prevent SQL injection
   req.db.query(query, [postId], (error, results) => {
     if (error) {
       // Log error and respond with a 500 status code if an error occurs
@@ -257,7 +290,7 @@ router.get('/api/getPost', (req, res) => {
       // If no results, send a 404 response indicating post not found
       res.status(404).json({ error: 'Post not found' });
     } else {
-       // Send the first result as JSON, as only one post is expected
+      // Send the first result as JSON, as only one post is expected
       res.json(results[0]);
     }
   });
@@ -270,7 +303,7 @@ router.get('/search-user/:query', (req, res) => {
 
   // SQL query to search for usernames that contain the search query 
   const sqlQuery = 'SELECT Username FROM Users WHERE Username LIKE ?';
-  
+
   // Execute query with wildcard search to match usernames containing the query string
   req.db.query(sqlQuery, [`%${query}%`], (err, results) => {
     if (err) {
