@@ -1,20 +1,21 @@
-// Searching Algorithm
 function searchBooks() {
     const query = document.getElementById("searchBar").value;
     const searchResultsHeading = document.getElementById("searchResultsHeading");
+    const bookList = document.getElementById("bookList");
 
-    // Toggle the search results heading based on the query
+    // Toggle the search results heading and clear results if the query is empty
     if (query.trim() === "") {
-        searchResultsHeading.style.display = "none"; // Hide if empty
+        searchResultsHeading.style.display = "none"; // Hide the heading
+        bookList.innerHTML = ""; // Clear previous results
+        return; // Exit the function
     } else {
-        searchResultsHeading.style.display = "block"; // Show if there is text
+        searchResultsHeading.style.display = "block"; // Show the heading if there is text
     }
 
     // Fetch search results based on the query
     fetch(`/searchBooks?query=${encodeURIComponent(query)}`)
         .then((response) => response.json())
         .then((data) => {
-            const bookList = document.getElementById("bookList");
             bookList.innerHTML = ""; // Clear previous results
 
             // Limit the results to only 4 items
@@ -30,7 +31,6 @@ function searchBooks() {
             console.error("Error fetching search results:", error);
         });
 }
-
 // Front End CSS
 function createCard(item) {
     const card = document.createElement("div");
