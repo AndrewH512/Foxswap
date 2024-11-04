@@ -1,129 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Textbook Information</title>
-    <link rel="stylesheet" href="css/front-end.css" />
-    <link rel="stylesheet" href="css/textbook_info.css" />
-    <link rel="stylesheet" href="css/footer.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    </head>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Textbook Information</title>
+  <link rel="stylesheet" href="css/front-end.css" />
+  <link rel="stylesheet" href="css/textbook_info.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
 
 
-  <body>
-    <!-- Header section -->
-    <header>
-      <h1>Welcome to Foxswap</h1>
-      <!-- Clickable Foxswap logo that links to the homepage -->
-      <a href="homepage.html">
-        <img
-          src="art/Fox_Swap_Logo.png"
-          alt="Logo"
-          class="logo"
-          style="
+<body>
+  <!-- Header section -->
+  <header>
+    <h1>Welcome to Foxswap</h1>
+    <!-- Clickable Foxswap logo that links to the homepage -->
+    <a href="homepage.html">
+      <img src="art/Fox_Swap_Logo.png" alt="Logo" class="logo" style="
             width: 100px;
             height: 100px;
             position: absolute;
             top: 20px;
             left: 20px;
-          "
-        />
-      </a>
-    </header>
+          " />
+    </a>
+  </header>
 
-    <!-- Navigation bar -->
-    <nav>
-      <a href="homepage.html"><i class="fas fa-home"></i>Homepage</a>
-      <a href="browse.html"><i class="fas fa-search"></i>Browse</a>
-      <a href="messages.html"><i class="fas fa-comments"></i>Messages</a>
-      <a href="myprofile.html"><i class="fas fa-user"></i>My Profile</a>
-      <a href="favorites.html"><i class="fas fa-heart"></i>Favorites</a>
-      <a href="post.html"><i class="fas fa-plus-circle"></i>Post</a>
-      <a href="yourposts.html"><i class="fas fa-file-alt"></i>Your Posts</a>
-      <a href="/public/logout" id="logoutButton"
-        ><i class="fas fa-sign-out-alt"></i>Logout</a
-      >
-    </nav>
+  <!-- Navigation bar -->
+  <nav>
+    <a href="homepage.html"><i class="fas fa-home"></i>Homepage</a>
+    <a href="browse.html"><i class="fas fa-search"></i>Browse</a>
+    <a href="messages.html"><i class="fas fa-comments"></i>Messages</a>
+    <a href="myprofile.html"><i class="fas fa-user"></i>My Profile</a>
+    <a href="favorites.html"><i class="fas fa-heart"></i>Favorites</a>
+    <a href="post.html"><i class="fas fa-plus-circle"></i>Post</a>
+    <a href="yourposts.html"><i class="fas fa-file-alt"></i>Your Posts</a>
+    <a href="/public/logout" id="logoutButton"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </nav>
 
-    <main>
-      <h2 style="text-align: center">Textbook Information</h2>
-      
-      <div class="content-wrapper">
-        <!-- Book Image Section -->
-        <div class="book-image">
-          <img src="book-cover-placeholder.jpg" alt="Book Cover" style="width: 200px; height: auto;" id="bookCover">
-        </div>
+  <main>
+    <h2 style="text-align: center">Textbook Information</h2>
 
-        <!-- Book Details Section -->
-        <div class="book-details">
-          <p><strong>Title:</strong> <span id="bookTitle"></span></p>
-          <p><strong>Author:</strong> <span id="bookAuthor"></span></p>
-          <p><strong>ISBN:</strong> <span id="bookISBN"></span></p>
-          <p><strong>Subject:</strong> <span id="bookSubject"></span></p>
-          <p><strong>Seller:</strong> <span id="sellerName"></span></p>
-          <p><strong>Status:</strong> <span id="bookStatus"></span></p>
-          <p><strong>Price:</strong> $<span id="bookPrice"></span></p>
-          <p><strong>Class Name:</strong> <span id="bookClassName"></span></p>
-          <p><strong>Condition:</strong> <span id="bookCondition"></span></p>
-          <p><strong>Due Date:</strong> <span id="bookDueDate"></span></p>
-          <p><strong>Transaction Type:</strong> <span id="transactionType"></span></p>
-        </div>
+    <div class="content-wrapper">
+      <!-- Book Image Section -->
+      <div class="book-image">
+        <img src="book-cover-placeholder.jpg" alt="Book Cover" style="width: 200px; height: auto;" id="bookCover">
       </div>
 
-      <div class="message-button">
-        <button id="messageSellerButton">Message Seller</button>
+      <!-- Book Details Section -->
+      <div class="book-details">
+        <p><strong>Title:</strong> <span id="bookTitle"></span></p>
+        <p><strong>Author:</strong> <span id="bookAuthor"></span></p>
+        <p><strong>ISBN:</strong> <span id="bookISBN"></span></p>
+        <p><strong>Subject:</strong> <span id="bookSubject"></span></p>
+        <p><strong>Seller:</strong> <span id="sellerName"></span></p>
+        <p><strong>Status:</strong> <span id="bookStatus"></span></p>
+        <p><strong>Price:</strong> $<span id="bookPrice"></span></p>
+        <p><strong>Class Name:</strong> <span id="bookClassName"></span></p>
+        <p><strong>Condition:</strong> <span id="bookCondition"></span></p>
+        <p><strong>Due Date:</strong> <span id="bookDueDate"></span></p>
+        <p><strong>Transaction Type:</strong> <span id="transactionType"></span></p>
       </div>
-    </main>
+    </div>
 
-    <!-- Footer section -->
-    <div id="footer-placeholder"></div>
+    <div class="message-button">
+      <button id="messageSellerButton">Message Seller</button>
+    </div>
+  </main>
 
-    <script>
-      fetch("footer.html")
-        .then((response) => response.text())
-        .then((data) => {
-          document.getElementById("footer-placeholder").innerHTML = data;
-        })
-        .catch((error) => console.error("Error loading footer:", error));
+  <!-- Footer section -->
+  <div id="footer-placeholder"></div>
 
-      // Fetch the specific textbook information using the post ID
-      const urlParams = new URLSearchParams(window.location.search);
-      const postId = urlParams.get("id"); // Extract the post id
-      const username = urlParams.get("username"); // Extract the username
+  <script>
+    fetch("footer.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      })
+      .catch((error) => console.error("Error loading footer:", error));
 
-      fetch(`/api/getPost?id=${postId}`)
-        .then((response) => response.json())
-        .then((data) => {
-          //document.querySelector("h2").textContent = data.Title;
-          document.getElementById("bookCover").src = data.Cover_Picture;
-          document.getElementById("bookTitle").textContent = data.Title;
-          document.getElementById("bookAuthor").textContent = data.Author;
-          document.getElementById("bookISBN").textContent = data.ISBN;
-          document.getElementById("bookSubject").textContent = data.Book_Subject;
-          document.getElementById("sellerName").textContent = data.Seller;
-          document.getElementById("bookStatus").textContent = data.Status;
-          document.getElementById("bookPrice").textContent = data.Price;
-          document.getElementById("bookClassName").textContent = data.Class_Name;
-          document.getElementById("bookCondition").textContent = data.Book_Condition;
-          document.getElementById("bookDueDate").textContent = data.Due_Date || "N/A";
-          document.getElementById("transactionType").textContent = data.Transaction_Type;
+    // Fetch the specific textbook information using the post ID
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get("id"); // Extract the post id
+    const username = urlParams.get("username"); // Extract the username
 
-          // Set up the Message Seller button to direct to the messages page
-          document
-            .getElementById("messageSellerButton")
-            .addEventListener("click", () => {
-              window.location.href = `messages.html?username=${encodeURIComponent(
-                username
-              )}&recipient=${encodeURIComponent(data.Seller)}`;
-            });
-        })
-        .catch((error) => {
-          console.error("Error fetching textbook data:", error);
-        });
-    </script>
-  </body>
+    fetch(`/api/getPost?id=${postId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        //document.querySelector("h2").textContent = data.Title;
+        document.getElementById("bookCover").src = data.Cover_Picture;
+        document.getElementById("bookTitle").textContent = data.Title;
+        document.getElementById("bookAuthor").textContent = data.Author;
+        document.getElementById("bookISBN").textContent = data.ISBN;
+        document.getElementById("bookSubject").textContent = data.Book_Subject;
+        document.getElementById("sellerName").textContent = data.Seller;
+        document.getElementById("bookStatus").textContent = data.Status;
+        document.getElementById("bookPrice").textContent = data.Price;
+        document.getElementById("bookClassName").textContent = data.Class_Name;
+        document.getElementById("bookCondition").textContent = data.Book_Condition;
+        document.getElementById("bookDueDate").textContent = data.Due_Date || "N/A";
+        document.getElementById("transactionType").textContent = data.Transaction_Type;
+
+        // Set up the Message Seller button to direct to the messages page
+        document
+          .getElementById("messageSellerButton")
+          .addEventListener("click", () => {
+            window.location.href = `messages.html?username=${encodeURIComponent(
+              username
+            )}&recipient=${encodeURIComponent(data.Seller)}`;
+          });
+      })
+      .catch((error) => {
+        console.error("Error fetching textbook data:", error);
+      });
+  </script>
+
+  <!-- This appends the username to the url.-->
+  <script src="js/Append_User.js"></script>
+
+  <!-- Import session check script -->
+  <!-- This ensures the user will not be able to skip this page
+      by just entering the URL-->
+  <script src="js/sessionCheck.js"></script>
+
+</body>
+
 </html>
