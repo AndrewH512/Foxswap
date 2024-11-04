@@ -1,140 +1,44 @@
-/* Youtube Video that helped with creating this footer: 
- https://www.youtube.com/watch?v=JViuPwlP1mU
-*/
 
-/* Import Fonts */
-@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
 
-/* Style the Whole Page */
+      .copyrightText {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color: #f1f1f1;
+      }
 
-/* Style for Body */
-.footer_body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  display: grid;
-  justify-content: center;
-  align-content: end;
-  min-height: 100vh; /* Minimum height of body element */
-  background: #e8e8e8;
-  padding: 50px;
-  max-width: 1600px;
-}
+      .copyrightText p {
+        margin: 0;
+      }
 
+      .contact {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
 
-/* Style for Footer */
-footer {
-  position: relative;
-  width: 100%; 
-  max-width: 1200px; /* Set a maximum width */
-  padding: 20px; /* Add padding */
-  background-color: white; /* Set background color */
-  margin: 20px auto; /* Add margin and center footer */
-  border-radius: 5px; /* Rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
-  display: flex; /* Use flex to align content */
-  flex-direction: column; /* Stack elements vertically */
-  align-items: center; /* Center items horizontally */
-}
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
+      .info-item p {
+        margin: 0;
+      }
 
-/*Old Code. Use If Better*/
-/*footer {
-  position: relative;
-  width: 100%; 
-  max-width: 1200px; /* Set a maximum width 
-  padding: 30px; /* Reduced padding 
-  background: white;
-  margin: 50px auto 0 auto; /* Center footer 
-  display: flex; /* Use flex to align content 
-  flex-direction: column; /* Stack elements vertically 
-  align-items: center; /* Center items horizontally 
-  border-top: 3px solid black;
-}*/
+      .sci {
+        display: flex;
+        gap: 10px;
+      }
 
-
-/* Style the footer Container */
-footer .container {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 3fr 2fr 1fr 1fr; /* Column widths */
-  grid-gap: 30px; /* Size of the gap between rows and columns */
-  justify-items: center; /* Center items within each grid cell */
-}
-
-/* Styling all elements in container class*/
-footer .container .sec h2 {
-  position: relative;
-  color: black;
-  font-weight: 600;
-  margin-bottom: 10px; /* Reduced margin */
-  font-size: 18px; /* Reduced font size */
-  text-align: center; /* Center text */
-}
-
-footer .container .sec p {
-  color: grey;
-  font-size: 14px; /* Reduced font size */
-  text-align: center; /* Center text */
-}
-
-footer .container .sci {
-  margin-top: 20px;
-  display: grid; /* Grid container */
-  grid-template-columns: repeat(4, 50px); /* Shares same pattern as above columns */
-  justify-content: center; /* Center the icons */
-}
-
-footer .container .sci li {
-  list-style: none; /* Removes bullet points  */
-}
-
-footer .container .sci li a {
-  display: inline-block; /* Allows to set width and height on element */
-  width: 30px; /* Adjusted width */
-  height: 30px; /* Adjusted height */
-  display: grid;
-  align-content: center; /* Center icons vertically */
-  justify-content: center; /* Center icons horizontally */
-}
-
-footer .container .sci li a i {
-  color: black;
-  font-size: 24px; /* Reduced font size for icons */
-}
-
-footer .container .contact {
-  position: relative;
-}
-
-footer .container .contact .info li {
-  display: grid;
-  grid-template-columns: 30px 1fr;
-  margin-bottom: 16px;
-  align-items: center; /* Center items vertically */
-}
-
-footer .container .contact .info li span {
-  color: black;
-  font-size: 16px; /* Reduced font size */
-}
-
-.copyrightText {
-  width: 100%;
-  background: white;
-  padding: 10px; /* Reduced padding */
-  text-align: center; /* Center the text */
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  margin-top: 20px; /* Optional: add spacing from elements above */
-  box-sizing: border-box; /* Ensure padding is included in total width */
-}
-
-.logoicon {
-  width: 90px;
-  height: 90px;
-  display: grid;
-  justify-content: center; /* Center logo icon */
-  align-content: center; /* Center logo icon */
-  margin-top: 50px;
-}  
+      .sci a {
+        text-decoration: none;
+      }
