@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Welcome - Foxswap</title>
 
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="css/front-end.css">
     <link rel="stylesheet" href="css/welcome.css">
-    <link rel="stylesheet" href="css/footer.css" />
 
 </head>
 <body>
     <!-- Header section -->
     <header>
         <h1>Welcome to Foxswap</h1>
-        <!-- Foxswap logo will print to the top left on screen -->
-        <img src="art/Fox_Swap_Logo.png" alt="Logo" class="logo" style="width: 100px; height: 100px; position: absolute; top: 20px; left: 20px;">
+        <!-- Clickable Foxswap logo that links to the homepage -->
+        <a href="welcomepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
     </header>
 
     <!-- Main content section -->
     <div class="main-content">
         <h3 style="text-align: center;">Buy, sell and save: Your campus marketplace for used textbooks</h3>
-        
     </div>
 
     <!-- Buttons for login and registration -->
@@ -38,21 +37,11 @@
     </div>
 
     <!-- Footer section -->
-    <body>
-        <div id="footer-placeholder"></div>
-      
-        <script>
-          fetch("footer.html")
-            .then(response => response.text())
-            .then(data => {
-              document.getElementById("footer-placeholder").innerHTML = data;
-            })
-            .catch(error => console.error("Error loading footer:", error));
-        </script>
-      </body>
+    <div id="footer-placeholder"></div>
+     
 
-    <!--Footer visabilty
-    <script src="js/window.js"></script>-->
+    <!-- Footer Script -->
+    <script src="js/window.js"></script>
 </body>
 </html>
 

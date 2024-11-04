@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Textbook Information</title>
+  <title>Textbook Information - Foxswap</title>
   <link rel="stylesheet" href="css/front-end.css" />
   <link rel="stylesheet" href="css/textbook_info.css" />
   <link rel="stylesheet" href="css/footer.css" />
@@ -17,15 +17,7 @@
   <header>
     <h1>Welcome to Foxswap</h1>
     <!-- Clickable Foxswap logo that links to the homepage -->
-    <a href="homepage.html">
-      <img src="art/Fox_Swap_Logo.png" alt="Logo" class="logo" style="
-            width: 100px;
-            height: 100px;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-          " />
-    </a>
+    <a href="homepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
   </header>
 
   <!-- Navigation bar -->
@@ -74,8 +66,6 @@
   <div id="footer-placeholder"></div>
 
   <script>
-    
-
     // Fetch the specific textbook information using the post ID
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get("id"); // Extract the post id
@@ -111,6 +101,10 @@
         console.error("Error fetching textbook data:", error);
       });
   </script>
+
+  <!-- Footer Script -->
+  <script src="js/window.js"></script>
+
 
   <!-- This appends the username to the url.-->
   <script src="js/Append_User.js"></script>
