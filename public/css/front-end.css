@@ -19,7 +19,7 @@ header {
 .main-content {
   padding: 20px;
   /*background:linear-gradient(to top,#b3261e92, white);*/
-  background-color: white;
+  background-color: rgb(0, 0, 0);
   background: rgb(0,0,0,0);
   margin: 20px;
   border-radius: 5px;
@@ -31,19 +31,7 @@ header {
   text-align: center;
 }
 
-/* Footer styling */
-/*
-footer {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  background-color: #b3261e;
-  padding: 10px;
-  color: white;
-}*/
+
 
 /* Navigation bar on the top of each page */
 nav {

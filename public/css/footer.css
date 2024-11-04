@@ -4,6 +4,7 @@
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
+        color: white;
       }
 
       .copyrightText {
@@ -11,11 +12,12 @@
         justify-content: space-between;
         align-items: center;
         padding: 20px;
-        background-color: #f1f1f1;
+        background-color: #b3261e;
       }
 
       .copyrightText p {
         margin: 0;
+        color: white;
       }
 
       .contact {
@@ -41,4 +43,15 @@
 
       .sci a {
         text-decoration: none;
+      }
+
+      a{
+        color: white;
+
+      }
+      a:link{
+        color: white;
+      }
+      a:visited{
+        color:white;
       }
