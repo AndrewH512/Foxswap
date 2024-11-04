@@ -1,0 +1,48 @@
+
+      .content-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color:#b3261e;
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .book-image {
+        flex: 1;
+        text-align: center;
+        padding-right: 20px;
+      }
+
+      .book-image img {
+        border: 5px solid black;
+        border-radius: 5px;
+      }
+
+      .book-details {
+        flex: 1;
+        text-align: left;
+        padding-left: 20px;
+        color: white;
+      }
+
+      .book-details p {
+        line-height: 1.6;
+      }
+
+      .message-button {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .message-button button {
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+    

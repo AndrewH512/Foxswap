@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Textbook Information</title>
     <link rel="stylesheet" href="css/front-end.css" />
+    <link rel="stylesheet" href="css/textbook_info.css" />
     <link rel="stylesheet" href="css/footer.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-  </head>
+    </head>
+
 
   <body>
     <!-- Header section -->
@@ -48,67 +50,67 @@
     </nav>
 
     <main>
-      <h2 style="text-align: center">Textbook Title</h2>
-      <p>Detailed information about the textbook goes here.</p>
-      <div style="text-align: center; margin-top: 20px">
-        <button
-          id="messageSellerButton"
-          style="padding: 10px 20px; font-size: 16px"
-        >
-          Message Seller
-        </button>
+      <h2 style="text-align: center">Textbook Information</h2>
+      
+      <div class="content-wrapper">
+        <!-- Book Image Section -->
+        <div class="book-image">
+          <img src="book-cover-placeholder.jpg" alt="Book Cover" style="width: 150px; height: auto;" id="bookCover">
+        </div>
+
+        <!-- Book Details Section -->
+        <div class="book-details">
+          <p><strong>Title:</strong> <span id="bookTitle"></span></p>
+          <p><strong>Author:</strong> <span id="bookAuthor"></span></p>
+          <p><strong>ISBN:</strong> <span id="bookISBN"></span></p>
+          <p><strong>Subject:</strong> <span id="bookSubject"></span></p>
+          <p><strong>Seller:</strong> <span id="sellerName"></span></p>
+          <p><strong>Status:</strong> <span id="bookStatus"></span></p>
+          <p><strong>Price:</strong> $<span id="bookPrice"></span></p>
+          <p><strong>Class Name:</strong> <span id="bookClassName"></span></p>
+          <p><strong>Condition:</strong> <span id="bookCondition"></span></p>
+          <p><strong>Due Date:</strong> <span id="bookDueDate"></span></p>
+          <p><strong>Transaction Type:</strong> <span id="transactionType"></span></p>
+        </div>
+      </div>
+
+      <div class="message-button">
+        <button id="messageSellerButton">Message Seller</button>
       </div>
     </main>
 
     <!-- Footer section -->
-    <body>
-      <div id="footer-placeholder"></div>
-    
-      <script>
-        fetch("footer.html")
-          .then(response => response.text())
-          .then(data => {
-            document.getElementById("footer-placeholder").innerHTML = data;
-          })
-          .catch(error => console.error("Error loading footer:", error));
-      </script>
-    </body>
-
+    <div id="footer-placeholder"></div>
 
     <script>
-      // Get the post ID and username from the URL
+      fetch("footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("footer-placeholder").innerHTML = data;
+        })
+        .catch((error) => console.error("Error loading footer:", error));
+
+      // Fetch the specific textbook information using the post ID
       const urlParams = new URLSearchParams(window.location.search);
       const postId = urlParams.get("id"); // Extract the post id
       const username = urlParams.get("username"); // Extract the username
 
-      // Fetch the specific textbook information using the post ID
       fetch(`/api/getPost?id=${postId}`)
         .then((response) => response.json())
         .then((data) => {
-          // Populate the page with textbook data
-          document.querySelector("h2").textContent = data.Title;
-          document.querySelector("p").innerHTML = `
-                <div style="text-align: center;">
-                    <strong>Cover Image:</strong> <br>
-                    <img src="${
-                      data.Cover_Picture
-                    }" alt="Cover Image" style="width: 150px; height: auto;">
-                    <br>
-                    <strong>Author:</strong> ${data.Author} <br>
-                    <strong>ISBN:</strong> ${data.ISBN} <br>
-                    <strong>Subject:</strong> ${data.Book_Subject} <br>
-                    <strong>Seller:</strong> <span id="sellerName">${
-                      data.Seller
-                    }</span> <br>
-                    <strong>Status:</strong> ${data.Status} <br>
-                    <strong>Price:</strong> $${data.Price} <br>
-                    <strong>Class Name:</strong> ${data.Class_Name} <br>
-                    <strong>Condition:</strong> ${data.Book_Condition} <br>
-                    <strong>Due Date:</strong> ${data.Due_Date || "N/A"} <br>
-                    <strong>Transaction Type:</strong> ${
-                      data.Transaction_Type
-                    } <br>
-                </div>`;
+          //document.querySelector("h2").textContent = data.Title;
+          document.getElementById("bookCover").src = data.Cover_Picture;
+          document.getElementById("bookTitle").textContent = data.Title;
+          document.getElementById("bookAuthor").textContent = data.Author;
+          document.getElementById("bookISBN").textContent = data.ISBN;
+          document.getElementById("bookSubject").textContent = data.Book_Subject;
+          document.getElementById("sellerName").textContent = data.Seller;
+          document.getElementById("bookStatus").textContent = data.Status;
+          document.getElementById("bookPrice").textContent = data.Price;
+          document.getElementById("bookClassName").textContent = data.Class_Name;
+          document.getElementById("bookCondition").textContent = data.Book_Condition;
+          document.getElementById("bookDueDate").textContent = data.Due_Date || "N/A";
+          document.getElementById("transactionType").textContent = data.Transaction_Type;
 
           // Set up the Message Seller button to direct to the messages page
           document
@@ -123,16 +125,5 @@
           console.error("Error fetching textbook data:", error);
         });
     </script>
-
-    <!--Footer visabilty
-    <script src="js/window.js"></script>-->
-
-    <!-- This appends the username to the url.-->
-    <script src="js/Append_User.js"></script>
-
-    <!-- Import session check script -->
-    <!-- This ensures the user will not be able to skip this page
-     by just entering the URL-->
-    <script src="js/sessionCheck.js"></script>
   </body>
 </html>

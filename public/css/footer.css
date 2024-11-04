@@ -22,18 +22,37 @@
   max-width: 1600px;
 }
 
+
 /* Style for Footer */
 footer {
   position: relative;
   width: 100%; 
   max-width: 1200px; /* Set a maximum width */
-  padding: 30px; /* Reduced padding */
-  background: white;
-  margin: 0 auto; /* Center footer */
+  padding: 20px; /* Add padding */
+  background-color: white; /* Set background color */
+  margin: 20px auto; /* Add margin and center footer */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
   display: flex; /* Use flex to align content */
   flex-direction: column; /* Stack elements vertically */
   align-items: center; /* Center items horizontally */
 }
+
+
+/*Old Code. Use If Better*/
+/*footer {
+  position: relative;
+  width: 100%; 
+  max-width: 1200px; /* Set a maximum width 
+  padding: 30px; /* Reduced padding 
+  background: white;
+  margin: 50px auto 0 auto; /* Center footer 
+  display: flex; /* Use flex to align content 
+  flex-direction: column; /* Stack elements vertically 
+  align-items: center; /* Center items horizontally 
+  border-top: 3px solid black;
+}*/
+
 
 /* Style the footer Container */
 footer .container {
@@ -117,4 +136,5 @@ footer .container .contact .info li span {
   display: grid;
   justify-content: center; /* Center logo icon */
   align-content: center; /* Center logo icon */
+  margin-top: 50px;
 }  
