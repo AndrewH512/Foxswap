@@ -16,7 +16,11 @@
       .book-image {
         flex: 1;
         text-align: center;
-        padding-right: 20px;
+        padding: 10px;
+        margin-bottom: 140px;
+        padding-right: 40px;
+        width: 140px;
+        height: 140px;
       }
 
       .book-image img {
