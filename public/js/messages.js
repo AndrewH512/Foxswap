@@ -163,13 +163,31 @@ function loadChatUsers() {
 userSearch.addEventListener('input', () => {
     // Get the current input value
     const query = userSearch.value;
+    
+    // Clear any existing search results title before starting a new search
+    const searchTitle = document.getElementById('searchTitle');
+    if (searchTitle) {
+        searchTitle.remove();
+    }
+    
     if (query.length > 0) {
         fetch(`/search-user/${query}`)
             .then(response => response.json())
             .then(users => {
                 // Clear previous results
                 searchResults.innerHTML = '';
-                users.forEach(user => {
+
+                // Display "Search Results" text if users are found
+                if (users.length > 0) {
+                    const title = document.createElement('h3');
+                    title.id = 'searchTitle';
+                    title.textContent = 'Search Results';
+                    title.style.color = 'white';
+                    searchResults.prepend(title);
+                }
+                
+                // Limit the users to a maximum of 4
+                users.slice(0, 4).forEach(user => {
                     // Exclude the current user
                     if (user !== username3) {
                         const userItem = document.createElement('div');
@@ -192,7 +210,6 @@ userSearch.addEventListener('input', () => {
                     }
                 });
             })
-            // Log any fetch errors
             .catch(error => console.error('Error fetching users:', error));
     } else {
         // Clear results if query is empty
