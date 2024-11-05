@@ -110,6 +110,7 @@ button:hover {
     align-self: flex-end;
     border-bottom-right-radius: 0; /* Rounded corners */
     text-align: right;
+    margin-left: auto;
 }
 
 /* Received messages */
