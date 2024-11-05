@@ -18,6 +18,15 @@ function searchBooks() {
         .then((data) => {
             bookList.innerHTML = ""; // Clear previous results
 
+            // Check if there are no results
+            if (data.length === 0) {
+                const noResultsMessage = document.createElement("p");
+                noResultsMessage.textContent = "No results found"; // Message to show
+                noResultsMessage.classList.add("no-results"); 
+                bookList.appendChild(noResultsMessage);
+                return; // Exit if no results
+            }
+
             // Limit the results to only 4 items
             const limitedData = data.slice(0, 4);
 
@@ -31,6 +40,7 @@ function searchBooks() {
             console.error("Error fetching search results:", error);
         });
 }
+
 // Front End CSS
 function createCard(item) {
     const card = document.createElement("div");

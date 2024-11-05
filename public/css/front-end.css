@@ -98,6 +98,20 @@ nav a:hover {
   /* Increase shadow on hover */
 }
 
+#messageSellerButton {
+  background-color: #000000; /* Background color */
+  border: 2px solid red; /* Border style */
+  color: white; /* Text color */
+  padding: 10px 15px; 
+  text-align: center; /* Center text */
+  text-decoration: none; /* No underline */
+  font-size: 25px; 
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow */
+  transition: 0.3s ease-in-out; /* Smooth transitions */
+}
+
 /* CSS for specific things on pages */
 
 /* Search bar styling under nav in browse.html */
@@ -259,7 +273,7 @@ nav a:hover {
   }
 }
 
-/* For the browsing page */
+/* Search box for browsing */
 .search-container {
   background-color: rgba(255, 255, 255, 0.0); 
 }
@@ -270,4 +284,12 @@ nav a:hover {
   justify-content: center; 
   gap: 20px; 
   padding: 20px 0;
+}
+/* Shows up when a user is searching and no results are found */
+.no-results {
+  text-align: center; 
+  font-size: 18px; 
+  color: #000000; 
+  margin: 20px 0; 
+  font-weight: bold;
 }
