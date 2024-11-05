@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Homepage - Foxswap</title>
+    
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="css/front-end.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  
+    <style>
+        body {
+            background-color: #f7f7f7; /* Light background for contrast */
+            font-family: Arial, sans-serif; /* Consistent font */
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+        }
+        nav {
+            margin: 20px 0;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 100px); /* Full height minus header/footer */
+        }
+        .admin-button {
+            padding: 20px 40px; /* Increased padding for larger buttons */
+            margin: 15px; /* Increased margin between buttons */
+            font-size: 22px; /* Increased font size */
+            background-color: #b3261e; /* Your primary color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 300px; /* Fixed width for uniform button size */
+        }
+        .admin-button:hover {
+            background-color: #932019; /* Darker shade for hover effect */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section -->
+    <header>
+        <h1>Welcome to the Admin Dashboard</h1>
+    </header>
+
+    <!-- Navigation bar -->
+    <nav id="navbar">
+        <!-- Navigation links will be added here by JavaScript -->
+      </nav>
+
+    <!-- Button container -->
+    <div class="button-container">
+        <button class="admin-button" onclick="location.href='viewReports.html'">View Reports</button>
+        <button class="admin-button" onclick="location.href='searchUsers.html'">Search for Users</button>
+        <button class="admin-button" onclick="location.href='searchPosts.html'">Search for Posts</button>
+        <button class="admin-button" onclick="location.href='changePassword.html'">Change Password</button>
+        <button class="admin-button" onclick="location.href='addAdmin.html'">Add New Admin</button>
+        <button class="admin-button" onclick="location.href='deleteAdmin.html'">Delete Admin</button>
+        <button class="admin-button" onclick="location.href='/public/logout'">Logout</button>
+    </div>
+
+    <!-- Footer section -->
+    <footer>
+        <p style="text-align: center;">&copy; 2024 Foxswap - All Rights Reserved</p>
+    </footer>
+
+    <!-- This appends the username to the url.-->
+    <script src="js/Append_User.js"></script>
+
+    <!-- Import session check script -->
+    <!-- This ensures the user will not be able to skip this page
+     by just entering the URL-->
+    <script src="js/sessionCheck.js"></script>
+</body>
+</html>

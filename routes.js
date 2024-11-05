@@ -34,7 +34,7 @@ router.post('/public/login', upload.none(), (req, res) => {
     return res.status(400).json({ error: "Username or password not provided" });
   }
 
-  // Hash the password using SHA-256, salt??
+  // Hash the password using SHA-256
   const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
   // Query to find user by username
@@ -49,13 +49,17 @@ router.post('/public/login', upload.none(), (req, res) => {
     if (results.length === 0) {
       return res.redirect("/login.html?error=username");
     }
+    
     // If the password does not match, redirect with a password error
     else if (results[0].Password !== hashedPassword) {
       return res.redirect(`/login.html?error=password&username=${encodeURIComponent(username)}`);
     }
 
-    // If login is successful, save the username in the session
+    // If login is successful, save the username and admin status in the session
     req.session.username = username;
+    req.session.admin = results[0].Admin; // Store admin status in session
+
+    // Redirect to homepage with username
     res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
   });
 });
@@ -216,14 +220,34 @@ router.post('/public/post', upload.single('coverPicture'), (req, res) => {
   });
 });
 
-// Route to check if the user is logged in (for frontend session management)
+// Route for checking session
 router.get('/api/check-session', (req, res) => {
+  // Check if user is authenticated
   if (req.session && req.session.username) {
-    // Return true if the user is already logged in
-    res.json({ authenticated: true, username: req.session.username });
+      // Query to get the user from the database
+      const query = "SELECT Admin FROM Users WHERE Username = ?";
+      req.db.query(query, [req.session.username], (error, results) => {
+          if (error) {
+              console.error("Database query error:", error);
+              return res.status(500).json({ error: "Internal server error" });
+          }
+
+          // Check if the user exists
+          if (results.length > 0) {
+              const isAdmin = results[0].Admin;
+              return res.json({
+                  authenticated: true,
+                  username: req.session.username,
+                  admin: isAdmin // Include the admin status
+              });
+          } else {
+              console.warn("User not found:", req.session.username);
+              return res.status(404).json({ authenticated: false });
+          }
+      });
   } else {
-    // Return false if the user hasn't logged in yet
-    res.json({ authenticated: false });
+      // User is not authenticated
+      return res.json({ authenticated: false });
   }
 });
 
