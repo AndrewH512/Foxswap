@@ -342,3 +342,48 @@ router.get('/search-user/:query', (req, res) => {
   });
 });
 
+
+router.get('/searchBooks', (req, res) => {
+  const query = req.query.query;
+
+  // SQL query to fetch data from Books and Posts
+  const sqlQuery = `
+      SELECT 
+          Books.Title, 
+          Books.Author, 
+          Books.ISBN, 
+          Books.Book_Subject,
+          Books.Cover_Picture,
+          Posts.Post_ID,
+          Posts.Class_Name,
+          Posts.Price,
+          Posts.Seller, 
+          Posts.Due_Date,
+          Posts.Status,
+          Posts.Book_Condition,
+          Posts.Transaction_Type
+      FROM 
+          Books
+      JOIN 
+          Posts ON Books.Book_ID = Posts.Book_ID
+      WHERE 
+          Books.Title LIKE ? 
+          OR Books.Author LIKE ? 
+          OR Books.ISBN LIKE ? 
+          OR Posts.Class_Name LIKE ?
+  `;
+
+  // Prepare parameters for the query
+  const params = [`%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`];
+
+  // Use parameterized queries to prevent SQL injection
+  req.db.query(sqlQuery, params, (error, results) => {
+      if (error) {
+          console.error("Database query error:", error);
+          return res.status(500).json({ error: "Internal server error" });
+      }
+
+      // Send the results back as JSON
+      res.json(results);
+  });
+});
