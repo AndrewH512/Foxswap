@@ -59,6 +59,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'welcomepage.html'));
 });
 
+// Catch-all route for 404 errors
+app.get('*', (req, res) => {
+  res.status(404).sendFile(path.join(__dirname, 'public', '404page.html'));
+});
+
 // Route to serve homepage.html but only if the user is logged in
 app.get('/homepage.html', (req, res) => {
   if (req.session.username) {

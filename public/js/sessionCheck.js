@@ -36,6 +36,7 @@ function updateNavBarForAdmin() {
         <a href="post.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-plus-circle"></i>Post</a>
         <a href="yourposts.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-file-alt"></i>Your Posts</a>
         <a href="admin_home.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-cog"></i>Admin Panel</a>
+        <a href="adminReports.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-chart-line"></i>Admin Reports</a>
         <a href="/public/logout${username ? '?username=' + encodeURIComponent(username) : ''}" id="logoutButton"><i class="fas fa-sign-out-alt"></i>Logout</a>
     `;
 }
@@ -59,6 +60,7 @@ function updateNavBarForUser() {
 // Automatically call checkSession when the page loads
 document.addEventListener('DOMContentLoaded', checkSession);
 
+// Start of the Appendusers.js
 document.addEventListener('DOMContentLoaded', () => {
     const url = window.location.href;
     const params = new URLSearchParams(window.location.search);
