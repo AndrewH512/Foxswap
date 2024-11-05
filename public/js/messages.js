@@ -45,26 +45,26 @@ messageForm.addEventListener('submit', (e) => {
 
 // Listen for incoming private messages and display them
 socket.on('private message', ({ from, message }) => {
-    // Check if the message is from the selected recipient or it's the message you sent ANDREW
+    // Check if the message is from the selected recipient or it's the message you sent
     if (from === selectedRecipient || from === username3) {
         // Create a new div for the message
         const messageElement = document.createElement('div');
-        // Set the message text
-        messageElement.textContent = `${from}: ${message}`;
+        messageElement.classList.add('message', from === username3 ? 'sent' : 'received'); // Add appropriate class
+        
+        // Set the message text with username
+        messageElement.innerHTML = `
+            <span class="username">${from}</span>
+            ${message}
+            <span class="timestamp">${new Date().toLocaleTimeString()}</span> <!-- Optional timestamp -->
+        `;
+        
         // Append the message to the messages div
         messagesDiv.appendChild(messageElement);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
     } else {
         // If the message is from another user, show a notification
         loadChatUsers();
         showNotification(`New message from ${from}`);
-
-        // Check if the recipient is in the removedUsers list of the sender
-        if (removedUsers.includes(from)) {
-            // Remove the sender from the recipient's removedUsers list
-            removedUsers = removedUsers.filter(user => user !== from);
-            saveRemovedUsers(); // Save updated removed users to local storage
-            loadChatUsers(); // Refresh the chat users list to show the added user
-        }
     }
 });
 

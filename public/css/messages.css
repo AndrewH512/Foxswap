@@ -92,20 +92,42 @@ button:hover {
 .message {
     margin-bottom: 15px;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 0.95rem;
+    position: relative; /* Needed for positioning pseudo-elements */
 }
 
+/* Sent messages */
 .message.sent {
-    background-color: #b3261e;
+    background-color: green; /* Sender's background */
     color: white;
     align-self: flex-end;
+    border-bottom-right-radius: 0; /* Rounded corners */
 }
 
+/* Received messages */
 .message.received {
-    background-color: #f1f1f1;
+    background-color: blue; /* Receiver's background */
     color: #333;
     align-self: flex-start;
+    border-bottom-left-radius: 0; /* Rounded corners */
+}
+
+/* Usernames */
+.message .username {
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: block; /* Makes username take a new line */
+    margin-bottom: 5px; /* Space between username and message */
+}
+
+/* Optional: Timestamp styling (if you want to add timestamps) */
+.message .timestamp {
+    font-size: 0.8rem;
+    color: #888; /* Lighter color for timestamps */
+    position: absolute; /* Position it at the bottom right */
+    bottom: 5px;
+    right: 10px;
 }
 
 /* Enhanced search bar styling */

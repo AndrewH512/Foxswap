@@ -387,3 +387,65 @@ router.get('/searchBooks', (req, res) => {
       res.json(results);
   });
 });
+
+// Endpoint to retrieve unique chat users
+router.get('/chat-users/:username', (req, res) => {
+  const { username } = req.params;
+  const query = `
+      SELECT DISTINCT 
+          CASE 
+              WHEN Sender = ? THEN Recipient 
+              ELSE Sender 
+          END AS chatUser 
+      FROM Messages 
+      WHERE Sender = ? OR Recipient = ?
+  `;
+  req.db.query(query, [username, username, username], (err, results) => {
+    if (err) {
+      console.error('Error retrieving chat users:', err);
+      res.status(500).send('Error retrieving chat users');
+    } else {
+      const chatUsers = results.map(row => row.chatUser);
+      // Send unique chat users as JSON
+      res.json(chatUsers);
+    }
+  });
+});
+
+// Mark all messages as deleted for a specific conversation
+router.delete('/delete-chat/:user1/:user2', (req, res) => {
+  const { user1, user2 } = req.params;
+  const query = `
+    UPDATE Messages 
+    SET 
+      isDeletedBySender = CASE WHEN Sender = ? THEN TRUE ELSE isDeletedBySender END,
+      isDeletedByRecipient = CASE WHEN Recipient = ? THEN TRUE ELSE isDeletedByRecipient END
+    WHERE 
+      (Sender = ? AND Recipient = ?) 
+      OR (Sender = ? AND Recipient = ?)
+  `;
+  req.db.query(query, [user1, user1, user1, user2, user2, user1], (err) => {
+    if (err) {
+      console.error('Error marking chat as deleted:', err);
+      return res.status(500).send('Error marking chat as deleted');
+    }
+    res.sendStatus(204); // No content to send back, operation successful
+  });
+});
+
+// Mark all messages as read for a conversation between two users
+router.post('/mark-as-read/:user1/:user2', (req, res) => {
+  const { user1, user2 } = req.params;
+  const query = `
+      UPDATE Messages 
+      SET isRead = TRUE 
+      WHERE (Sender = ? AND Recipient = ?) OR (Sender = ? AND Recipient = ?)
+  `;
+  req.db.query(query, [user1, user2, user2, user1], (err) => {
+    if (err) {
+      console.error('Error marking messages as read:', err);
+      return res.status(500).send('Error marking messages as read');
+    }
+    res.sendStatus(204); // No content to send back, operation successful
+  });
+});
