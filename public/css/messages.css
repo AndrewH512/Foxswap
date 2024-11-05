@@ -105,8 +105,8 @@ button:hover {
 
 /* Sent messages */
 .message.sent {
-    background-color: green; /* Sender's background */
-    color: white;
+    background-color: rgb(14, 218, 14); /* Sender's background */
+    color: rgb(0, 0, 0);
     align-self: flex-end;
     border-bottom-right-radius: 0; /* Rounded corners */
     text-align: right;

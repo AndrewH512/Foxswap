@@ -69,7 +69,6 @@ socket.on('private message', ({ from, message }) => {
 
 // Fetch chat history when a recipient is selected
 function loadChatHistory(selectedRecipient) {
-    // Fetch chat history for the selected recipient
     fetch(`/chat-history/${username3}/${selectedRecipient}`)
         .then(response => response.json())
         .then(messages => {
@@ -78,17 +77,26 @@ function loadChatHistory(selectedRecipient) {
             messages.forEach(msg => {
                 // Create a div for each message
                 const messageElement = document.createElement('div');
-                // Set message text
-                messageElement.textContent = `${msg.Sender}: ${msg.Message}`;
+                // Apply the CSS class based on the sender
+                messageElement.classList.add('message', msg.Sender === username3 ? 'sent' : 'received');
+                
+                // Set the message text with username
+                messageElement.innerHTML = `
+                    <span class="username">${msg.Sender}</span>
+                    ${msg.Message}
+                `;
+                
                 // Append message to the messages div
                 messagesDiv.appendChild(messageElement);
             });
+
+            // Scroll to the bottom of the chat history
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
             // Mark messages as read by sending a POST request
             fetch(`/mark-as-read/${username3}/${selectedRecipient}`, { method: 'POST' })
                 .then(response => {
                     if (!response.ok) {
-                        // Log error if marking as read fails
                         console.error('Error marking messages as read');
                     }
                 });
