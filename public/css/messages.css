@@ -142,37 +142,82 @@ button:hover {
 .user-search {
     text-align: center;
     margin: 20px 0;
+    padding: 20px;
+    background-color: #910303; /* Dark background for contrast */
+    border-radius: 12px; /* Softer edges */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* Heading styling */
+.user-search h2 {
+    color: #61dafb; /* Light blue color for the heading */
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase; /* Make it stand out */
+}
+
+/* Input styling */
 .user-search input[type="text"] {
     width: 80%;
-    max-width: 400px;
+    max-width: 350px;
     padding: 12px 20px;
-    border: 1px solid #ddd;
+    border: none; /* Remove default border */
     border-radius: 25px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* White background for input */
     font-size: 1rem;
     outline: none;
-    transition: box-shadow 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s; /* Add transform on focus */
 }
 
 .user-search input[type="text"]:focus {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    border-color: #b3261e;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02); /* Slightly grow the input */
 }
 
+/* Button styling */
 .user-search button {
     padding: 12px 20px;
-    background-color: #b3261e;
-    color: white;
+    background-color: #61dafb; /* Matching button color */
+    color: #282c34; /* Dark text for contrast */
     border: none;
     border-radius: 25px;
     font-size: 1rem;
     cursor: pointer;
-    margin-left: -45px; /* Overlaps with the input for a sleeker look */
-    transition: background-color 0.3s ease;
+    margin-left: 10px; /* Space between input and button */
+    transition: background-color 0.3s ease, transform 0.2s; /* Add transform on hover */
 }
 
 .user-search button:hover {
-    background-color: #e41e1e;
+    background-color: #8b0909;
+    transform: translateY(-2px); /* Lift button on hover */
+}
+
+/* Search results styling */
+#searchResults {
+    margin-top: 10px; /* Spacing above results */
+    background-color: rgba(179, 32, 32, 0.9); /* Light semi-transparent background */
+    border-radius: 8px;
+    max-width: 400px; /* Limit width of results */
+    margin-left: auto; /* Center align results */
+    margin-right: auto; /* Center align results */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Ensure results are contained */
+    z-index: 1000;
+}
+
+#searchResults.visible {
+    display: block; /* Show results when there are results */
+}
+
+.user-item {
+    color:black;
+    padding: 10px;
+    border-bottom: 1px solid #000000; /* Divider for results */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.user-item:hover {
+    background-color: #f0f0f0; /* Light background on hover */
 }
