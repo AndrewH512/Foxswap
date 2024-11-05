@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Profile - Foxswap</title>
+    <link rel="stylesheet" href="css/front-end.css">
+</head>
+
+<body>
+    <!-- Header section -->
+    <header>
+        <h1>Edit Profile</h1>
+        <!-- Link to navigate back to the profile page -->
+        <a href="myprofile.html">Back to Profile</a>
+    </header>
+
+    <!-- Edit Profile Form -->
+    <form id="editProfileForm" enctype="multipart/form-data">
+        <!-- Upload Profile Picture -->
+        <div>
+            <label for="profilePic">Profile Picture:</label>
+            <input type="file" id="profilePic" name="profilePic" accept="image/*" />
+        </div>
+
+        <!-- First Name -->
+        <div>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required />
+        </div>
+
+        <!-- Last Name -->
+        <div>
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required />
+        </div>
+
+        <!-- Bio -->
+        <div>
+            <label for="bio">Bio:</label>
+            <textarea id="bio" name="bio" rows="4" cols="50" required></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <!-- Footer placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript to handle form submission -->
+    <script>
+        // Extract username from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get("username");
+
+        if (username) {
+            // Fetch the current user data to prefill the form
+            fetch(`/api/Users?username=${encodeURIComponent(username)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        const user = data.find(u => u.Username === username);
+                        document.getElementById("firstName").value = user.First_Name || "";
+                        document.getElementById("lastName").value = user.Last_Name || "";
+                        document.getElementById("bio").value = user.Bio || "";
+                    }
+                })
+                .catch(error => console.error("Error fetching user data:", error));
+        }
+
+        // Form submission handler
+        document.getElementById("editProfileForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            formData.append("username", username); // Attach the username to identify the user on the server
+
+            fetch("/api/Users/updateProfile", {
+                method: "POST",
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Profile updated successfully!");
+                        window.location.href = `myProfile.html?username=${username}`;
+                    } else {
+                        alert("Error updating profile: " + data.message);
+                    }
+                })
+                .catch(error => console.error("Error updating profile:", error));
+        });
+    </script>
+
+    <!-- Import session check script -->
+    <script src="js/sessionCheck.js"></script>
+
+    <script>
+        // Extract username from the URL
+        const urlParams2 = new URLSearchParams(window.location.search);
+        const username2 = urlParams2.get("username");
+
+
+        if (username2) {
+            // Fetch user data from the database based on the username
+            fetch(`/api/Users?username=${encodeURIComponent(username)}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data); // Log the entire response for debugging
+                    if (data.length > 0) {
+                        const user = data.find((u) => u.Username === username);
+                        console.log("what up BOY:  " + user.First_Name);
+                    } else {
+                        console.log("User not found.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching user data:", error);
+                });
+        } else {
+            console.log("No username found in the URL.");
+        }
+    </script>
+
+</body>
+
+</html>
