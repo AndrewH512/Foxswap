@@ -18,6 +18,11 @@ const storage = multer.diskStorage({
   }
 });
 
+// Function to generate a random salt
+function generateSalt(length = 16) {
+  return crypto.randomBytes(length).toString('hex');
+}
+
 // Now Initialize multer with the defined storage configuration
 const upload = multer({ storage: storage });
 
@@ -25,81 +30,79 @@ const upload = multer({ storage: storage });
 
 // Route for login functionality
 router.post('/public/login', upload.none(), (req, res) => {
-  // Retrieve the username and password from the request body
   const username = req.body.username;
   const password = req.body.password;
 
-  // Now we want to check if username or password is missing
   if (!password || !username) {
-    return res.status(400).json({ error: "Username or password not provided" });
+      return res.status(400).json({ error: "Username or password not provided" });
   }
-
-  // Hash the password using SHA-256
-  const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
   // Query to find user by username
   const query = "SELECT * FROM Users WHERE Username = ?";
   req.db.query(query, [username], (error, results) => {
-    if (error) {
-      // Handles database error
-      return res.status(500).json({ error: error.message });
-    }
+      if (error) {
+          return res.status(500).json({ error: error.message });
+      }
 
-    // If no user is found, redirect to the login page with a username error
-    if (results.length === 0) {
-      return res.redirect("/login.html?error=username");
-    }
-    
-    // If the password does not match, redirect with a password error
-    else if (results[0].Password !== hashedPassword) {
-      return res.redirect(`/login.html?error=password&username=${encodeURIComponent(username)}`);
-    }
+      if (results.length === 0) {
+          return res.redirect("/login.html?error=username");
+      }
 
-    // If login is successful, save the username and admin status in the session
-    req.session.username = username;
-    req.session.admin = results[0].Admin; // Store admin status in session
+      // Retrieve the salt and hash the password for comparison
+      const salt = results[0].Salt;
+      const hashedPassword = crypto.createHash('sha256').update(password + salt).digest('hex');
 
-    // Redirect to homepage with username
-    res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
+      // Check if the hashed password matches
+      if (results[0].Password !== hashedPassword) {
+          return res.redirect(`/login.html?error=password&username=${encodeURIComponent(username)}`);
+      }
+
+      // Successful login
+      req.session.username = username;
+      req.session.admin = results[0].Admin;
+      res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
   });
 });
 
-// Route for user signup (registering a new user)
 router.post('/public/signup', upload.single('profilePicture'), (req, res) => {
-  // Get user information from the request body
   const { username, firstName, lastName, phoneNumber, email, password, bio } = req.body;
   const profilePicture = req.file ? `/uploads/${req.file.filename}` : null;
-  const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
+
+  // Generate a new salt
+  const salt = generateSalt();
+
+  // Hash the password with the salt
+  const hashedPassword = crypto.createHash('sha256').update(password + salt).digest('hex');
 
   // Check if the username or email already exists in the database
   const checkQuery = "SELECT * FROM Users WHERE Username = ? OR Email = ?";
   req.db.query(checkQuery, [username, email], (error, results) => {
-    if (error) {
-      return res.status(500).json({ error: error.message });
-    }
-
-    // If the username or email already exists, return an error
-    if (results.length > 0) {
-      const errors = results.map(user => {
-        if (user.Username === username) return 'username';
-        if (user.Email === email) return 'email';
-        return null;
-      }).filter(Boolean);
-      return res.redirect(`/signup.html?error=${errors.join('&')}`);
-    }
-
-    // Insert the new user into the database
-    const query = `INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Admin, Banned, Profile_Picture, Bio) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    req.db.query(query, [username, firstName, lastName, phoneNumber, email, hashedPassword, false, false, profilePicture, bio], (error, results) => {
       if (error) {
-        return res.status(500).json({ error: error.message });
+          return res.status(500).json({ error: error.message });
       }
 
-      // Save the username in the session after successful registration
-      req.session.username = username;
-      res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
-    });
+      // If the username or email already exists, return an error
+      if (results.length > 0) {
+          const errors = results.map(user => {
+              if (user.Username === username) return 'username';
+              if (user.Email === email) return 'email';
+              return null;
+          }).filter(Boolean);
+          return res.redirect(`/signup.html?error=${errors.join('&')}`);
+      }
+
+      // Insert the new user into the database
+      const query = `INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Salt, Admin, Banned, Profile_Picture, Bio) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+      req.db.query(query, [username, firstName, lastName, phoneNumber, email, hashedPassword, salt, false, false, profilePicture, bio], (error, results) => {
+          if (error) {
+              return res.status(500).json({ error: error.message });
+          }
+
+          // Save the username in the session after successful registration
+          req.session.username = username;
+          res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
+      });
   });
 });
 

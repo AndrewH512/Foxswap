@@ -196,3 +196,5 @@ JOIN
     Posts ON Books.Book_ID = Posts.Book_ID;
     
 ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'marist123';
+
+ALTER TABLE Users ADD COLUMN Salt VARCHAR(255) NOT NULL;
