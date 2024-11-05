@@ -3,18 +3,25 @@ function checkSession() {
     fetch('/api/check-session', { credentials: 'include' })
         .then(response => response.json())
         .then(data => {
+            const params = new URLSearchParams(window.location.search);
+            const urlUsername = params.get('username'); // Get the username from the URL
+
+            // Check if the user is authenticated
             if (!data.authenticated) {
                 // If not authenticated, redirect to login page
                 window.location.href = '/login.html';
             } else {
-                // Check if the user is an admin
-                if (data.admin) {
-                    // Change the navigation bar to include admin options
-                    // You can call a function to update the navbar here
-                    updateNavBarForAdmin();
+                // Check if the username from the URL matches the authenticated user's username
+                if (data.username !== urlUsername) {
+                    // If the usernames don't match, redirect to login page
+                    window.location.href = '/login.html';
                 } else {
-                    // Handle non-admin user navigation
-                    updateNavBarForUser();
+                    // Proceed based on admin status
+                    if (data.admin) {
+                        updateNavBarForAdmin();
+                    } else {
+                        updateNavBarForUser();
+                    }
                 }
             }
         })
