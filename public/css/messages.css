@@ -89,7 +89,13 @@ button:hover {
 }
 
 /* Chat bubble styles */
+.messages-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .message {
+    max-width: 70%;
     margin-bottom: 15px;
     padding: 10px;
     border-radius: 10px;
@@ -103,11 +109,12 @@ button:hover {
     color: white;
     align-self: flex-end;
     border-bottom-right-radius: 0; /* Rounded corners */
+    text-align: right;
 }
 
 /* Received messages */
 .message.received {
-    background-color: blue; /* Receiver's background */
+    background-color: lightblue; /* Receiver's background */
     color: #333;
     align-self: flex-start;
     border-bottom-left-radius: 0; /* Rounded corners */

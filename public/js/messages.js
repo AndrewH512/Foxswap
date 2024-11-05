@@ -55,7 +55,6 @@ socket.on('private message', ({ from, message }) => {
         messageElement.innerHTML = `
             <span class="username">${from}</span>
             ${message}
-            <span class="timestamp">${new Date().toLocaleTimeString()}</span> <!-- Optional timestamp -->
         `;
         
         // Append the message to the messages div
