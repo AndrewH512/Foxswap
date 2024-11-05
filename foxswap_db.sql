@@ -20,9 +20,10 @@ CREATE TABLE Users (
     Phone_Number VARCHAR(15) NOT NULL,               -- Phone number
     Email VARCHAR(100) NOT NULL UNIQUE,              -- Email 
     Password VARCHAR(255) NOT NULL,                  -- Password (hashed)
+    Salt VARCHAR(255) NOT NULL,                       -- Salt for password hashing
     Admin BOOLEAN DEFAULT 0 NOT NULL,                -- Admin flag (default: false)
     Banned BOOLEAN DEFAULT 0 NOT NULL,               -- Banned flag (default: false)
-    Profile_Picture VARCHAR(255),                    -- profile picture (optional)
+    Profile_Picture VARCHAR(255),                    -- Profile picture (optional)
     Bio TEXT                                         -- User bio (optional)
 );
 
@@ -127,12 +128,12 @@ CREATE TABLE Transaction (
 -- Inserting Data Into the tables
 -- Insert additional records into the users table (example data)
 -- Inserting Users
-INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Admin, Banned, Profile_Picture, Bio)
+INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Salt, Admin, Banned, Profile_Picture, Bio)
 VALUES 
-    ('andrew512', 'Andrew', 'Hennessy', '845-561-8782', 'andrewhenn512@gmail.com', SHA2('123random', 256), 1, 0, '/uploads/andrew.png', 'Bio goes here'),
-    ('steven', 'Steve', 'Stever', '987-654-3210', 'steve@gmail.com', SHA2('mynamesteve', 256), 0, 0, '/uploads/steve.png', 'Steve is a nerd'),
-    ('admin', 'Admin', 'Admin', '123-456-7890', 'admin@gmail.com', SHA2('marist123', 256), 1, 0, '/uploads/admin.jpeg', 'Admin'),
-    ('mitch', 'Mitch', 'Levy', '845-699-9999', 'Mitchell.Levy1@outlook.com', SHA2('marist123', 256), 1, 0, '/uploads/admin.jpeg', 'Stupid Admin');
+    ('andrew512', 'Andrew', 'Hennessy', '845-561-8782', 'andrewhenn512@gmail.com', SHA2(CONCAT('123random', 'salt_for_andrew512'), 256), 'salt_for_andrew512', 1, 0, '/uploads/andrew.png', 'Bio goes here'),
+    ('steven', 'Steve', 'Stever', '987-654-3210', 'steve@gmail.com', SHA2(CONCAT('mynamesteve', 'salt_for_steven'), 256), 'salt_for_steven', 0, 0, '/uploads/steve.png', 'Steve is a nerd'),
+    ('admin', 'Admin', 'Admin', '123-456-7890', 'admin@gmail.com', SHA2(CONCAT('marist123', 'salt_for_admin'), 256), 'salt_for_admin', 1, 0, '/uploads/admin.jpeg', 'Admin'),
+    ('mitch', 'Mitch', 'Levy', '845-699-9999', 'Mitchell.Levy1@outlook.com', SHA2(CONCAT('marist123', 'salt_for_mitch'), 256), 'salt_for_mitch', 1, 0, '/uploads/admin.jpeg', 'Stupid Admin');
 
 -- Inserting Books with Book_IDs
 INSERT INTO Books (Book_ID, Author, ISBN, Title, Book_Subject, Cover_Picture)
@@ -196,5 +197,3 @@ JOIN
     Posts ON Books.Book_ID = Posts.Book_ID;
     
 ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'marist123';
-
-ALTER TABLE Users ADD COLUMN Salt VARCHAR(255) NOT NULL;
