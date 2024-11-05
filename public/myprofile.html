@@ -67,7 +67,7 @@
   <!-- Allow user to edit their profile-->
   <div class="auth-buttons">
     <div>
-      <button onclick="window.location.href='editProfile.html'">Edit Profile</button>
+      <button id ="editProfile" onclick="window.location.href='editProfile.html'">Edit Profile</button>
     </div>
   </div>
 
@@ -109,6 +109,20 @@
     } else {
       console.log("No username found in the URL.");
     }
+
+    
+  </script>
+  <script>
+    // Adding an event listener to the button
+    document.getElementById("editProfile").addEventListener("click", function () {
+      // Construct the URL with the username parameter
+      const username = urlParams.get("username");
+      if (username) {
+         window.location.href = `editProfile.html?username=${encodeURIComponent(username)}`;
+      } else {
+         window.location.href = "login.html"; // Fallback in case username is not found
+      }
+    });
   </script>
 
 
