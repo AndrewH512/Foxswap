@@ -1,6 +1,5 @@
 /* Basic styling and css that every page uses */
-body,
-html {
+body{
   font-family: Arial, sans-serif;
   background:linear-gradient(to bottom,#b3261e, #ddd);
 }

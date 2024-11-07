@@ -15,6 +15,7 @@ function checkSession() {
                 if (data.username !== urlUsername) {
                     // If the usernames don't match, redirect to login page
                     window.location.href = '/login.html';
+                    alert("You have been logged out, Please Log Back In")
                 } else {
                     // Proceed based on admin status
                     if (data.admin) {
@@ -48,7 +49,7 @@ function updateNavBarForAdmin() {
     `;
 }
 
-// Example function to update navbar for non-admin users
+// Function to update navbar for non-admin users
 function updateNavBarForUser() {
     const nav = document.querySelector('nav');
     const username = new URLSearchParams(window.location.search).get('username'); // Get username from URL
