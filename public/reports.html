@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Signup - Foxswap</title>
+
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="css/front-end.css">
+    <link rel="stylesheet" href="css/footer.css" />
+</head>
+
+<body>
+    <!-- Header section -->
+    <header>
+        <h1>Welcome to Foxswap</h1>
+        <!-- Clickable Foxswap logo that links to the homepage -->
+        <a href="welcomepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo"
+                style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
+    </header>
+
+    <!-- Navigation bar -->
+    <nav id="navbar">
+        <!-- Navigation links will be added here by JavaScript -->
+    </nav>
+
+    <!-- Sign Up Container -->
+    <div class="report-container">
+        <h2>Report another User</h2>
+
+        <!-- Display error message -->
+        <div id="error-message" style="color: red; text-align: center;"></div>
+
+        <form action="/public/report" method="POST" enctype="multipart/form-data">
+            <!-- Divsion to Enter Report Title -->
+            <div class="form-group">
+                <label for="title">Title of Report</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <!-- Divsion to Enter Report Description -->
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description" required>
+            </div>
+            <!-- Divsion for submit button -->
+            <div class="auth-buttons">
+                <button type="submit">Report</button>
+            </div>
+        </form>
+
+
+        <!-- Footer section -->
+        <div id="footer-placeholder"></div>
+
+        <!-- Footer Script -->
+        <script src="js/window.js"></script>
+
+        <script src="js/sessionCheck.js"></script>
+
+</body>
+
+</html>
