@@ -34,33 +34,33 @@ router.post('/public/login', upload.none(), (req, res) => {
   const password = req.body.password;
 
   if (!password || !username) {
-      return res.status(400).json({ error: "Username or password not provided" });
+    return res.status(400).json({ error: "Username or password not provided" });
   }
 
   // Query to find user by username
   const query = "SELECT * FROM Users WHERE Username = ?";
   req.db.query(query, [username], (error, results) => {
-      if (error) {
-          return res.status(500).json({ error: error.message });
-      }
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
 
-      if (results.length === 0) {
-          return res.redirect("/login.html?error=username");
-      }
+    if (results.length === 0) {
+      return res.redirect("/login.html?error=username");
+    }
 
-      // Retrieve the salt and hash the password for comparison
-      const salt = results[0].Salt;
-      const hashedPassword = crypto.createHash('sha256').update(password + salt).digest('hex');
+    // Retrieve the salt and hash the password for comparison
+    const salt = results[0].Salt;
+    const hashedPassword = crypto.createHash('sha256').update(password + salt).digest('hex');
 
-      // Check if the hashed password matches
-      if (results[0].Password !== hashedPassword) {
-          return res.redirect(`/login.html?error=password&username=${encodeURIComponent(username)}`);
-      }
+    // Check if the hashed password matches
+    if (results[0].Password !== hashedPassword) {
+      return res.redirect(`/login.html?error=password&username=${encodeURIComponent(username)}`);
+    }
 
-      // Successful login
-      req.session.username = username;
-      req.session.admin = results[0].Admin;
-      res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
+    // Successful login
+    req.session.username = username;
+    req.session.admin = results[0].Admin;
+    res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
   });
 });
 
@@ -77,32 +77,32 @@ router.post('/public/signup', upload.single('profilePicture'), (req, res) => {
   // Check if the username or email already exists in the database
   const checkQuery = "SELECT * FROM Users WHERE Username = ? OR Email = ?";
   req.db.query(checkQuery, [username, email], (error, results) => {
-      if (error) {
-          return res.status(500).json({ error: error.message });
-      }
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
 
-      // If the username or email already exists, return an error
-      if (results.length > 0) {
-          const errors = results.map(user => {
-              if (user.Username === username) return 'username';
-              if (user.Email === email) return 'email';
-              return null;
-          }).filter(Boolean);
-          return res.redirect(`/signup.html?error=${errors.join('&')}`);
-      }
+    // If the username or email already exists, return an error
+    if (results.length > 0) {
+      const errors = results.map(user => {
+        if (user.Username === username) return 'username';
+        if (user.Email === email) return 'email';
+        return null;
+      }).filter(Boolean);
+      return res.redirect(`/signup.html?error=${errors.join('&')}`);
+    }
 
-      // Insert the new user into the database
-      const query = `INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Salt, Admin, Banned, Profile_Picture, Bio) 
+    // Insert the new user into the database
+    const query = `INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Salt, Admin, Banned, Profile_Picture, Bio) 
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-      req.db.query(query, [username, firstName, lastName, phoneNumber, email, hashedPassword, salt, false, false, profilePicture, bio], (error, results) => {
-          if (error) {
-              return res.status(500).json({ error: error.message });
-          }
+    req.db.query(query, [username, firstName, lastName, phoneNumber, email, hashedPassword, salt, false, false, profilePicture, bio], (error, results) => {
+      if (error) {
+        return res.status(500).json({ error: error.message });
+      }
 
-          // Save the username in the session after successful registration
-          req.session.username = username;
-          res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
-      });
+      // Save the username in the session after successful registration
+      req.session.username = username;
+      res.redirect(`/homepage.html?username=${encodeURIComponent(username)}`);
+    });
   });
 });
 
@@ -227,30 +227,30 @@ router.post('/public/post', upload.single('coverPicture'), (req, res) => {
 router.get('/api/check-session', (req, res) => {
   // Check if user is authenticated
   if (req.session && req.session.username) {
-      // Query to get the user from the database
-      const query = "SELECT Admin FROM Users WHERE Username = ?";
-      req.db.query(query, [req.session.username], (error, results) => {
-          if (error) {
-              console.error("Database query error:", error);
-              return res.status(500).json({ error: "Internal server error" });
-          }
+    // Query to get the user from the database
+    const query = "SELECT Admin FROM Users WHERE Username = ?";
+    req.db.query(query, [req.session.username], (error, results) => {
+      if (error) {
+        console.error("Database query error:", error);
+        return res.status(500).json({ error: "Internal server error" });
+      }
 
-          // Check if the user exists
-          if (results.length > 0) {
-              const isAdmin = results[0].Admin;
-              return res.json({
-                  authenticated: true,
-                  username: req.session.username,
-                  admin: isAdmin // Include the admin status
-              });
-          } else {
-              console.warn("User not found:", req.session.username);
-              return res.status(404).json({ authenticated: false });
-          }
-      });
+      // Check if the user exists
+      if (results.length > 0) {
+        const isAdmin = results[0].Admin;
+        return res.json({
+          authenticated: true,
+          username: req.session.username,
+          admin: isAdmin // Include the admin status
+        });
+      } else {
+        console.warn("User not found:", req.session.username);
+        return res.status(404).json({ authenticated: false });
+      }
+    });
   } else {
-      // User is not authenticated
-      return res.json({ authenticated: false });
+    // User is not authenticated
+    return res.json({ authenticated: false });
   }
 });
 
@@ -381,13 +381,13 @@ router.get('/searchBooks', (req, res) => {
 
   // Use parameterized queries to prevent SQL injection
   req.db.query(sqlQuery, params, (error, results) => {
-      if (error) {
-          console.error("Database query error:", error);
-          return res.status(500).json({ error: "Internal server error" });
-      }
+    if (error) {
+      console.error("Database query error:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
 
-      // Send the results back as JSON
-      res.json(results);
+    // Send the results back as JSON
+    res.json(results);
   });
 });
 
@@ -450,5 +450,49 @@ router.post('/mark-as-read/:user1/:user2', (req, res) => {
       return res.status(500).send('Error marking messages as read');
     }
     res.sendStatus(204); // No content to send back, operation successful
+  });
+});
+
+
+
+// Endpoint to update user profile
+router.post('/api/updateProfile', upload.single('profilePic'), (req, res) => {
+  const { firstName, lastName, bio, phoneNumber, password } = req.body;
+  const profilePic = req.file ? `/uploads/${req.file.filename}` : null;
+  const username = req.session.username;  // Assuming username is in the session
+
+  // Check if a new password is provided
+  let updatePassword = '';
+  let salt = '';
+  if (password) {
+    salt = generateSalt();
+    updatePassword = crypto.createHash('sha256').update(password + salt).digest('hex');
+  }
+
+  // SQL update query with conditional password and profile picture update
+  const query = `
+    UPDATE Users 
+    SET 
+      First_Name = ?, 
+      Last_Name = ?, 
+      Bio = ?, 
+      Phone_Number = ?, 
+      ${profilePic ? 'Profile_Picture = ?, ' : ''} 
+      ${password ? 'Password = ?, Salt = ? ' : ''} 
+    WHERE Username = ?`;
+
+  const params = [
+    firstName, lastName, bio, phoneNumber,
+    ...(profilePic ? [profilePic] : []),
+    ...(password ? [updatePassword, salt] : []),
+    username
+  ];
+
+  req.db.query(query, params, (error, results) => {
+    if (error) {
+      console.error('Error updating profile:', error);
+      return res.status(500).json({ error: 'Failed to update profile' });
+    }
+    res.json({ message: 'Profile updated successfully' });
   });
 });
