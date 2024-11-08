@@ -1,7 +1,7 @@
 /* Basic styling and css that every page uses */
-body{
+body {
   font-family: Arial, sans-serif;
-  background:linear-gradient(to bottom,#b3261e, #ddd);
+  background: linear-gradient(to bottom, #b3261e, #ddd);
 }
 
 /* Header styling */
@@ -17,7 +17,7 @@ header {
   padding: 20px;
   /*background:linear-gradient(to top,#b3261e92, white);*/
   background-color: rgb(0, 0, 0);
-  background: rgb(0,0,0,0);
+  background: rgb(0, 0, 0, 0);
   margin: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0);
@@ -96,10 +96,10 @@ nav a:hover {
   background-color: #000000; /* Background color */
   border: 2px solid red; /* Border style */
   color: white; /* Text color */
-  padding: 10px 15px; 
+  padding: 10px 15px;
   text-align: center; /* Center text */
   text-decoration: none; /* No underline */
-  font-size: 25px; 
+  font-size: 25px;
   cursor: pointer; /* Pointer cursor on hover */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow */
@@ -192,12 +192,54 @@ nav a:hover {
 
 /* Profile styling */
 .Profile {
-  width: 300px;
-  border: 5px solid black;
-  padding: 50px;
-  border-radius: 25px;
-  margin-left: 1100px;
-  height: 500px;
+  width: 600px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 50px auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  border: 4px solid #b3261e;
+  transition: transform 0.6s ease;
+}
+
+.Profile:hover {
+  transform: translateY(-20px);
+}
+
+/* Profile Pic Styling*/
+.Profile_Picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Make the image round */
+  overflow: hidden; /* Ensure the image stays within the circle */
+  margin: 0 auto 15px auto;
+  border: 4px solid #b3261e; /* Add a border for a more defined look */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.Profile_Picture img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%; /* Round the image itself */
+  transition: transform 0.3s ease-in-out; /* Smooth transition for image scale */
+}
+
+.Profile_Picture:hover {
+  transform: scale(1.1); /* Enlarge the profile picture slightly */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Add a shadow on hover */
+}
+
+.Profile h2 {
+  font-size: 3rem; /* Make profile title bigger */
+  margin-bottom: 20px;
+  color: #b3261e; /* Make the title pop with a color */
 }
 
 /* Styling specific to the browse page */
@@ -260,30 +302,29 @@ nav a:hover {
   color: green;
 }
 
-
 @media (max-width: 600px) {
   .card {
-      width: 90%; 
+    width: 90%;
   }
 }
 
 /* Search box for browsing */
 .search-container {
-  background-color: rgba(255, 255, 255, 0.0); 
+  background-color: rgba(255, 255, 255, 0);
 }
 
 #bookList {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; 
-  gap: 20px; 
+  justify-content: center;
+  gap: 20px;
   padding: 20px 0;
 }
 /* Shows up when a user is searching and no results are found */
 .no-results {
-  text-align: center; 
-  font-size: 18px; 
-  color: #000000; 
-  margin: 20px 0; 
+  text-align: center;
+  font-size: 18px;
+  color: #000000;
+  margin: 20px 0;
   font-weight: bold;
 }
