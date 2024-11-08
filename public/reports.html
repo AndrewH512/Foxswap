@@ -34,6 +34,10 @@
         <div id="error-message" style="color: red; text-align: center;"></div>
 
         <form action="/public/report" method="POST" enctype="multipart/form-data">
+
+            <select id="userDropdown">
+                <option value="">Select a user to report:</option>
+            </select>
             <!-- Divsion to Enter Report Title -->
             <div class="form-group">
                 <label for="title">Title of Report</label>
@@ -46,7 +50,7 @@
             </div>
             <!-- Divsion for submit button -->
             <div class="auth-buttons">
-                <button type="submit">Report</button>
+                <button type="submit">Submit Report</button>
             </div>
         </form>
 
@@ -56,6 +60,8 @@
 
         <!-- Footer Script -->
         <script src="js/window.js"></script>
+
+        <script src="js/reports.js"></script>
 
         <script src="js/sessionCheck.js"></script>
 

@@ -496,3 +496,40 @@ router.post('/api/updateProfile', upload.single('profilePic'), (req, res) => {
     res.json({ message: 'Profile updated successfully' });
   });
 });
+
+router.get('/api/reports/users', (req, res) => {
+  const username = req.session.username;
+
+  const query = `
+      SELECT DISTINCT
+          CASE
+              WHEN Sender = ? THEN Recipient
+              ELSE Sender
+          END AS messagee
+      FROM Messages
+      WHERE Sender = ? OR Recipient = ?;
+  `;
+
+  req.db.query(query, [username, username, username], (err, results) => {
+    if (err) return res.status(500).json({ error: 'Database error' });
+    res.json(results);
+    console.log("query: " + results);
+  });
+});
+
+router.post('/api/report', (req, res) => {
+  const reportedUser = req.body;
+  const reporter = req.session.username;
+  // Validate input
+  if (!reportedUser || !reporter) {
+    return res.status(400).json({ error: 'Invalid data' });
+  }
+
+  // Insert report into the Reports table
+  const query = 'INSERT INTO Reports (Reported_User, Reporting_User) VALUES (?, ?)';
+
+  req.db.query(query, [reportedUser, reporter], (err, result) => {
+    if (err) return res.status(500).json({ error: 'Database error' });
+    res.json({ message: 'Report submitted successfully!' });
+  });
+});
