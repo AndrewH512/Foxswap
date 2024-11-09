@@ -67,13 +67,13 @@
 
         <!-- All of the posts the user has made-->
         <div class="Posts" style="font-weight: bold; font-size: 20px">
-            <a href="yourPosts.html" style="color: #b3261e">View Your Posts</a>
+            <a href="theirPosts.html" id="theirPosts" style="color: #b3261e">View Their Posts</a>
         </div>
         &nbsp;
 
         <!-- All of the user's reviews (if we add this) -->
         <div class="Reviews" style="font-weight: bold; font-size: 20px">
-            <a href="404page.html" style="color: #b3261e">Your Reviews</a>
+            <a href="404page.html" style="color: #b3261e">Their Reviews</a>
         </div>
         &nbsp;
 
@@ -131,15 +131,34 @@
         }
     </script>
     <script>
-        // Adding an event listener to the button
-        document.getElementById("message").addEventListener("click", function () {
-            // Construct the URL with the username parameter
-            const username = urlParams.get("username");
-            if (username) {
-                window.location.href = `messages.html?username=${encodeURIComponent(username)}&recipient=${encodeURIComponent(sellerUsername)}`;
-            } else {
-                window.location.href = "login.html"; // Fallback in case username is not found
-            }
+        // Wait for the DOM to fully load before attaching event listeners
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Adding an event listener to the button
+            document.getElementById("message").addEventListener("click", function () {
+                // Construct the URL with the username parameter
+                const username = urlParams.get("username");
+                if (username) {
+                    window.location.href = `messages.html?username=${encodeURIComponent(username)}&recipient=${encodeURIComponent(sellerUsername)}`;
+                } else {
+                    window.location.href = "login.html"; // Fallback in case username is not found
+                }
+            });
+
+
+            document.getElementById("theirPosts").addEventListener("click", function () {
+                // Prevent the default link behavior (navigating immediately)
+                event.preventDefault();
+                console.log("we are here again!");
+                // Construct the URL with the username parameter
+                const username = urlParams.get("username");
+                const sellerUsername = urlParams.get("seller");
+                if (username && sellerUsername) {
+                    window.location.href = `theirPosts.html?username=${encodeURIComponent(username)}&seller=${encodeURIComponent(sellerUsername)}`;
+                } else {
+                    window.location.href = "login.html"; // Fallback in case username is not found
+                }
+            });
         });
     </script>
 

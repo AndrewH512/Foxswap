@@ -169,6 +169,41 @@ Where
   });
 });
 
+
+// API route to get their data
+router.get('/theirData', (req, res) => {
+  const seller = req.query.seller;
+  console.log("seller look here!: " + seller);
+  // SQL query to join Books and Posts tables and select relevant fields
+  const query = `
+    SELECT 
+    Books.Author, 
+    Books.ISBN, 
+    Books.Title, 
+    Books.Book_Subject, 
+    Books.Cover_Picture,
+    Posts.Post_ID,
+    Posts.Seller, 
+    Posts.Status, 
+    Posts.Price, 
+    Posts.Class_Name, 
+    Posts.Book_Condition, 
+    Posts.Due_Date, 
+    Posts.Transaction_Type
+FROM 
+    Books
+JOIN 
+    Posts ON Books.Book_ID = Posts.Book_ID
+Where
+    Posts.Seller = ?;`;
+  req.db.query(query, [seller], (error, results) => {
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+    res.json(results);
+  });
+});
+
 // Route for posting a book (create a listing)
 router.post('/public/post', upload.single('coverPicture'), (req, res) => {
   // Extract book and post data from the request body
