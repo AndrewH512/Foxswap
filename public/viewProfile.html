@@ -80,8 +80,8 @@
         <!-- Allow user to edit their profile-->
         <div class="auth-buttons">
             <div>
-                <button id="editProfile" onclick="window.location.href='editProfile.html'">
-                    Edit Profile
+                <button id="message" onclick="window.location.href='messages.html'">
+                    Message User
                 </button>
             </div>
         </div>
@@ -132,19 +132,15 @@
     </script>
     <script>
         // Adding an event listener to the button
-        document
-            .getElementById("editProfile")
-            .addEventListener("click", function () {
-                // Construct the URL with the username parameter
-                const username = urlParams.get("username");
-                if (username) {
-                    window.location.href = `editProfile.html?username=${encodeURIComponent(
-                        username
-                    )}`;
-                } else {
-                    window.location.href = "login.html"; // Fallback in case username is not found
-                }
-            });
+        document.getElementById("message").addEventListener("click", function () {
+            // Construct the URL with the username parameter
+            const username = urlParams.get("username");
+            if (username) {
+                window.location.href = `messages.html?username=${encodeURIComponent(username)}&recipient=${encodeURIComponent(sellerUsername)}`;
+            } else {
+                window.location.href = "login.html"; // Fallback in case username is not found
+            }
+        });
     </script>
 
     <script src="js/window.js"></script>
