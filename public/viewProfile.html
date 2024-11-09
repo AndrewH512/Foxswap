@@ -38,7 +38,7 @@
     <!-- Profile Container -->
     <div class="Profile">
         <!-- Profile Title -->
-        <h2 style="text-align: center; font-size: 300%">Profile</h2>
+        <h2 style="text-align: center; font-size: 300%" id="usernameDisplay"></h2>
 
         <!-- User's Profile Picture -->
         <div class="Profile_Picture" style="text-align: center">
@@ -108,6 +108,10 @@
                         const user = data.find((u) => u.Username === sellerUsername);
 
                         // Populate profile details
+
+                        // Display the username in the designated element
+                        usernameDisplay.textContent = `${sellerUsername}'s Profile Page!`;
+
                         const profilePic = document.getElementById("profilePic");
                         profilePic.src = user.Profile_Picture || "/uploads/defaultProfilePic.jpg";
                         profilePic.alt = `${user.First_Name}'s profile picture`;

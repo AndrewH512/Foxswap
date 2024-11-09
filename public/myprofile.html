@@ -1,168 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile Foxswap</title>
 
-    <!-- Link to CSS file -->
-    <link rel="stylesheet" href="css/front-end.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <link rel="stylesheet" href="css/footer.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile Foxswap</title>
 
-  <body>
-    <!-- Header section -->
-    <header>
-      <h1>Welcome to Foxswap</h1>
-      <!-- Clickable Foxswap logo that links to the homepage -->
-      <a href="homepage.html"
-        ><img
-          src="uploads/Fox_Swap_Logo.ico"
-          alt="Logo"
-          class="logo"
-          style="
+  <!-- Link to CSS file -->
+  <link rel="stylesheet" href="css/front-end.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+</head>
+
+<body>
+  <!-- Header section -->
+  <header>
+    <h1>Welcome to Foxswap</h1>
+    <!-- Clickable Foxswap logo that links to the homepage -->
+    <a href="homepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="
             width: 90px;
             height: 90px;
             position: absolute;
             top: 20px;
             left: 20px;
-          "
-      /></a>
-    </header>
+          " /></a>
+  </header>
 
-    <!-- Navigation bar -->
-    <nav id="navbar">
-      <!-- Navigation links will be added here by JavaScript -->
-    </nav>
+  <!-- Navigation bar -->
+  <nav id="navbar">
+    <!-- Navigation links will be added here by JavaScript -->
+  </nav>
 
-    <!-- Insert Space nav bar and profile container-->
+  <!-- Insert Space nav bar and profile container-->
+  &nbsp;
+
+  <!-- Profile Container -->
+  <div class="Profile">
+    <!-- Profile Title -->
+    <h2 style="text-align: center; font-size: 300%" id="usernameDisplay"></h2>
+
+    <!-- User's Profile Picture -->
+    <div class="Profile_Picture" style="text-align: center">
+      <img id="profilePic" src="" alt="Profile Picture" style="max-width: 100%; max-height: 100%; object-fit: cover" />
+    </div>
     &nbsp;
 
-    <!-- Profile Container -->
-    <div class="Profile">
-      <!-- Profile Title -->
-      <h2 style="text-align: center; font-size: 300%">Profile</h2>
+    <!-- User's First Name -->
+    <div class="firstName" style="font-weight: bold; font-size: 20px">
+      First Name: <span id="firstName"></span>
+    </div>
+    &nbsp;
 
-      <!-- User's Profile Picture -->
-      <div class="Profile_Picture" style="text-align: center">
-        <img
-          id="profilePic"
-          src=""
-          alt="Profile Picture"
-          style="max-width: 100%; max-height: 100%; object-fit: cover"
-        />
-      </div>
-      &nbsp;
+    <!-- User's Last Name -->
+    <div class="lastName" style="font-weight: bold; font-size: 20px">
+      Last Name: <span id="lastName"></span>
+    </div>
+    &nbsp;
 
-      <!-- User's First Name -->
-      <div class="firstName" style="font-weight: bold; font-size: 20px">
-        First Name: <span id="firstName"></span>
-      </div>
-      &nbsp;
+    <!-- User's First Name -->
+    <div class="bio" style="font-weight: bold; font-size: 20px">
+      Bio: <span id="bio"></span>
+    </div>
+    &nbsp;
 
-      <!-- User's Last Name -->
-      <div class="lastName" style="font-weight: bold; font-size: 20px">
-        Last Name: <span id="lastName"></span>
-      </div>
-      &nbsp;
+    <!-- All of the posts the user has made-->
+    <div class="Posts" style="font-weight: bold; font-size: 20px">
+      <a href="yourPosts.html" style="color: #b3261e">View Your Posts</a>
+    </div>
+    &nbsp;
 
-      <!-- User's First Name -->
-      <div class="bio" style="font-weight: bold; font-size: 20px">
-        Bio: <span id="bio"></span>
-      </div>
-      &nbsp;
+    <!-- All of the user's reviews (if we add this) -->
+    <div class="Reviews" style="font-weight: bold; font-size: 20px">
+      <a href="404page.html" style="color: #b3261e">Your Reviews</a>
+    </div>
+    &nbsp;
 
-      <!-- All of the posts the user has made-->
-      <div class="Posts" style="font-weight: bold; font-size: 20px">
-        <a href="yourPosts.html" style="color: #b3261e">View Your Posts</a>
-      </div>
-      &nbsp;
-
-      <!-- All of the user's reviews (if we add this) -->
-      <div class="Reviews" style="font-weight: bold; font-size: 20px">
-        <a href="404page.html" style="color: #b3261e">Your Reviews</a>
-      </div>
-      &nbsp;
-
-      <!-- Allow user to edit their profile-->
-      <div class="auth-buttons">
-        <div>
-          <button
-            id="editProfile"
-            onclick="window.location.href='editProfile.html'"
-          >
-            Edit Profile
-          </button>
-        </div>
+    <!-- Allow user to edit their profile-->
+    <div class="auth-buttons">
+      <div>
+        <button id="editProfile" onclick="window.location.href='editProfile.html'">
+          Edit Profile
+        </button>
       </div>
     </div>
+  </div>
 
-    <!-- Footer section -->
-    <div id="footer-placeholder"></div>
+  <!-- Footer section -->
+  <div id="footer-placeholder"></div>
 
-    <script>
-      // Extract username from the URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const username = urlParams.get("username");
+  <script>
+    // Extract username from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get("username");
 
-      if (username) {
-        // Fetch user data from the database based on the username
-        fetch(`/api/Users?username=${encodeURIComponent(username)}`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data); // Log the entire response for debugging
-            if (data.length > 0) {
-              const user = data.find((u) => u.Username === username);
-              const profilePic = document.getElementById("profilePic");
-              // Set the profile picture source
-              profilePic.src =
-                user.Profile_Picture || "/uploads/defaultProfilePic.jpg";
-              profilePic.alt = `${user.First_Name}'s profile picture`;
+    if (username) {
+      // Fetch user data from the database based on the username
+      fetch(`/api/Users?username=${encodeURIComponent(username)}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data); // Log the entire response for debugging
+          if (data.length > 0) {
+            const user = data.find((u) => u.Username === username);
+            const profilePic = document.getElementById("profilePic");
 
-              const firstNameElement = document.getElementById("firstName");
-              firstNameElement.textContent = user.First_Name || "Not provided";
-              const lastNameElement = document.getElementById("lastName");
-              lastNameElement.textContent = user.Last_Name || "Not provided";
-              const bioElement = document.getElementById("bio");
-              bioElement.textContent = user.Bio || "Not provided";
-            } else {
-              console.log("User not found.");
-            }
-          })
-          .catch((error) => {
-            console.error("Error fetching user data:", error);
-          });
-      } else {
-        console.log("No username found in the URL.");
-      }
-    </script>
-    <script>
-      // Adding an event listener to the button
-      document
-        .getElementById("editProfile")
-        .addEventListener("click", function () {
-          // Construct the URL with the username parameter
-          const username = urlParams.get("username");
-          if (username) {
-            window.location.href = `editProfile.html?username=${encodeURIComponent(
-              username
-            )}`;
+            // Display the username in the designated element
+            usernameDisplay.textContent = `${username}'s Profile Page!`;
+
+            // Set the profile picture source
+            profilePic.src =
+              user.Profile_Picture || "/uploads/defaultProfilePic.jpg";
+            profilePic.alt = `${user.First_Name}'s profile picture`;
+
+            const firstNameElement = document.getElementById("firstName");
+            firstNameElement.textContent = user.First_Name || "Not provided";
+            const lastNameElement = document.getElementById("lastName");
+            lastNameElement.textContent = user.Last_Name || "Not provided";
+            const bioElement = document.getElementById("bio");
+            bioElement.textContent = user.Bio || "Not provided";
           } else {
-            window.location.href = "login.html"; // Fallback in case username is not found
+            console.log("User not found.");
           }
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
         });
-    </script>
+    } else {
+      console.log("No username found in the URL.");
+    }
+  </script>
+  <script>
+    // Adding an event listener to the button
+    document
+      .getElementById("editProfile")
+      .addEventListener("click", function () {
+        // Construct the URL with the username parameter
+        const username = urlParams.get("username");
+        if (username) {
+          window.location.href = `editProfile.html?username=${encodeURIComponent(
+            username
+          )}`;
+        } else {
+          window.location.href = "login.html"; // Fallback in case username is not found
+        }
+      });
+  </script>
 
-    <script src="js/window.js"></script>
+  <script src="js/window.js"></script>
 
-    <!-- Import session check script -->
-    <!-- This ensures the user will not be able to skip this page
+  <!-- Import session check script -->
+  <!-- This ensures the user will not be able to skip this page
      by just entering the URL-->
-    <script src="js/sessionCheck.js"></script>
-  </body>
+  <script src="js/sessionCheck.js"></script>
+</body>
+
 </html>
