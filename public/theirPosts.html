@@ -29,7 +29,7 @@
 
     <!-- Main content section -->
     <div class="main-content">
-        <h2 style="text-align: center">Their Posts</h2>
+        <h2 style="text-align: center; font-size: 300%" id="usernameDisplay"></h2>
         <div class="card-container" id="postsContainer">
             <!-- Cards will be dynamically inserted here -->
         </div>
@@ -50,6 +50,10 @@
             .then((data) => {
                 const postsContainer = document.querySelector("#postsContainer");
                 data.forEach((post) => {
+
+                    // Display the username in the designated element
+                    usernameDisplay.textContent = `${seller}'s Posts!`;
+
                     // Create a new card element
                     const card = document.createElement("div");
                     card.classList.add("card");
