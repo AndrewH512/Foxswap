@@ -50,13 +50,13 @@ socket.on('private message', ({ from, message }) => {
         // Create a new div for the message
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', from === username3 ? 'sent' : 'received'); // Add appropriate class
-        
+
         // Set the message text with username
         messageElement.innerHTML = `
             <span class="username">${from}</span>
             ${message}
         `;
-        
+
         // Append the message to the messages div
         messagesDiv.appendChild(messageElement);
         messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
@@ -79,13 +79,13 @@ function loadChatHistory(selectedRecipient) {
                 const messageElement = document.createElement('div');
                 // Apply the CSS class based on the sender
                 messageElement.classList.add('message', msg.Sender === username3 ? 'sent' : 'received');
-                
+
                 // Set the message text with username
                 messageElement.innerHTML = `
                     <span class="username">${msg.Sender}</span>
                     ${msg.Message}
                 `;
-                
+
                 // Append message to the messages div
                 messagesDiv.appendChild(messageElement);
             });
@@ -144,8 +144,19 @@ function loadChatUsers() {
                     deleteButton.style.color = 'red';
                     deleteButton.onclick = () => deleteChat(user);
 
+                    // Create view profile button
+                    const viewProfileButton = document.createElement('button');
+                    viewProfileButton.textContent = 'View Profile';
+                    viewProfileButton.style.marginLeft = '10px';
+                    viewProfileButton.style.color = 'blue';
+                    viewProfileButton.onclick = () => {
+                        // Redirect to the view profile page
+                        window.location.href = `viewProfile.html?username=${encodeURIComponent(username3)}&seller=${encodeURIComponent(user)}`;
+                    };
+
                     userItem.classList.add('user-item');
                     userItem.appendChild(deleteButton); // Append delete button to the user item
+                    userItem.appendChild(viewProfileButton); // Append view profile button
                     userItem.addEventListener('click', () => {
                         selectedRecipient = user; // Set the selected recipient
                         document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
@@ -163,13 +174,13 @@ function loadChatUsers() {
 userSearch.addEventListener('input', () => {
     // Get the current input value
     const query = userSearch.value;
-    
+
     // Clear any existing search results title before starting a new search
     const searchTitle = document.getElementById('searchTitle');
     if (searchTitle) {
         searchTitle.remove();
     }
-    
+
     if (query.length > 0) {
         fetch(`/search-user/${query}`)
             .then(response => response.json())
@@ -185,7 +196,7 @@ userSearch.addEventListener('input', () => {
                     title.style.color = 'white';
                     searchResults.prepend(title);
                 }
-                
+
                 // Limit the users to a maximum of 4
                 users.slice(0, 4).forEach(user => {
                     // Exclude the current user
@@ -309,7 +320,7 @@ if (chatWith) {
     if (chatWith != username3) {
         console.log('here');
         // Set the selected recipient
-        selectedRecipient = chatWith; 
+        selectedRecipient = chatWith;
 
         // Load chat history with the seller
         loadChatHistory(selectedRecipient);
@@ -318,7 +329,7 @@ if (chatWith) {
         document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
 
         // Inform the user
-        alert(`You are now messaging ${chatWith}`); 
+        alert(`You are now messaging ${chatWith}`);
     } else {
         console.log('the same user redirect!!!')
         // Inform the user
