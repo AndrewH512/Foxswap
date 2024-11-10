@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Profile - Foxswap</title>
     <link rel="stylesheet" href="css/front-end.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
-
 <body>
     <!-- Header section -->
     <header>
-        <h1>Edit Profile</h1>
-        <!-- Link to navigate back to the profile page -->
-        <a href="myprofile.html">Back to Profile</a>
+        <h1>Edit Your Profile</h1>
+        <!-- Clickable Foxswap logo that links to the homepage -->
+        <a href="welcomepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
     </header>
 
     <!-- Navigation bar -->
@@ -22,47 +22,57 @@
         <!-- Navigation links will be added here by JavaScript -->
     </nav>
 
-    <!-- Edit Profile Form -->
-    <form id="editProfileForm" enctype="multipart/form-data">
-        <!-- Upload Profile Picture -->
-        <div>
-            <label for="profilePic">Profile Picture:</label>
-            <input type="file" id="profilePic" name="profilePic" accept="image/*" />
-        </div>
+    <!-- Link to navigate back to the profile page -->
+    <div class="centered-container">
+        <a href="myprofile.html" class="back-to-profile">Back to Profile</a>
+    </div>
 
-        <!-- First Name -->
-        <div>
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstName" required />
-        </div>
+    <div class="center-container">
+        <!-- Edit Profile Form -->
+        <form id="editProfileForm" enctype="multipart/form-data">
+            <!-- Upload Profile Picture -->
+            <div>
+                <label for="profilePic">Profile Picture:</label>
+                <input type="file" id="profilePic" name="profilePic" accept="image/*" />
+            </div>
 
-        <!-- Last Name -->
-        <div>
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName" required />
-        </div>
+            <!-- First Name -->
+            <div>
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required />
+            </div>
 
-        <!-- Bio -->
-        <div>
-            <label for="bio">Bio:</label>
-            <textarea id="bio" name="bio" rows="4" cols="50" required></textarea>
-        </div>
+            <!-- Last Name -->
+            <div>
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required />
+            </div>
 
-        <!-- Password -->
-        <div>
-            <label for="password">Password:</label>
-            <input type="text" id="password" name="password" required>
-        </div>
+            <!-- Bio -->
+            <div>
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" rows="4" cols="50" required></textarea>
+            </div>
 
-        <!-- Password -->
-        <div>
-            <label for="phoneNumber">Phone Number:</label>
-            <input type="text" id="phoneNumber" name="phoneNumber" required>
-        </div>
+            <!-- Password -->
+            <div>
+                <label for="password">Password:</label>
+                <input type="text" id="password" name="password" required>
+            </div>
 
-        <!-- Submit Button -->
-        <button type="submit">Save Changes</button>
-    </form>
+            <!-- Phone Number-->
+            <div>
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" required>
+          </div>
+
+            <!-- Submit Button -->
+            <div class="auth-buttons">
+                <button type="submit">Save Changes</button>
+            </div>
+        
+        </form>
+    </div>
 
     <!-- Footer placeholder -->
     <div id="footer-placeholder"></div>
@@ -113,6 +123,8 @@
 
     <!-- Import session check script -->
     <script src="js/sessionCheck.js"></script>
+
+    <script src="js/window.js"></script> 
 
 </body>
 

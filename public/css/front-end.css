@@ -328,3 +328,71 @@ nav a:hover {
   margin: 20px 0;
   font-weight: bold;
 }
+
+/* Centered Form Container */
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  padding: 20px;
+}
+
+/* Form Styling */
+#editProfileForm {
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#editProfileForm div {
+  margin-bottom: 15px;
+}
+
+#editProfileForm label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#editProfileForm input[type="text"],
+#editProfileForm textarea,
+#editProfileForm input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#editProfileForm textarea {
+  resize: vertical;
+}
+
+.back-to-profile {
+  display: inline-block;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #fd0000; /* Change to your preferred color */
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-to-profile:hover {
+  background-color: #a10101; /* Slightly darker shade for hover effect */
+  transform: scale(1.05);
+  text-decoration: underline;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh; 
+  text-align: center;
+}
