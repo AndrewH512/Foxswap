@@ -31,7 +31,9 @@
         <h2 style="text-align: center">Your Posts</h2>
         <div class="card-container" id="postsContainer">
             <!-- Cards will be dynamically inserted here -->
+             
         </div>
+        <button class="edit-button">Edit</button>
     </div>
 
     <!-- Footer section -->
@@ -69,11 +71,14 @@
 
                     // Append the card to the posts container
                     postsContainer.appendChild(card);
+
+             
                 });
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
+            
     </script>
 
    <!-- Footer Script -->

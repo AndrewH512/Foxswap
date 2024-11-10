@@ -187,6 +187,20 @@ router.get('/chat-history/:user1/:user2', (req, res) => {
   });
 });
 
+app.post('/editPost', (req, res) => {
+  const { postID, title, condition, price } = req.body;
+
+  const query = 'UPDATE Posts SET Title = ?, Book_Condition = ?, Price = ? WHERE Post_ID = ?';
+  db.query(query, [title, condition, price, postID], (err, results) => {
+      if (err) {
+          console.error('Error updating post:', err);
+          res.json({ success: false });
+      } else {
+          res.json({ success: true });
+      }
+  });
+});
+
 // Start server on port 3000
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {

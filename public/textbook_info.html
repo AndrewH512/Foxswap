@@ -26,6 +26,8 @@
     <!-- Navigation links will be added here by JavaScript -->
   </nav>
 
+  
+
   <main>
     <h2 style="text-align: center">Textbook Information</h2>
 
@@ -48,6 +50,15 @@
         <p><strong>Condition:</strong> <span id="bookCondition"></span></p>
         <p><strong>Due Date:</strong> <span id="bookDueDate"></span></p>
         <p><strong>Transaction Type:</strong> <span id="transactionType"></span></p>
+        <!-- Allow user to edit their profile-->
+  <div class="auth-buttons">
+    <div>
+      <button id="editPost" onclick="window.location.href='editPosts.html'">
+        Edit Post
+      </button>
+    </div>
+  </div>
+</div>
       </div>
     </div>
 
@@ -56,6 +67,8 @@
       <button id="viewSellerProfileButton">View Seller's Profile</button>
     </div>
   </main>
+
+
 
   <!-- Footer section -->
   <div id="footer-placeholder"></div>
@@ -92,6 +105,10 @@
             )}&recipient=${encodeURIComponent(data.Seller)}`;
           });
 
+        document.getElementById("editPost").addEventListener("click", () => {
+          window.location.href = `editPosts.html?username=${encodeURIComponent(username)}`
+        });
+
         // set up viewing seller's profile button
         document.getElementById("viewSellerProfileButton").addEventListener("click", () => {
           window.location.href = `viewProfile.html?username=${encodeURIComponent(username)}&seller=${encodeURIComponent(data.Seller)}`;
@@ -100,6 +117,10 @@
       .catch((error) => {
         console.error("Error fetching textbook data:", error);
       });
+
+    
+
+
   </script>
 
   <!-- Footer Script -->

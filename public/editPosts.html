@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Posts - Foxswap</title>
+    <link rel="stylesheet" href="css/front-end.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+    <!-- Header section -->
+    <header>
+        <h1>Edit Your Post</h1>
+        <!-- Clickable Foxswap logo that links to the homepage -->
+        <a href="welcomepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
+    </header>
+
+    <!-- Navigation bar -->
+    <nav id="navbar">
+        <!-- Navigation links will be added here by JavaScript -->
+    </nav>
+
+    <!-- Link to navigate back to the profile page -->
+    <div class="centered-container">
+        <a href="textbook_info.html" class="back-to-post">Back to Post</a>
+    </div>
+<!--price, status, -->
+    <div class="center-container">
+        <!-- Edit Profile Form -->
+        <form id="editPostForm" enctype="multipart/form-data">
+        
+        <!-- Division to Enter Price -->
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" id="price" name="price" required />
+        </div>
+
+        <!-- Division to Enter Price -->
+        <div class="form-group">
+            <label for="status">Did you rent or sell your book?</label>
+            <!--sold or rented dropdown-->
+            <!--if yes, dropdown for users-->
+            <select id="status" onchange="toggleSecondaryDropdown()">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+            
+            <div class="users" id="secondaryDropdown" style="display: none;">
+                <label for="userDropdown">Select a Customer</label>
+                <select id="userDropdown">
+                    <option value="">Select a User</option>
+                </select>
+            </div>
+
+        </div>
+                 
+            </select>
+            <!--<input type="text" id="status" name="status" required />-->
+        </div>
+
+        <!-- Division to Enter Price -->
+        <div class="form-group">
+            <label for="duedate">Due Date</label>
+            <input type="text" id="price" name="price" required />
+        </div>
+
+    
+
+        <!-- Submit Button -->
+        <div class="auth-buttons">
+            <button type="submit">Save Changes</button>
+        </div>
+        
+        </form>
+    </div>
+
+    <!-- Footer placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript to handle form submission -->
+    <script>
+        // Extract username from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get("username");
+
+
+        // Form submission handler
+        document.getElementById("editPostForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            formData.append("username", username); // Attach the username to identify the user on the server
+            fetch("/api/updatePost", {
+                method: "POST",
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Post updated successfully!");
+                        window.location.href = `textbook_info.html?username=${username}`;
+                    } else {
+                        alert("Error updating post: " + data.message);
+                    }
+                })
+                .catch(error => console.error("Error updating post:", error));
+        });
+    </script>
+
+    <!-- JavaScript to handle the dropdown visibility -->
+    <script>
+        function toggleSecondaryDropdown() {
+            const primaryDropdown = document.getElementById("status");
+            const secondaryDropdown = document.getElementById("secondaryDropdown");
+
+            // Show the secondary dropdown if "Yes" is selected, hide otherwise
+            if (primaryDropdown.value === "yes") {
+            secondaryDropdown.style.display = "block";
+            } else {
+                secondaryDropdown.style.display = "none";
+        }
+    }
+    </script>
+
+    <!-- Import session check script -->
+    <script src="js/sessionCheck.js"></script>
+
+    <!-- Displays the Profile Picture at top of the page -->
+    <script src="js/profilePicture.js"></script>
+
+    <script src="js/reports.js"></script>
+
+    <!-- Footer Script-->
+    <script src="js/window.js"></script> 
+
+</body>
+
+</html>
