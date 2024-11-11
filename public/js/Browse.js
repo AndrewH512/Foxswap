@@ -3,6 +3,9 @@ function searchBooks() {
     const searchResultsHeading = document.getElementById("searchResultsHeading");
     const bookList = document.getElementById("bookList");
 
+    // Display the entered query in a pop-up
+    //alert(`Current Search Query: ${query}`);
+
     // Toggle the search results heading and clear results if the query is empty
     if (query.trim() === "") {
         searchResultsHeading.style.display = "none"; // Hide the heading

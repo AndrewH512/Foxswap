@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,13 +11,14 @@
   <link rel="stylesheet" href="css/footer.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
-
 <body>
   <!-- Header section -->
   <header>
     <h1>Welcome to Foxswap</h1>
     <!-- Clickable Foxswap logo that links to the homepage -->
-    <a href="homepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
+    <a href="homepage.html">
+      <img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" />
+    </a>
   </header>
 
   <!-- Navigation bar -->
@@ -29,21 +29,20 @@
   <!-- Main content section -->
   <div class="main-content">
     <!-- Search bar under navigation -->
-   <div class="search-container">
-    <form action="/searchBooks" method="GET">
-      <!-- Search Bar -->
-      <input type="text" id="searchBar" placeholder="Search by Book Name, Author, ISBN, or Class Name"
-        oninput="searchBooks()" />
+    <div class="search-container">
+      <form action="/searchBooks" method="GET" onsubmit="event.preventDefault(); searchBooks();">
+        <!-- Search Bar -->
+        <input type="text" id="searchBar" placeholder="Search by Book Name, Author, ISBN, or Class Name" />
+        
+        <!-- Search Results Heading, initially hidden -->
+        <h2 id="searchResultsHeading" style="text-align: center; display: none;">Search Results</h2>
 
-      <!-- Search Results Heading, initially hidden -->
-      <h2 id="searchResultsHeading" style="text-align: center; display: none;">Search Results</h2>
-
-      <!-- Book Listings -->
-      <div id="bookList">
-        <!-- Rendered book items will go here -->
-      </div>
-    </form>
-  </div>
+        <!-- Book Listings -->
+        <div id="bookList">
+          <!-- Rendered book items will go here -->
+        </div>
+      </form>
+    </div>
     <h2 style="text-align: center">Available Posts</h2>
     <div class="card-container" id="postsContainer">
       <!-- Cards will be dynamically inserted here -->
@@ -51,10 +50,17 @@
   </div>
 
   <!-- Footer section -->
-
   <div id="footer-placeholder"></div>
 
   <script>
+    // Function to show the search input as a pop-up
+    function searchBooks() {
+      const searchQuery = document.getElementById("searchBar").value;
+      if (searchQuery) {
+        alert("Search Query: " + searchQuery);
+      }
+    }
+
     // Fetch the username from the current URL
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get("username"); // Assuming 'username' is in the URL
@@ -71,17 +77,16 @@
           card.setAttribute("data-id", post.Post_ID); // Store the post id in the card
 
           card.innerHTML = `
-                        <img src="${post.Cover_Picture}" alt="Cover Image">
-                        <h3>${post.Title}</h3>
-                        <p class="condition"><strong>Condition:</strong> ${post.Book_Condition}</p>
-                        <p class="seller"><strong>Seller:</strong> ${post.Seller}</p>
-                        <p class="price"><strong>Price:</strong> $${post.Price}</p>
-                    `;
+            <img src="${post.Cover_Picture}" alt="Cover Image">
+            <h3>${post.Title}</h3>
+            <p class="condition"><strong>Condition:</strong> ${post.Book_Condition}</p>
+            <p class="seller"><strong>Seller:</strong> ${post.Seller}</p>
+            <p class="price"><strong>Price:</strong> $${post.Price}</p>
+          `;
 
           // On click, redirect to textbook_info.html with post id and username in the URL
           card.addEventListener("click", function () {
-            window.location.href = `textbook_info.html?id=${post.Post_ID
-              }&username=${encodeURIComponent(username)}`;
+            window.location.href = `textbook_info.html?id=${post.Post_ID}&username=${encodeURIComponent(username)}`;
           });
 
           // Append the card to the posts container
@@ -95,18 +100,9 @@
 
   <!-- Footer Script -->
   <script src="js/window.js"></script>
-
-  <!-- Import session check script -->
-  <!-- This ensures the user will not be able to skip this page
-     by just entering the URL-->
   <script src="js/sessionCheck.js"></script>
-
-  <!-- Displays the Profile Picture at top of the page -->
   <script src="js/profilePicture.js"></script>
-
-  <!-- Script that handles the browsing algorithm -->
   <script src="js/Browse.js"></script>
 
 </body>
-
 </html>
