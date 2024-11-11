@@ -9,12 +9,14 @@
     <link rel="stylesheet" href="css/front-end.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
+
 <body>
     <!-- Header section -->
     <header>
         <h1>Edit Your Post</h1>
         <!-- Clickable Foxswap logo that links to the homepage -->
-        <a href="welcomepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
+        <a href="welcomepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo"
+                style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
     </header>
 
     <!-- Navigation bar -->
@@ -24,56 +26,55 @@
 
     <!-- Link to navigate back to the profile page -->
     <div class="centered-container">
-        <a href="textbook_info.html" class="back-to-post">Back to Post</a>
+        <a href="yourTextbookInfo.html" class="back-to-post">Back to Post</a>
     </div>
-<!--price, status, -->
+    <!--price, status, -->
     <div class="center-container">
         <!-- Edit Profile Form -->
         <form id="editPostForm" enctype="multipart/form-data">
-        
-        <!-- Division to Enter Price -->
-        <div class="form-group">
-            <label for="price">Price</label>
-            <input type="text" id="price" name="price" required />
-        </div>
 
-        <!-- Division to Enter Price -->
-        <div class="form-group">
-            <label for="status">Did you rent or sell your book?</label>
-            <!--sold or rented dropdown-->
-            <!--if yes, dropdown for users-->
-            <select id="status" onchange="toggleSecondaryDropdown()">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-            
-            <div class="users" id="secondaryDropdown" style="display: none;">
-                <label for="userDropdown">Select a Customer</label>
-                <select id="userDropdown">
-                    <option value="">Select a User</option>
-                </select>
+            <!-- Division to Enter Price -->
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="text" id="price" name="price" required />
             </div>
 
-        </div>
-                 
-            </select>
+            <!-- Division to Enter Price -->
+            <div class="form-group">
+                <label for="status">Did you rent or sell your book?</label>
+                <!--sold or rented dropdown-->
+                <!--if yes, dropdown for users-->
+                <select id="status" onchange="toggleSecondaryDropdown()">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+
+                <div class="users" id="secondaryDropdown" style="display: none;">
+                    <label for="userDropdown">Select a Customer</label>
+                    <select id="userDropdown">
+                        <option value="">Select a User</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!--</select> -->
             <!--<input type="text" id="status" name="status" required />-->
-        </div>
+    </div>
 
-        <!-- Division to Enter Price -->
-        <div class="form-group">
-            <label for="duedate">Due Date</label>
-            <input type="text" id="price" name="price" required />
-        </div>
+    <!-- Division to Enter Price -->
+    <div class="form-group">
+        <label for="duedate">Due Date</label>
+        <input type="text" id="price" name="price" required />
+    </div>
 
-    
 
-        <!-- Submit Button -->
-        <div class="auth-buttons">
-            <button type="submit">Save Changes</button>
-        </div>
-        
-        </form>
+    <!-- Submit Button -->
+    <div class="auth-buttons">
+        <button type="submit">Save Changes</button>
+    </div>
+
+    </form>
     </div>
 
     <!-- Footer placeholder -->
@@ -84,7 +85,7 @@
         // Extract username from the URL
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get("username");
-
+        const postId = urlParams.get("id"); // Extract the post id
 
         // Form submission handler
         document.getElementById("editPostForm").addEventListener("submit", function (event) {
@@ -99,7 +100,7 @@
                 .then(data => {
                     if (data.success) {
                         alert("Post updated successfully!");
-                        window.location.href = `textbook_info.html?username=${username}`;
+                        window.location.href = `yourTextbookInfo.html?id=${postId}&username=${encodeURIComponent(username)}`;
                     } else {
                         alert("Error updating post: " + data.message);
                     }
@@ -116,11 +117,11 @@
 
             // Show the secondary dropdown if "Yes" is selected, hide otherwise
             if (primaryDropdown.value === "yes") {
-            secondaryDropdown.style.display = "block";
+                secondaryDropdown.style.display = "block";
             } else {
                 secondaryDropdown.style.display = "none";
+            }
         }
-    }
     </script>
 
     <!-- Import session check script -->
@@ -129,10 +130,10 @@
     <!-- Displays the Profile Picture at top of the page -->
     <script src="js/profilePicture.js"></script>
 
-    <script src="js/reports.js"></script>
+    <script src="js/editPosts.js">ß</script>
 
     <!-- Footer Script-->
-    <script src="js/window.js"></script> 
+    <script src="js/window.js"></script>
 
 </body>
 
