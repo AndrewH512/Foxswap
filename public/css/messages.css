@@ -197,10 +197,11 @@ button:hover {
 }
 
 .user-item {
-    display: inline-block;
-    padding: 15px 45px;
-    margin: 5px 0;
-    background-color: #000000; /* Button color */
+    display: flex;
+    align-items: center;
+    padding: 15px 80px;
+    margin: 10px 0;
+    background-color: #920606; /* Button color */
     color: white;
     border-radius: 5px;
     cursor: pointer;
@@ -212,7 +213,7 @@ button:hover {
 }
 
 .user-item:hover {
-    background-color: #ff0202; /* Darker shade for hover */
+    background-color: #000000; /* Darker shade for hover */
 }
 
 .user-item button {

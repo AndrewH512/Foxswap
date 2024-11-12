@@ -142,14 +142,17 @@ function loadChatUsers() {
                     deleteButton.textContent = 'X';
                     deleteButton.style.marginLeft = '10px';
                     deleteButton.style.color = 'red';
+                    deleteButton.style.padding = '15px';  // Increase padding for size
+                    deleteButton.style.fontSize = '20px';
                     deleteButton.onclick = () => deleteChat(user);
 
                     // Create view profile button
                     const viewProfileButton = document.createElement('button');
                     viewProfileButton.textContent = 'View Profile';
                     viewProfileButton.style.marginLeft = '10px';
-                    viewProfileButton.style.color = 'blue';
-                    viewProfileButton.onclick = () => {
+                    viewProfileButton.style.color = 'white';
+                    viewProfileButton.style.border = '2px Solid';
+;                    viewProfileButton.onclick = () => {
                         // Redirect to the view profile page
                         window.location.href = `viewProfile.html?username=${encodeURIComponent(username3)}&seller=${encodeURIComponent(user)}`;
                     };
