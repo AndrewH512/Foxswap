@@ -27,27 +27,6 @@
     margin-bottom: 20px;
 }
 
-/* User list for chat history */
-#userList {
-    background-color: #f7f7f7;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-.user-item {
-    color: #333;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    transition: background-color 0.3s;
-}
-
-.user-item:hover {
-    background-color: #e0e0e0;
-}
-
 /* Current recipient styling */
 #currentRecipient {
     font-size: 1.1rem;
@@ -210,14 +189,41 @@ button:hover {
     display: block; /* Show results when there are results */
 }
 
+#userList {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    margin-top: 20px;
+}
+
 .user-item {
-    color:black;
-    padding: 10px;
-    border-bottom: 1px solid #000000; /* Divider for results */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Transition for hover effect */
+    display: inline-block;
+    padding: 15px 45px;
+    margin: 5px 0;
+    background-color: #000000; /* Button color */
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s;
+    width: 100%; /* Adjust width as needed */
+    max-width: 200px; /* Optional: limit the width */
 }
 
 .user-item:hover {
-    background-color: #f0f0f0; /* Light background on hover */
+    background-color: #ff0202; /* Darker shade for hover */
+}
+
+.user-item button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 0.9em;
+    padding: 0 5px;
+}
+
+.user-item button:hover {
+    color: #ff6666; /* Color for delete button hover */
 }

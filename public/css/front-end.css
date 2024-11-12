@@ -1,7 +1,7 @@
 /* Basic styling and css that every page uses */
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #b3261e, #ddd);
+  
 }
 
 /* Header styling */
@@ -98,13 +98,13 @@ nav a:hover {
 .search-container {
   text-align: center;
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: #f0f0f0; 
 }
 
 .search-container input[type="text"] {
   padding: 10px;
   width: 300px;
-  border: none;
+  border: 2px solid black; /* Add a 2-pixel black border */
   border-radius: 4px;
   margin-right: 10px;
 }
