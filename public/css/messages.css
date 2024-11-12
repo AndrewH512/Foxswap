@@ -199,7 +199,8 @@ button:hover {
 .user-item {
     display: flex;
     align-items: center;
-    padding: 15px 80px;
+    justify-content: space-between; /* Evenly space elements inside user-item */
+    padding: 15px 20px; /* Reduced padding to avoid overflow with buttons */
     margin: 10px 0;
     background-color: #920606; /* Button color */
     color: white;
@@ -209,7 +210,7 @@ button:hover {
     text-align: center;
     transition: background-color 0.3s;
     width: 100%; /* Adjust width as needed */
-    max-width: 200px; /* Optional: limit the width */
+    max-width: 300px; /* Adjusted for more room for buttons */
 }
 
 .user-item:hover {

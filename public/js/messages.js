@@ -137,33 +137,31 @@ function loadChatUsers() {
                     const userItem = document.createElement('div');
                     userItem.textContent = user;
 
-                    // Create delete button (X symbol)
-                    const deleteButton = document.createElement('button');
-                    deleteButton.textContent = 'X';
-                    deleteButton.style.marginLeft = '10px';
-                    deleteButton.style.color = 'red';
-                    deleteButton.style.padding = '15px';  // Increase padding for size
-                    deleteButton.style.fontSize = '20px';
-                    deleteButton.onclick = () => deleteChat(user);
-
                     // Create view profile button
                     const viewProfileButton = document.createElement('button');
                     viewProfileButton.textContent = 'View Profile';
-                    viewProfileButton.style.marginLeft = '10px';
+                    viewProfileButton.style.marginLeft = 'auto'; /* Pushes button to the right */
                     viewProfileButton.style.color = 'white';
                     viewProfileButton.style.border = '2px solid white'; 
-                    viewProfileButton.style.backgroundColor = 'transparent'; // Optional: make background transparent
+                    viewProfileButton.style.backgroundColor = 'transparent';
                     viewProfileButton.style.padding = '5px 10px'; 
-                    viewProfileButton.style.cursor = 'pointer'; // Change cursor to pointer for better UX
-                    viewProfileButton.style.whiteSpace = 'nowrap'; 
+                    viewProfileButton.style.cursor = 'pointer';
+                    viewProfileButton.style.whiteSpace = 'nowrap';
                     viewProfileButton.onclick = () => {
-                    // Redirect to the view profile page
-                    window.location.href = `viewProfile.html?username=${encodeURIComponent(username3)}&seller=${encodeURIComponent(user)}`;
-                    };              
+                        window.location.href = `viewProfile.html?username=${encodeURIComponent(username3)}&seller=${encodeURIComponent(user)}`;
+                    };
+
+                    // Create delete button (X symbol)
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'X';
+                    deleteButton.style.color = 'red';
+                    deleteButton.style.fontSize = '20px';
+                    deleteButton.style.marginLeft = '10px';
+                    deleteButton.onclick = () => deleteChat(user);
 
                     userItem.classList.add('user-item');
-                    userItem.appendChild(deleteButton); // Append delete button to the user item
                     userItem.appendChild(viewProfileButton); // Append view profile button
+                    userItem.appendChild(deleteButton); // Append delete button to the user item
                     userItem.addEventListener('click', () => {
                         selectedRecipient = user; // Set the selected recipient
                         document.getElementById('currentRecipient').textContent = `Messaging: ${selectedRecipient}`;
