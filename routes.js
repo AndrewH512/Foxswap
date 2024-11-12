@@ -169,6 +169,39 @@ Where
   });
 });
 
+// API route to get your data
+router.get('/yourPost', (req, res) => {
+  const postId = req.query.id;
+  // SQL query to join Books and Posts tables and select relevant fields
+  const query = `
+    SELECT 
+    Books.Author, 
+    Books.ISBN, 
+    Books.Title, 
+    Books.Book_Subject, 
+    Books.Cover_Picture,
+    Posts.Post_ID,
+    Posts.Seller, 
+    Posts.Status, 
+    Posts.Price, 
+    Posts.Class_Name, 
+    Posts.Book_Condition, 
+    Posts.Due_Date, 
+    Posts.Transaction_Type
+FROM 
+    Books
+JOIN 
+    Posts ON Books.Book_ID = Posts.Book_ID
+Where
+    Posts.Post_ID = ?;`;
+  req.db.query(query, [postId], (error, results) => {
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+    res.json(results);
+  });
+});
+
 
 // API route to get their data
 router.get('/theirData', (req, res) => {

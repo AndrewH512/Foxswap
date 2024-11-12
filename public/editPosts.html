@@ -33,59 +33,101 @@
         <!-- Edit Profile Form -->
         <form id="editPostForm" enctype="multipart/form-data">
 
-            <!-- Division to Enter Price -->
-            <div class="form-group">
-                <label for="price">Price</label>
-                <input type="text" id="price" name="price" required />
-            </div>
+            <!-- Book Details Section -->
+            <div class="card-content" style="font-size: 25px">
+                <p><strong>Title:</strong> <span id="bookTitle"></span></p>
+                <p><strong>Status:</strong> <span id="bookStatus"></span></p>
 
-            <!-- Division to Enter Price -->
-            <div class="form-group">
-                <label for="status">Did you rent or sell your book?</label>
-                <!--sold or rented dropdown-->
-                <!--if yes, dropdown for users-->
-                <select id="status" onchange="toggleSecondaryDropdown()">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                </select>
+                <div class="content-wrapper">
+                    <!-- Book Image Section -->
+                    <div class="book-image">
+                        <img src="uploads/andrew.png" alt="Book Cover" style="width: 350px; height: 350px"
+                            id="bookCover" />
+                    </div>
 
-                <div class="users" id="secondaryDropdown" style="display: none;">
-                    <label for="userDropdown">Select a Customer</label>
-                    <select id="userDropdown">
-                        <option value="">Select a User</option>
-                    </select>
+                    <!-- Price -->
+                    <div>
+                        <label for="price">Price:</label>
+                        <input type="text" id="price" name="price" required />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="status">Did you rent or sell your book?</label>
+                        <!--sold or rented dropdown-->
+                        <!--if yes, dropdown for users-->
+                        <select id="status" onchange="toggleSecondaryDropdown()">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+
+                        <div class="users" id="secondaryDropdown" style="display: none;">
+                            <label for="userDropdown">Select a Customer</label>
+                            <select id="userDropdown">
+                                <option value="">Select a User</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <!--</select> -->
+                    <!--<input type="text" id="status" name="status" required />-->
+                </div>
+
+                <!-- Date -->
+                <div>
+                    <label for="dueDate">Date:</label>
+                    <input type="date" id="dueDate" name="dueDate" required />
+                </div>
+
+
+                <!-- Submit Button -->
+                <div class="auth-buttons">
+                    <button type="submit">Save Changes</button>
                 </div>
 
             </div>
-
-            <!--</select> -->
-            <!--<input type="text" id="status" name="status" required />-->
-    </div>
-
-    <!-- Division to Enter Price -->
-    <div class="form-group">
-        <label for="duedate">Due Date</label>
-        <input type="text" id="price" name="price" required />
-    </div>
-
-
-    <!-- Submit Button -->
-    <div class="auth-buttons">
-        <button type="submit">Save Changes</button>
-    </div>
-
-    </form>
+        </form>
     </div>
 
     <!-- Footer placeholder -->
     <div id="footer-placeholder"></div>
 
-    <!-- JavaScript to handle form submission -->
+
     <script>
         // Extract username from the URL
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get("username");
         const postId = urlParams.get("id"); // Extract the post id
+        console.log("here is another test!");
+        console.log("look right here: " + postId);
+
+    </script>
+
+    <script>
+        // Fetch the current user data to prefill the form
+        fetch(`/yourPost?id=${encodeURIComponent(postId)}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("postId: " + postId);
+                if (data.length > 0) {
+                    const post = data.find(p => parseInt(p.Post_ID) === parseInt(postId));
+                    if (post) {
+                        document.getElementById("price").value = post.Price || "";
+                        const dueDate = new Date(data.Due_Date);
+                        // Ensure the date is in the format YYYY-MM-DD
+                        const formattedDueDate = dueDate.toISOString().split('T')[0];  // Converts to YYYY-MM-DD
+                        document.getElementById("dueDate").value = formattedDueDate || "";
+                    } else {
+                        console.error("Post not found");
+                    }
+                }
+            })
+            .catch(error => console.error("Error fetching post data:", error));
+    </script>
+
+    <!-- JavaScript to handle form submission -->
+    <script>
 
         // Form submission handler
         document.getElementById("editPostForm").addEventListener("submit", function (event) {
@@ -124,13 +166,28 @@
         }
     </script>
 
+    <script>
+        fetch(`/api/getPost?id=${postId}`)
+            .then((response) => response.json())
+            .then((data) => {
+                //document.querySelector("h2").textContent = data.Title;
+                document.getElementById("bookCover").src = data.Cover_Picture;
+                document.getElementById("bookTitle").textContent = data.Title;
+                document.getElementById("bookStatus").textContent = data.Status;
+                document.getElementById("price").textContent = data.Price;
+            })
+            .catch((error) => {
+                console.error("Error fetching textbook data:", error);
+            });
+    </script>
+
     <!-- Import session check script -->
     <script src="js/sessionCheck.js"></script>
 
     <!-- Displays the Profile Picture at top of the page -->
     <script src="js/profilePicture.js"></script>
 
-    <script src="js/editPosts.js">ß</script>
+    <script src="js/editPosts.js"></script>
 
     <!-- Footer Script-->
     <script src="js/window.js"></script>
