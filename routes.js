@@ -581,7 +581,6 @@ router.get('/api/reports/users', (req, res) => {
   req.db.query(query, [username, username, username], (err, results) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.json(results);
-    console.log("query: " + results);
   });
 });
 

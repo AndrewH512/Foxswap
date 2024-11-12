@@ -28,9 +28,9 @@
     <div class="centered-container">
         <a href="yourTextbookInfo.html" class="back-to-post">Back to Post</a>
     </div>
-    <!--price, status, -->
+
     <div class="center-container">
-        <!-- Edit Profile Form -->
+        <!-- Edit Post Form -->
         <form id="editPostForm" enctype="multipart/form-data">
 
             <!-- Book Details Section -->
@@ -50,6 +50,27 @@
                         <label for="price">Price:</label>
                         <input type="text" id="price" name="price" required />
                     </div>
+
+
+
+
+                    <!-- Dropdown for Changing Due Date -->
+                    <div id="changeDueDateSection" style="display: none;">
+                        <label for="changeDueDate">Do you want to change the Due Date?</label>
+                        <select id="changeDueDate" onchange="toggleDueDateField()">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <!-- Date Input (Initially Hidden) -->
+                    <div id="dueDateSection" style="display: none;">
+                        <label for="dueDate">Date:</label>
+                        <input type="date" id="dueDate" name="dueDate" />
+                    </div>
+
+
+
 
 
                     <div class="form-group">
@@ -74,13 +95,6 @@
                     <!--<input type="text" id="status" name="status" required />-->
                 </div>
 
-                <!-- Date -->
-                <div>
-                    <label for="dueDate">Date:</label>
-                    <input type="date" id="dueDate" name="dueDate" required />
-                </div>
-
-
                 <!-- Submit Button -->
                 <div class="auth-buttons">
                     <button type="submit">Save Changes</button>
@@ -99,9 +113,6 @@
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get("username");
         const postId = urlParams.get("id"); // Extract the post id
-        console.log("here is another test!");
-        console.log("look right here: " + postId);
-
     </script>
 
     <script>
@@ -109,46 +120,22 @@
         fetch(`/yourPost?id=${encodeURIComponent(postId)}`)
             .then(response => response.json())
             .then(data => {
-                console.log("postId: " + postId);
                 if (data.length > 0) {
                     const post = data.find(p => parseInt(p.Post_ID) === parseInt(postId));
                     if (post) {
+                        console.log("transaction type: " + post.Transaction_Type);
                         document.getElementById("price").value = post.Price || "";
-                        const dueDate = new Date(data.Due_Date);
-                        // Ensure the date is in the format YYYY-MM-DD
-                        const formattedDueDate = dueDate.toISOString().split('T')[0];  // Converts to YYYY-MM-DD
-                        document.getElementById("dueDate").value = formattedDueDate || "";
+                        // Check if Transaction_Type is "Rental"
+                        if (post.Transaction_Type === "rental") {
+                            console.log("we have a rental!");
+                            document.getElementById("changeDueDateSection").style.display = "block";  // Show the change due date section
+                        }
                     } else {
                         console.error("Post not found");
                     }
                 }
             })
             .catch(error => console.error("Error fetching post data:", error));
-    </script>
-
-    <!-- JavaScript to handle form submission -->
-    <script>
-
-        // Form submission handler
-        document.getElementById("editPostForm").addEventListener("submit", function (event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            formData.append("username", username); // Attach the username to identify the user on the server
-            fetch("/api/updatePost", {
-                method: "POST",
-                body: formData,
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Post updated successfully!");
-                        window.location.href = `yourTextbookInfo.html?id=${postId}&username=${encodeURIComponent(username)}`;
-                    } else {
-                        alert("Error updating post: " + data.message);
-                    }
-                })
-                .catch(error => console.error("Error updating post:", error));
-        });
     </script>
 
     <!-- JavaScript to handle the dropdown visibility -->
@@ -164,13 +151,25 @@
                 secondaryDropdown.style.display = "none";
             }
         }
+
+        // Toggle visibility of the Date input field based on "Do you want to change the Due Date?" selection
+        function toggleDueDateField() {
+            const changeDueDate = document.getElementById("changeDueDate").value;
+            const dueDateSection = document.getElementById("dueDateSection");
+
+            // Show the date input field if "Yes" is selected, hide otherwise
+            if (changeDueDate === "yes") {
+                dueDateSection.style.display = "block";
+            } else {
+                dueDateSection.style.display = "none";
+            }
+        }
     </script>
 
     <script>
         fetch(`/api/getPost?id=${postId}`)
             .then((response) => response.json())
             .then((data) => {
-                //document.querySelector("h2").textContent = data.Title;
                 document.getElementById("bookCover").src = data.Cover_Picture;
                 document.getElementById("bookTitle").textContent = data.Title;
                 document.getElementById("bookStatus").textContent = data.Status;
