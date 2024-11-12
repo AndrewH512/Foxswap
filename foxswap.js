@@ -17,8 +17,12 @@ const sockets = {}; // Object to map socket IDs to usernames
 
 // Serve static files from the 'public' directory (HTML, CSS, JS files)
 app.use(express.static(path.join(__dirname, 'public')));
+
 // Use body parser middleware to handle form data
 app.use(encoder);
+
+// Middleware to parse JSON bodies of incoming requests
+app.use(express.json());
 
 // Set up session middleware
 app.use(session({

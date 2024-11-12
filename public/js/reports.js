@@ -14,31 +14,44 @@ fetch('/api/reports/users')
         console.error('Error fetching users:', error);
     });
 
-// Handle report submission
-window.onload = () => {
-    const selectedUser = document.getElementById('userDropdown').value;
+// Handle report submission on button click
+document.addEventListener("DOMContentLoaded", () => {
+    const submitButton = document.querySelector('button[type="submit"]');
+    const form = document.querySelector("form");
+    
+    submitButton.addEventListener('click', (event) => {
+        event.preventDefault();  // Prevents default form submission
 
-    if (!selectedUser) {
-        alert('Please select a user to report.');
-        return;
-    }
+        const selectedUser = document.getElementById('userDropdown').value;
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
 
-    // Send report to the server automatically when the page loads
-    fetch('/api/report', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            reportedUser: selectedUser,
-            reporter: userId,  // Assuming userId is available
+        // Check if data is captured correctly
+        console.log('Form Data:', { selectedUser, title, description });
+
+        if (!selectedUser || !title || !description) {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        // Send report to the server
+        fetch('/api/report', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                reportedUser: selectedUser,
+                title: title,
+                description: description
+            })
         })
-    })
-        .then(response => response.json())
-        .then(result => {
-            alert(result.message || 'Report submitted successfully!');
-        })
-        .catch(error => {
-            console.error('Error reporting user:', error);
-        });
-};
+            .then(response => response.json())
+            .then(result => {
+                alert(result.message || 'Report submitted successfully!');
+            })
+            .catch(error => {
+                console.error('Error reporting user:', error);
+            });
+    });
+});

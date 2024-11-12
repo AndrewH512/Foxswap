@@ -585,18 +585,29 @@ router.get('/api/reports/users', (req, res) => {
 });
 
 router.post('/api/report', (req, res) => {
-  const reportedUser = req.body;
-  const reporter = req.session.username;
+  const { reportedUser, title, description } = req.body;
+  const reporter = req.session.username;  // Assuming `username` is stored in the session
+
+  console.log('Report data received:', { reportedUser, reporter, title, description });
+
   // Validate input
-  if (!reportedUser || !reporter) {
-    return res.status(400).json({ error: 'Invalid data' });
+  if (!reportedUser || !reporter || !title || !description) {
+    return res.status(400).json({ error: 'All fields are required.' });
   }
 
   // Insert report into the Reports table
-  const query = 'INSERT INTO Reports (Reported_User, Reporting_User) VALUES (?, ?)';
-
-  req.db.query(query, [reportedUser, reporter], (err, result) => {
-    if (err) return res.status(500).json({ error: 'Database error' });
+  const query = `
+    INSERT INTO Reports (Reported_User, Reporting_User, Title, Description)
+    VALUES (?, ?, ?, ?)
+  `;
+   
+  req.db.query(query, [reportedUser, reporter, title, description], (err, result) => {
+    if (err) {
+      console.error('Database error:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    console.log('Report successfully inserted with ID:', result.insertId);
     res.json({ message: 'Report submitted successfully!' });
+    
   });
 });
