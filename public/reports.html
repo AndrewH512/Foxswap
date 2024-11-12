@@ -5,21 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Signup - Foxswap</title>
+    <title> Report a User - Foxswap</title>
 
     <!-- Link to CSS file -->
-    <link rel="stylesheet" href="css/front-end.css">
-    <link rel="stylesheet" href="css/footer.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="css/front-end.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
 </head>
 
-<body>
     <!-- Header section -->
     <header>
         <h1>Welcome to Foxswap</h1>
         <!-- Clickable Foxswap logo that links to the homepage -->
         <a href="welcomepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo"
-                style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
+                style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px; z-index: 10;" /></a>
     </header>
 
     <!-- Navigation bar -->
@@ -27,40 +28,90 @@
         <!-- Navigation links will be added here by JavaScript -->
     </nav>
 
+    <style> 
+        .background-image{
+            width: 100%;
+            height: 100vh; /* Ensures the image covers the full screen height */
+            object-fit: cover; /* Ensures the image will not stretch but will maintain its aspect ratio */
+            object-position: center center; /* Centers the image */
+            position: fixed; /* Fixed positioning makes it stay in place when scrolling */
+            top: 0;
+            left: 0;
+            z-index: -1; 
+        }
+         .report-container * {
+          margin: 0px;
+          padding: 0px;
+          box-sizing: border-box;
+          font-family: sans-serif;
+        }
+
+        .report-container {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 40px;
+          margin-top: 50px;
+          padding: 20px;
+        }
+
+        .report-card {
+          width: 1000px;
+          height: 650px;
+          background-color: rgba(255, 255, 255, 0.8);
+          border-color: red;
+          border-radius: 12px;
+          border: 2px solid red;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+          overflow: hidden;
+          transition: transform 0.6s ease;
+        }
+
+        .report-card:hover {
+          transform: translateY(-20px);
+        }
+    </style>
+    <img class="background-image" src="art/reports_pic.jpg">
     <!-- Sign Up Container -->
     <div class="report-container">
-        <h2>Report another User</h2>
-
         <!-- Display error message -->
         <div id="error-message" style="color: red; text-align: center;"></div>
 
+        <div class="report-card">
+          <h2 style="text-align: center; font-size: 50px;">Report Another User</h2>
         <form action="/public/report" method="POST" enctype="multipart/form-data">
 
-            <select id="userDropdown">
-                <option value="">Select a user to report:</option>
+          <div class="form-group" style="margin-bottom: 50px; margin-top: 30px;">
+            <label for="userDropdown" style="font-size: 25px; font-weight: bold;">Select a user:</label>
+            <select id="userDropdown" 
+                    style="width: 100%; padding: 12px 15px; font-size: 16px; border: 2px solid #ccc; border-radius: 8px; outline: none; box-sizing: border-box;">
+                <option value="">Select a user:</option>
+                <!-- Add options dynamically here -->
             </select>
+        </div>
             <!-- Divsion to Enter Report Title -->
-            <div class="form-group">
-                <label for="title">Title of Report</label>
+            <div class="form-group" style="margin-bottom: 50px">
+                <label for="title" style="font-size:25px; font-weight: bold;">Title of Report: </label>
                 <input type="text" id="title" name="title" required>
             </div>
             <!-- Divsion to Enter Report Description -->
-            <div class="form-group">
-                <label for="description">Description</label>
+            <div class="form-group" style="margin-bottom: 50px">
+                <label for="description" style="font-size:25px;  font-weight: bold;">Description:</label>
                 <input type="text" id="description" name="description" required>
-            </div>
-            <!-- Divsion for submit button -->
-            <div class="auth-buttons">
-                <button type="submit">Submit Report</button>
             </div>
         </form>
 
+          <!-- Divsion for submit button -->
+          <div class="auth-buttons">
+            <button type="submit">Submit Report</button>
+        </div> 
+        </div>
 
-        <!-- Footer section -->
+          <!-- Footer section -->
         <div id="footer-placeholder"></div>
 
-        <!-- Footer Script -->
-        <script src="js/window.js"></script>
+         <!-- Footer Script -->
+         <script src="js/window.js"></script>
 
         <script src="js/reports.js"></script>
 
