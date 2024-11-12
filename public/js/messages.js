@@ -151,11 +151,15 @@ function loadChatUsers() {
                     viewProfileButton.textContent = 'View Profile';
                     viewProfileButton.style.marginLeft = '10px';
                     viewProfileButton.style.color = 'white';
-                    viewProfileButton.style.border = '2px Solid';
-;                    viewProfileButton.onclick = () => {
-                        // Redirect to the view profile page
-                        window.location.href = `viewProfile.html?username=${encodeURIComponent(username3)}&seller=${encodeURIComponent(user)}`;
-                    };
+                    viewProfileButton.style.border = '2px solid white'; 
+                    viewProfileButton.style.backgroundColor = 'transparent'; // Optional: make background transparent
+                    viewProfileButton.style.padding = '5px 10px'; 
+                    viewProfileButton.style.cursor = 'pointer'; // Change cursor to pointer for better UX
+                    viewProfileButton.style.whiteSpace = 'nowrap'; 
+                    viewProfileButton.onclick = () => {
+                    // Redirect to the view profile page
+                    window.location.href = `viewProfile.html?username=${encodeURIComponent(username3)}&seller=${encodeURIComponent(user)}`;
+                    };              
 
                     userItem.classList.add('user-item');
                     userItem.appendChild(deleteButton); // Append delete button to the user item
