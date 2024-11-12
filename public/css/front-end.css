@@ -1,7 +1,6 @@
 /* Basic styling and css that every page uses */
 body {
   font-family: Arial, sans-serif;
-  
 }
 
 /* Header styling */
@@ -15,12 +14,11 @@ header {
 /* Main content styling */
 .main-content {
   padding: 20px;
-  /*background:linear-gradient(to top,#b3261e92, white);*/
-  background-color: rgb(0, 0, 0);
-  background: rgb(0, 0, 0, 0);
+  background: white;
   margin: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+  border: 2px solid red;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Use this to center text */
@@ -98,7 +96,7 @@ nav a:hover {
 .search-container {
   text-align: center;
   padding: 20px;
-  background-color: #f0f0f0; 
+  background-color: #f0f0f0;
 }
 
 .search-container input[type="text"] {
