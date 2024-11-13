@@ -26,7 +26,7 @@
 
     <!-- Link to navigate back to the profile page -->
     <div class="centered-container">
-        <a href="yourTextbookInfo.html" class="back-to-post">Back to Post</a>
+        <a id="backToPost" href="yourTextbookInfo.html" class="back-to-post">Back to Post</a>
     </div>
 
     <div class="center-container">
@@ -113,6 +113,12 @@
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get("username");
         const postId = urlParams.get("id"); // Extract the post id
+
+        // Set "Back to Post" link with postId
+        const backToPostLink = document.getElementById("backToPost");
+        if (postId) {
+            backToPostLink.href = `yourTextbookInfo.html?id=${encodeURIComponent(postId)}&username=${encodeURIComponent(username)}`;
+        }
     </script>
 
     <script>
