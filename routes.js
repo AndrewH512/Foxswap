@@ -611,3 +611,33 @@ router.post('/api/report', (req, res) => {
     
   });
 });
+
+// Get only report titles and IDs for listReports.html
+router.get('/api/listReports', (req, res) => {
+  const query = `SELECT Report_ID, Title FROM Reports`;
+  
+  req.db.query(query, (err, result) => {
+    if (err) {
+      console.error('Database error:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(result);
+  });
+});
+
+// Get full report details for viewReports.html
+router.get('/api/report/:id', (req, res) => {
+  const reportID = req.params.id;
+  const query = `SELECT * FROM Reports WHERE Report_ID = ?`;
+
+  req.db.query(query, [reportID], (err, result) => {
+    if (err) {
+      console.error('Database error:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    if (result.length === 0) {
+      return res.status(404).json({ error: 'Report not found' });
+    }
+    res.json(result[0]);
+  });
+});

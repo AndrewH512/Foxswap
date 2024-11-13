@@ -55,3 +55,45 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 });
+
+// list reports
+document.addEventListener("DOMContentLoaded", () => {
+    fetch('/api/listReports')
+        .then(response => response.json())
+        .then(reports => {
+            const reportList = document.getElementById('reportList');
+            reports.forEach(report => {
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                
+                link.href = `viewReports.html?id=${report.Report_ID}`;
+                link.textContent = report.Title;
+
+                listItem.appendChild(link);
+                reportList.appendChild(listItem);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching report titles:', error);
+        });
+});
+
+// View Reports
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const reportID = urlParams.get('id');
+
+    if (reportID) {
+        fetch(`/api/report/${reportID}`)
+            .then(response => response.json())
+            .then(report => {
+                document.getElementById('reportTitle').textContent = report.Title;
+                document.getElementById('reportDescription').textContent = report.Description;
+                document.getElementById('reportedUser').textContent = report.Reported_User;
+                document.getElementById('reportingUser').textContent = report.Reporting_User;
+            })
+            .catch(error => {
+                console.error('Error fetching report details:', error);
+            });
+    }
+});
