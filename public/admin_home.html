@@ -73,28 +73,17 @@
         <p style="text-align: center;">&copy; 2024 Foxswap - All Rights Reserved</p>
     </footer>
 
-    <script>
-        // Get the username from the current URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get("username");
-    
-        // Function to handle redirection with username parameter
-        function redirectTo(page) {
-            if (username) {
-                window.location.href = `${page}?username=${encodeURIComponent(username)}`;
-            } else {
-                window.location.href = page;
-            }
-        }
-        
-    </script>
+   <!-- Import session check script -->
+   <!-- This ensures the user will not be able to skip this page
+   by just entering the URL-->
+  <script src="js/sessionCheck.js"></script>
 
-    <!-- Import session check script -->
-    <!-- This ensures the user will not be able to skip this page
-     by just entering the URL-->
-    <script src="js/sessionCheck.js"></script>
-
-    <!-- Displays the Profile Picture at top of the page -->
+  <!-- Displays the Profile Picture at top of the page -->
   <script src="js/profilePicture.js"></script>
+
+   <!-- Displays the Profile Picture at top of the page -->
+   <script src="js/profilePicture.js"></script>
+
+   <script src="js/buttons.js"></script>
 </body>
 </html>
