@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.json())
             .then(result => {
                 alert(result.message || 'Report submitted successfully!');
+                form.reset();
             })
             .catch(error => {
                 console.error('Error reporting user:', error);
