@@ -59,12 +59,12 @@
 
     <!-- Button container -->
     <div class="button-container">
-        <button class="admin-button" onclick="location.href='viewReports.html'">View Reports</button>
-        <button class="admin-button" onclick="location.href='searchUsers.html'">Search for Users</button>
-        <button class="admin-button" onclick="location.href='searchPosts.html'">Search for Posts</button>
-        <button class="admin-button" onclick="location.href='changePassword.html'">Change Password</button>
-        <button class="admin-button" onclick="location.href='addAdmin.html'">Add New Admin</button>
-        <button class="admin-button" onclick="location.href='deleteAdmin.html'">Delete Admin</button>
+        <button class="admin-button" onclick="redirectTo('listReports.html')">View Reports</button>
+        <button class="admin-button" onclick="redirectTo('searchUsers.html')">Search for Users</button>
+        <button class="admin-button" onclick="redirectTo('searchPosts.html')">Search for Posts</button>
+        <button class="admin-button" onclick="redirectTo('changePassword.html')">Change Password</button>
+        <button class="admin-button" onclick="redirectTo('addAdmin.html')">Add New Admin</button>
+        <button class="admin-button" onclick="redirectTo('deleteAdmin.html')">Delete Admin</button>
         <button class="admin-button" onclick="location.href='/public/logout'">Logout</button>
     </div>
 
@@ -72,6 +72,22 @@
     <footer>
         <p style="text-align: center;">&copy; 2024 Foxswap - All Rights Reserved</p>
     </footer>
+
+    <script>
+        // Get the username from the current URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get("username");
+    
+        // Function to handle redirection with username parameter
+        function redirectTo(page) {
+            if (username) {
+                window.location.href = `${page}?username=${encodeURIComponent(username)}`;
+            } else {
+                window.location.href = page;
+            }
+        }
+        
+    </script>
 
     <!-- Import session check script -->
     <!-- This ensures the user will not be able to skip this page
