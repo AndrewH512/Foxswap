@@ -48,6 +48,11 @@ router.post('/public/login', upload.none(), (req, res) => {
       return res.redirect("/login.html?error=username");
     }
 
+    // Check if the user is banned
+    if (results[0].Banned) {
+      return res.redirect(`/login.html?error=banned&username=${encodeURIComponent(username)}`);
+    }
+
     // Retrieve the salt and hash the password for comparison
     const salt = results[0].Salt;
     const hashedPassword = crypto.createHash('sha256').update(password + salt).digest('hex');

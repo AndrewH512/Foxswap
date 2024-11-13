@@ -74,6 +74,8 @@
             document.getElementById('error-message').textContent = 'Error: Username does not exist.';
         } else if (error === 'password') {
             document.getElementById('error-message').textContent = 'Error: Incorrect password.';
+        } else if (error ==='banned'){
+            document.getElementById('error-message').textContent = 'Error: Banned Sucks to be You!';
         }
 
         // Populate the username field if there's an error
