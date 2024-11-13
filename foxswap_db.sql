@@ -115,9 +115,8 @@ CREATE TABLE Transaction (
     Post_ID INT NOT NULL,                                     -- Foreign key referencing the post ID in the posts table
     Buyer VARCHAR(50) NOT NULL,                               -- Foreign key referencing the buyer's username
     Seller VARCHAR(50) NOT NULL,                              -- Foreign key referencing the seller's username
-    Price VARCHAR(20) NOT NULL,                               -- Price of the post
-    Date DATE NOT NULL,                                       -- Date of the transaction
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,  -- Timestamp for when the transaction was created
+    Price VARCHAR(20) NOT NULL,								  -- Foreign key refrencing the post's price
+    created_at DATETIME NOT NULL,  										  -- Timestamp for when the transaction was created
 
     -- Foreign key constraints
     FOREIGN KEY (Post_ID) REFERENCES Posts(Post_ID) ON DELETE CASCADE,

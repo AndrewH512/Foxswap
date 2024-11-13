@@ -212,7 +212,6 @@ AND
 // API route to get their data
 router.get('/theirData', (req, res) => {
   const seller = req.query.seller;
-  console.log("seller look here!: " + seller);
   // SQL query to join Books and Posts tables and select relevant fields
   const query = `
     SELECT 
@@ -642,7 +641,7 @@ router.put('/api/deletePost', (req, res) => {
 // Get only report titles and IDs for listReports.html
 router.get('/api/listReports', (req, res) => {
   const query = `SELECT Report_ID, Title FROM Reports`;
-  
+
   req.db.query(query, (err, result) => {
     if (err) {
       console.error('Database error:', err);
@@ -668,3 +667,55 @@ router.get('/api/report/:id', (req, res) => {
     res.json(result[0]);
   });
 });
+
+
+
+router.put('/api/editPost', (req, res) => {
+  const { transaction, buyer, price } = req.body;
+  const postId = parseInt(req.query.id);
+  const seller = req.session.username;
+
+  if (transaction === 'yes' && buyer) {
+
+    // Get the current date and time
+    const formattedDate = getFormattedDateTime();
+
+    const insertTransactionQuery = `
+      INSERT INTO Transaction (Post_ID, Buyer, Seller, Price, created_at)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+
+    req.db.query(insertTransactionQuery, [postId, buyer, seller, price, formattedDate], (err, result) => {
+      if (err) {
+        console.log("Database error: ", err);  // Log the error details
+        return res.status(500).send('Error inserting transaction details');
+      }
+
+      // 2. Update Post.Display_Post to 0
+      const updatePostQuery = 'UPDATE Posts SET Display_Post = 0 WHERE Post_ID = ?';
+      req.db.query(updatePostQuery, [postId], (err, result) => {
+        if (err) {
+          return res.status(500).send('Error updating post visibility');
+        }
+        // Success response if everything went well
+        res.status(200).json({ success: true });
+      });
+    });
+  }
+  else {
+    // Send error response if transaction or buyer data is missing
+    res.status(400).json({ success: false, message: 'Invalid transaction type or missing buyer' });
+  }
+});
+
+function getFormattedDateTime() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}

@@ -74,17 +74,15 @@
 
 
                     <div class="form-group">
-                        <label for="status">Did you rent or sell your book?</label>
-                        <!--sold or rented dropdown-->
-                        <!--if yes, dropdown for users-->
-                        <select id="status" onchange="toggleSecondaryDropdown()">
+                        <label for="transaction">Did you rent or sell your book?</label>
+                        <select name="transaction" id="transaction">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
 
-                        <div class="users" id="secondaryDropdown" style="display: none;">
-                            <label for="userDropdown">Select a Customer</label>
-                            <select id="userDropdown">
+                        <div class="users" id="buyerSection" style="display: none;">
+                            <label for="buyer">Who did you sell to?</label>
+                            <select id="buyerSection">
                                 <option value="">Select a User</option>
                             </select>
                         </div>
@@ -98,7 +96,7 @@
                 <!-- Delete and Save Changes Button -->
                 <div class="auth-buttons">
                     <button type="button" id="deletePostButton">Delete Post</button>
-                    <button type="submit">Save Changes</button>
+                    <button id="submitPostButton" type="button">Update Post</button>
                 </div>
 
             </div>
@@ -107,6 +105,63 @@
 
     <!-- Footer placeholder -->
     <div id="footer-placeholder"></div>
+
+
+
+    <script>
+        document.getElementById('submitPostButton').addEventListener('click', function () {
+            const price = document.getElementById('price').value;
+            const transaction = document.getElementById('transaction').value; // Get the selected transaction type
+
+            const buyer = document.getElementById('buyerSection').querySelector('select').value; // Get the selected value from the <select> element
+            // Prepare the data to send
+            const updatedPostData = {
+                price: price,
+                transaction: transaction,
+                postId: postId, // Use the existing postId
+                buyer: buyer
+            };
+
+            if (transaction === 'yes') {
+                const postId = urlParams.get("id"); // Extract the post id
+                // If the user has rented or sold the book, send the data to the editPost route
+                fetch(`/api/editPost?id=${postId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedPostData),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Hello my friend!");
+                        if (data.success) {
+                            alert('Post updated successfully!');
+                            window.location.href = `homepage.html?username=${username}`;
+                        } else {
+                            alert('Failed to update post');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                // If "No" is selected, you may want to skip calling the editPost route
+                alert('Transaction type must be selected as "Yes" to update.');
+            }
+        });
+
+    </script>
+
+
+    <!-- Adds Drop Down of Buyers -->
+    <script>
+        document.getElementById('transaction').addEventListener('change', function () {
+            const buyerSection = document.getElementById('buyerSection');
+            if (this.value === 'yes') {
+                buyerSection.style.display = 'block';
+            } else {
+                buyerSection.style.display = 'none';
+            }
+        });
+    </script>
+
 
 
     <script>
@@ -153,7 +208,6 @@
                 if (data.length > 0) {
                     const post = data.find(p => parseInt(p.Post_ID) === parseInt(postId));
                     if (post) {
-                        console.log("transaction type: " + post.Transaction_Type);
                         document.getElementById("price").value = post.Price || "";
                         // Check if Transaction_Type is "Rental"
                         if (post.Transaction_Type === "rental") {
@@ -172,7 +226,7 @@
     <script>
         function toggleSecondaryDropdown() {
             const primaryDropdown = document.getElementById("status");
-            const secondaryDropdown = document.getElementById("secondaryDropdown");
+            const secondaryDropdown = document.getElementById("buyerSection");
 
             // Show the secondary dropdown if "Yes" is selected, hide otherwise
             if (primaryDropdown.value === "yes") {

@@ -2,7 +2,7 @@
 fetch('/api/reports/users')
     .then(response => response.json())
     .then(users => {
-        const dropdown = document.getElementById('userDropdown');
+        const dropdown = document.getElementById('buyerSection').querySelector('select'); // Get the <select> element inside the buyerSection div
         users.forEach(user => {
             const option = document.createElement('option');
             option.value = user.messagee;
@@ -16,7 +16,6 @@ fetch('/api/reports/users')
 
 // Handle report submission
 window.onload = () => {
-    const selectedUser = document.getElementById('userDropdown').value;
-
-
+    const selectedUser = document.getElementById('buyerSection').querySelector('select').value; // Get the selected value from the <select> element
+    console.log("Selected user: ", selectedUser);
 };
