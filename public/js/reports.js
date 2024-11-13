@@ -66,7 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 const listItem = document.createElement('li');
                 const link = document.createElement('a');
                 
-                link.href = `viewReports.html?id=${report.Report_ID}`;
+                const username = new URLSearchParams(window.location.search).get('username');
+
+                link.href = `viewReports.html?username=${username}&id=${report.Report_ID}`;
                 link.textContent = report.Title;
 
                 listItem.appendChild(link);
