@@ -30,21 +30,37 @@
     <p><strong>Reporting User:</strong> <span id="reportingUser"></span></p>
     <p><strong>Description:</strong></p>
     <p id="reportDescription"></p>
+
+    <!-- Division for Buttons -->
+    <div class="auth-buttons">
+        <button class="admin-button" onclick="redirectTo('listReports.html')">View Reports</button>
+        <button class="admin-button" onclick="redirectTo('searchUsers.html')">Ban User</button>
+        <button class="admin-button" onclick="redirectTo('searchPosts.html')">Ban Post</button>
+        <button class="admin-button" onclick="redirectTo('messages.html')">Message User</button>
+    </div>
   
     <!-- Footer section -->
     <div style="text-align: center; position: absolute; bottom:0; width: 100%;">
         <div id="footer-placeholder"></div>
     </div>
 
-         <!-- Footer Script -->
-         <script src="js/window.js"></script>
+    <script>
+    const username = new URLSearchParams(window.location.search).get('username');
 
-        <script src="js/reports.js"></script>
+        function redirectTo(page) {
+            window.location.href = `${page}?username=${username}`;
+        }
+    </script>
 
-        <script src="js/sessionCheck.js"></script>
+    <!-- Footer Script -->
+    <script src="js/window.js"></script>
 
-        <!-- Displays the Profile Picture at top of the page -->
-        <script src="js/profilePicture.js"></script>
+    <script src="js/reports.js"></script>
+
+    <script src="js/sessionCheck.js"></script>
+
+    <!-- Displays the Profile Picture at top of the page -->
+    <script src="js/profilePicture.js"></script>
 
 </body>
 
