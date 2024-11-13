@@ -9,20 +9,35 @@
     <link rel="stylesheet" href="css/front-end.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* Center the page content */
+        /* Center the main content container */
+        .main-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
         .transaction-item {
             background-color: #f4f4f4;
             padding: 15px;
             margin: 10px 0;
             border-radius: 8px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            justify-content: center;
-            text-align: center;
+            justify-content: flex-start;
+            text-align: left;
+            gap: 20px;
         }
 
-        /* Center the search bar */
+        .cover-picture {
+            width: 80px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
         .search-container {
             text-align: center;
             margin-bottom: 20px;
@@ -36,7 +51,6 @@
             border: 1px solid #ccc;
         }
 
-        /* Styling for admin button */
         .admin-button {
             display: block;
             margin: 20px auto;
@@ -66,23 +80,24 @@
         <!-- Navigation links will be dynamically inserted here -->
     </nav>
 
-    <main>
-        <!-- Search bar and filtering -->
-        <div class="search-container">
-            <h2>Search by Transaction ID</h2>
-            <input type="text" id="search-bar" class="search-bar" placeholder="Search by transaction number" onkeyup="filterTransactions()" />
-        </div>
+    <div class="main-container">
+        <div>
+            <!-- Search bar and filtering -->
+            <div class="search-container">
+                <h2>Search by Transaction ID</h2>
+                <input type="text" id="search-bar" class="search-bar" placeholder="Search by transaction number" onkeyup="filterTransactions()" />
+            </div>
 
-        <div class="main-content">
-            <!-- Transaction data will be dynamically inserted here -->
-        </div>
+            <div class="main-content">
+                <!-- Transaction data will be dynamically inserted here -->
+            </div>
 
-        <!-- Back to admin home button -->
-        <button class="admin-button" onclick="redirectTo('admin_home.html')">Admin Homepage</button>
-    </main>
+            <!-- Back to admin home button -->
+            <button class="admin-button" onclick="redirectTo('admin_home.html')">Admin Homepage</button>
+    </div>
 
-     <!-- Footer section -->
-     <div id="footer-placeholder"></div>
+    <!-- Footer section -->
+    <div id="footer-placeholder"></div>
 
     <script>
         let allTransactions = []; // Array to store all transactions
@@ -112,12 +127,15 @@
                     const transactionDiv = document.createElement('div');
                     transactionDiv.classList.add('transaction-item');
                     transactionDiv.innerHTML = `
-                        <h3>Transaction Number: ${transaction.Transaction_ID}</h3>
-                        <p>This book "${transaction.Class_Name}" was sold by ${transaction.Seller} and bought by ${transaction.Buyer} for the price of $${transaction.Transaction_Price}.</p>
-                        <p><strong>Post Status:</strong> ${transaction.Post_Status}</p>
-                        <p><strong>Book Condition:</strong> ${transaction.Book_Condition}</p>
-                        <p><strong>Transaction Type:</strong> ${transaction.Transaction_Type}</p>
-                        <p><strong>Due Date:</strong> ${transaction.Due_Date || 'N/A'}</p>
+                        <img src="${transaction.Cover_Picture || 'default-cover.jpg'}" alt="Book Cover" class="cover-picture">
+                        <div>
+                            <h3>Transaction Number: ${transaction.Transaction_ID}</h3>
+                            <p>The book "${transaction.Title}" was sold by ${transaction.Seller} and bought by ${transaction.Buyer} for the price of $${transaction.Transaction_Price}.</p>
+                            <p><strong>Post Status:</strong> ${transaction.Post_Status}</p>
+                            <p><strong>Book Condition:</strong> ${transaction.Book_Condition}</p>
+                            <p><strong>Transaction Type:</strong> ${transaction.Transaction_Type}</p>
+                            <p><strong>Due Date:</strong> ${transaction.Due_Date || 'N/A'}</p>
+                        </div>
                     `;
                     transactionsContainer.appendChild(transactionDiv);
                 });

@@ -794,33 +794,36 @@ router.post('/api/unban-user/:username', (req, res) => {
 router.get('/api/viewTran', (req, res) => {
   const sql = `
   SELECT
-    t.Transaction_ID,           -- Select transaction details
-    t.Buyer,                    -- Buyer involved in the transaction
-    t.Seller,                   -- Seller involved in the transaction
-    t.Price AS Transaction_Price, -- Price of the transaction
-    t.created_at AS Transaction_Date,  -- Transaction creation date
-    p.Post_ID,                  -- Post details
-    p.Status AS Post_Status,    -- Status of the post (available, sold, pending)
-    p.Price AS Post_Price,      -- Price listed on the post
-    p.Class_Name,               -- Class name for which the book is listed
-    p.Book_Condition,           -- Condition of the book
-    p.Transaction_Type,         -- Type of transaction (Sale, Rental)
-    p.Due_Date                  -- Due date for rental (if applicable)
+    t.Transaction_ID,             
+    t.Buyer,                      
+    t.Seller,                     
+    t.Price AS Transaction_Price, 
+    t.created_at AS Transaction_Date, 
+    p.Post_ID,                    
+    p.Status AS Post_Status,      
+    p.Price AS Post_Price,       
+    p.Class_Name,                 
+    p.Book_Condition,             
+    p.Transaction_Type,           
+    p.Due_Date,                  
+    b.Cover_Picture,           
+    b.Title
   FROM
     Transaction t
   JOIN
-    Posts p ON t.Post_ID = p.Post_ID  -- Join on Post_ID between Transaction and Posts
+    Posts p ON t.Post_ID = p.Post_ID      
+  JOIN
+    Books b ON p.Book_ID = b.Book_ID      
   ORDER BY
-    t.created_at DESC;  -- Optional: Orders by transaction creation date (most recent first)
-`;
+    t.created_at DESC;                    
+  `;
 
-
+  // Execute the query and send results back to the client
   req.db.query(sql, (err, results) => {
     if (err) {
-      console.error('Error executing query:', err); // Logs error to the server console
-      return res.status(500).json({ error: err.message });
+      res.status(500).json({ error: "Database error" });
+    } else {
+      res.json(results);
     }
-    console.log(results);
-    res.json(results);  // Send the results as JSON
   });
 });
