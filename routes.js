@@ -827,3 +827,27 @@ router.get('/api/viewTran', (req, res) => {
     }
   });
 });
+
+// Route to change admin status
+router.put('/api/change-admin-status/:username', (req, res) => {
+  const username = req.params.username;
+  const { isAdmin } = req.body; // isAdmin will be a boolean indicating the desired status
+
+  // Ensure the value of isAdmin is a boolean
+  if (typeof isAdmin !== 'boolean') {
+    return res.status(400).json({ message: 'Invalid admin status' });
+  }
+
+  // Update the admin status in the Users table
+  const sql = 'UPDATE Users SET Admin = ? WHERE Username = ?';
+  req.db.query(sql, [isAdmin, username], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    if (result.affectedRows > 0) {
+      res.status(200).json({ message: `User ${isAdmin ? 'is now' : 'is no longer'} an admin` });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  });
+});
