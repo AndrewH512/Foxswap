@@ -16,6 +16,10 @@ const userSearch = document.getElementById('userSearch');
 const searchResults = document.getElementById('searchResults');
 let selectedRecipient = null;
 
+// Apply red borders to relevant elements
+userList.style.border = '2px solid red';
+messagesDiv.style.border = '2px solid red';
+
 // Call this function on page load
 document.addEventListener('DOMContentLoaded', loadChatUsers);
 
