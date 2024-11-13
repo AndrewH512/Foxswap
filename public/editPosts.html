@@ -95,8 +95,9 @@
                     <!--<input type="text" id="status" name="status" required />-->
                 </div>
 
-                <!-- Submit Button -->
+                <!-- Delete and Save Changes Button -->
                 <div class="auth-buttons">
+                    <button type="button" id="deletePostButton">Delete Post</button>
                     <button type="submit">Save Changes</button>
                 </div>
 
@@ -106,6 +107,29 @@
 
     <!-- Footer placeholder -->
     <div id="footer-placeholder"></div>
+
+
+    <script>
+        document.getElementById("deletePostButton").addEventListener("click", function () {
+            if (confirm("Are you sure you want to delete this post?")) {
+                fetch(`/api/deletePost?id=${encodeURIComponent(postId)}`, {
+                    method: "PUT", // Use PUT for updating an existing record
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ displayPost: 0 }) // Send data to update Display_Posts to 0
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Redirect to homepage after successful deletion
+                            window.location.href = `homepage.html?username=${encodeURIComponent(username)}`;
+                        } else {
+                            alert("Failed to delete post.");
+                        }
+                    })
+                    .catch(error => console.error("Error deleting post:", error));
+            }
+        });
+
+    </script>
 
 
     <script>

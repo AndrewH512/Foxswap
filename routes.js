@@ -127,7 +127,9 @@ router.get('/data', (req, res) => {
 FROM 
     Books
 JOIN 
-    Posts ON Books.Book_ID = Posts.Book_ID;`;
+    Posts ON Books.Book_ID = Posts.Book_ID
+AND
+    Posts.Display_Post = 1;`;
   req.db.query(query, (error, results) => {
     if (error) {
       return res.status(500).json({ error: error.message });
@@ -160,7 +162,9 @@ FROM
 JOIN 
     Posts ON Books.Book_ID = Posts.Book_ID
 Where
-    Posts.Seller = ?;`;
+    Posts.Seller = ?
+AND
+    Posts.Display_Post = 1;`;
   req.db.query(query, [username], (error, results) => {
     if (error) {
       return res.status(500).json({ error: error.message });
@@ -193,7 +197,9 @@ FROM
 JOIN 
     Posts ON Books.Book_ID = Posts.Book_ID
 Where
-    Posts.Post_ID = ?;`;
+    Posts.Post_ID = ?
+AND
+    Posts.Display_Post = 1;`;
   req.db.query(query, [postId], (error, results) => {
     if (error) {
       return res.status(500).json({ error: error.message });
@@ -228,7 +234,9 @@ FROM
 JOIN 
     Posts ON Books.Book_ID = Posts.Book_ID
 Where
-    Posts.Seller = ?;`;
+    Posts.Seller = ?
+AND
+    Posts.Display_Post = 1;`;
   req.db.query(query, [seller], (error, results) => {
     if (error) {
       return res.status(500).json({ error: error.message });
@@ -438,10 +446,11 @@ router.get('/searchBooks', (req, res) => {
       JOIN 
           Posts ON Books.Book_ID = Posts.Book_ID
       WHERE 
-          Books.Title LIKE ? 
+          (Books.Title LIKE ? 
           OR Books.Author LIKE ? 
           OR Books.ISBN LIKE ? 
-          OR Posts.Class_Name LIKE ?
+          OR Posts.Class_Name LIKE ?)
+      AND Posts.Display_Post = 1
   `;
 
   // Prepare parameters for the query
@@ -600,7 +609,7 @@ router.post('/api/report', (req, res) => {
     INSERT INTO Reports (Reported_User, Reporting_User, Title, Description)
     VALUES (?, ?, ?, ?)
   `;
-   
+
   req.db.query(query, [reportedUser, reporter, title, description], (err, result) => {
     if (err) {
       console.error('Database error:', err);
@@ -608,6 +617,24 @@ router.post('/api/report', (req, res) => {
     }
     console.log('Report successfully inserted with ID:', result.insertId);
     res.json({ message: 'Report submitted successfully!' });
-    
+
+  });
+});
+
+
+
+
+router.put('/api/deletePost', (req, res) => {
+  const postId = req.query.id;
+  const displayPost = req.body.displayPost;
+
+  const query = 'UPDATE Posts SET Display_Post = ? WHERE Post_ID = ?';
+  req.db.query(query, [displayPost, postId], (error, results) => {
+    if (error) {
+      console.error("Error updating post:", error);
+      res.status(500).json({ error: "Failed to delete post" });
+    } else {
+      res.sendStatus(200); // Success
+    }
   });
 });
