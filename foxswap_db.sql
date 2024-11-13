@@ -126,13 +126,48 @@ CREATE TABLE Transaction (
 
 -- Inserting Data Into the tables
 -- Insert additional records into the users table (example data)
--- Inserting Users
+-- Inserting Users, Admins, Our Accounts and Steve
 INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Salt, Admin, Banned, Profile_Picture, Bio)
 VALUES 
     ('andrew512', 'Andrew', 'Hennessy', '845-561-8782', 'andrewhenn512@gmail.com', SHA2(CONCAT('123random', 'salt_for_andrew512'), 256), 'salt_for_andrew512', 1, 0, '/uploads/andrew.png', 'Bio goes here'),
     ('steven', 'Steve', 'Stever', '987-654-3210', 'steve@gmail.com', SHA2(CONCAT('mynamesteve', 'salt_for_steven'), 256), 'salt_for_steven', 0, 0, '/uploads/steve.png', 'Steve is a nerd'),
     ('admin', 'Admin', 'Admin', '123-456-7890', 'admin@gmail.com', SHA2(CONCAT('marist123', 'salt_for_admin'), 256), 'salt_for_admin', 1, 0, '/uploads/admin.jpg', 'Admin'),
     ('mitch', 'Mitch', 'Levy', '845-699-9999', 'Mitchell.Levy1@outlook.com', SHA2(CONCAT('marist123', 'salt_for_mitch'), 256), 'salt_for_mitch', 1, 0, '/uploads/admin.jpeg', 'Stupid Admin');
+
+-- Inserting More Test Users, Theses are fake accounts, going to be used for testing and has to be deleted when website goes live**
+INSERT INTO Users (Username, First_Name, Last_Name, Phone_Number, Email, Password, Salt, Admin, Banned, Profile_Picture, Bio)
+VALUES 
+    ('ashley90', 'Ashley', 'Davis', '555-111-2221', 'ashley.davis@example.com', SHA2(CONCAT('AshSecret', 'salt_for_ashley90'), 256), 'salt_for_ashley90', 0, 0, '/uploads/default.jpg', 'Ashley enjoys volunteering and making a difference.'),
+    ('michael43', 'Michael', 'Lee', '555-222-3332', 'michael.lee@example.com', SHA2(CONCAT('MikePass43', 'salt_for_michael43'), 256), 'salt_for_michael43', 0, 0, '/uploads/default.jpg', 'Michael is passionate about technology and innovation.'),
+    ('sarah55', 'Sarah', 'Green', '555-333-4443', 'sarah.green@example.com', SHA2(CONCAT('SarahRocks', 'salt_for_sarah55'), 256), 'salt_for_sarah55', 0, 0, '/uploads/default.jpg', 'Sarah loves photography and the outdoors.'),
+    ('daniel32', 'Daniel', 'Harris', '555-444-5554', 'daniel.harris@example.com', SHA2(CONCAT('DannySecure', 'salt_for_daniel32'), 256), 'salt_for_daniel32', 0, 0, '/uploads/default.jpg', 'Daniel enjoys woodworking and crafts.'),
+    ('emily29', 'Emily', 'Moore', '555-555-6665', 'emily.moore@example.com', SHA2(CONCAT('EmilyPass29', 'salt_for_emily29'), 256), 'salt_for_emily29', 0, 0, '/uploads/default.jpg', 'Emily loves animals and works as a vet assistant.'),
+    ('johnnyB', 'Johnny', 'Baker', '555-666-7776', 'johnny.baker@example.com', SHA2(CONCAT('BakeIt123', 'salt_for_johnnyB'), 256), 'salt_for_johnnyB', 0, 0, '/uploads/default.jpg', 'Johnny is a chef who loves experimenting with new recipes.'),
+    ('victoriaV', 'Victoria', 'Young', '555-777-8887', 'victoria.young@example.com', SHA2(CONCAT('Vicky!Vibe', 'salt_for_victoriaV'), 256), 'salt_for_victoriaV', 0, 0, '/uploads/default.jpg', 'Victoria is an avid traveler and photographer.'),
+    ('benjamin81', 'Benjamin', 'Walker', '555-888-9998', 'benjamin.walker@example.com', SHA2(CONCAT('BenSecure81', 'salt_for_benjamin81'), 256), 'salt_for_benjamin81', 0, 0, '/uploads/default.jpg', 'Benjamin is a history buff and aspiring writer.'),
+    ('olivia77', 'Olivia', 'Martinez', '555-999-0009', 'olivia.martinez@example.com', SHA2(CONCAT('LivMart77', 'salt_for_olivia77'), 256), 'salt_for_olivia77', 0, 0, '/uploads/default.jpg', 'Olivia enjoys painting and creative arts.'),
+    ('charlieK', 'Charlie', 'King', '555-000-1110', 'charlie.king@example.com', SHA2(CONCAT('CharlieSecure', 'salt_for_charlieK'), 256), 'salt_for_charlieK', 0, 0, '/uploads/default.jpg', 'Charlie is a musician and plays the guitar.'),
+    ('madison56', 'Madison', 'Adams', '555-111-2222', 'madison.adams@example.com', SHA2(CONCAT('MadisonPass56', 'salt_for_madison56'), 256), 'salt_for_madison56', 0, 0, '/uploads/default.jpg', 'Madison is passionate about design and art.'),
+    ('robert12', 'Robert', 'Nelson', '555-222-3333', 'robert.nelson@example.com', SHA2(CONCAT('RobSecure12', 'salt_for_robert12'), 256), 'salt_for_robert12', 0, 0, '/uploads/default.jpg', 'Robert enjoys hiking and wildlife photography.'),
+    ('graceG', 'Grace', 'Carter', '555-333-4444', 'grace.carter@example.com', SHA2(CONCAT('GracefulG', 'salt_for_graceG'), 256), 'salt_for_graceG', 0, 0, '/uploads/default.jpg', 'Grace is a yoga instructor and wellness coach.'),
+    ('henry78', 'Henry', 'Garcia', '555-444-5555', 'henry.garcia@example.com', SHA2(CONCAT('Henry!78', 'salt_for_henry78'), 256), 'salt_for_henry78', 0, 0, '/uploads/default.jpg', 'Henry is an engineer who loves problem-solving.'),
+    ('sophie32', 'Sophie', 'Wright', '555-555-6666', 'sophie.wright@example.com', SHA2(CONCAT('Soph32Pass', 'salt_for_sophie32'), 256), 'salt_for_sophie32', 0, 0, '/uploads/default.jpg', 'Sophie enjoys reading and learning new languages.'),
+    ('lucas01', 'Lucas', 'Lopez', '555-666-7777', 'lucas.lopez@example.com', SHA2(CONCAT('LucLoz01', 'salt_for_lucas01'), 256), 'salt_for_lucas01', 0, 0, '/uploads/default.jpg', 'Lucas is a software developer and gamer.'),
+    ('maria88', 'Maria', 'Brown', '555-777-8888', 'maria.brown@example.com', SHA2(CONCAT('Maria88Pass', 'salt_for_maria88'), 256), 'salt_for_maria88', 0, 0, '/uploads/default.jpg', 'Maria enjoys photography and digital art.'),
+    ('jacob42', 'Jacob', 'Jones', '555-888-9999', 'jacob.jones@example.com', SHA2(CONCAT('JakeSecure42', 'salt_for_jacob42'), 256), 'salt_for_jacob42', 0, 0, '/uploads/default.jpg', 'Jacob loves sports and outdoor activities.'),
+    ('chloe21', 'Chloe', 'Diaz', '555-999-0000', 'chloe.diaz@example.com', SHA2(CONCAT('ChloeDiaz21', 'salt_for_chloe21'), 256), 'salt_for_chloe21', 0, 0, '/uploads/default.jpg', 'Chloe is a nature lover and likes gardening.'),
+    ('dylan65', 'Dylan', 'Rodriguez', '555-111-2223', 'dylan.rodriguez@example.com', SHA2(CONCAT('DylSecure65', 'salt_for_dylan65'), 256), 'salt_for_dylan65', 0, 0, '/uploads/default.jpg', 'Dylan is an aspiring actor with a love for film.'),
+    ('anna13', 'Anna', 'Martinez', '555-222-3334', 'anna.martinez@example.com', SHA2(CONCAT('Anna13Pass', 'salt_for_anna13'), 256), 'salt_for_anna13', 0, 0, '/uploads/default.jpg', 'Anna enjoys cooking and exploring new recipes.'),
+    ('samuel91', 'Samuel', 'Perez', '555-333-4445', 'samuel.perez@example.com', SHA2(CONCAT('SamPass91', 'salt_for_samuel91'), 256), 'salt_for_samuel91', 0, 0, '/uploads/default.jpg', 'Samuel loves playing soccer and staying active.'),
+    ('ella54', 'Ella', 'Collins', '555-444-5556', 'ella.collins@example.com', SHA2(CONCAT('Ella54Secret', 'salt_for_ella54'), 256), 'salt_for_ella54', 0, 0, '/uploads/default.jpg', 'Ella is a passionate reader and loves novels.'),
+    ('leo33', 'Leo', 'Evans', '555-555-6667', 'leo.evans@example.com', SHA2(CONCAT('LeoEvans33', 'salt_for_leo33'), 256), 'salt_for_leo33', 0, 0, '/uploads/default.jpg', 'Leo is a drummer in a local band.'),
+    ('natalie66', 'Natalie', 'Rivera', '555-666-7778', 'natalie.rivera@example.com', SHA2(CONCAT('Nat@Pass66', 'salt_for_natalie66'), 256), 'salt_for_natalie66', 0, 0, '/uploads/default.jpg', 'Natalie is interested in environmental sciences.'),
+    ('max47', 'Max', 'Hall', '555-777-8889', 'max.hall@example.com', SHA2(CONCAT('Max47Secure', 'salt_for_max47'), 256), 'salt_for_max47', 0, 0, '/uploads/default.jpg', 'Max is an artist who works with mixed media.'),
+    ('zoe92', 'Zoe', 'Scott', '555-888-9990', 'zoe.scott@example.com', SHA2(CONCAT('ZoeScott92', 'salt_for_zoe92'), 256), 'salt_for_zoe92', 0, 0, '/uploads/default.jpg', 'Zoe enjoys theater and musical performance.'),
+    ('liam25', 'Liam', 'Torres', '555-999-0001', 'liam.torres@example.com', SHA2(CONCAT('LiamTorres25', 'salt_for_liam25'), 256), 'salt_for_liam25', 0, 0, '/uploads/default.jpg', 'Liam is an avid video game player.'),
+    ('isabella44', 'Isabella', 'Flores', '555-111-2224', 'isabella.flores@example.com', SHA2(CONCAT('Isa!44', 'salt_for_isabella44'), 256), 'salt_for_isabella44', 0, 0, '/uploads/default.jpg', 'Isabella loves graphic design and illustration.'),
+    ('josh98', 'Josh', 'Reyes', '555-222-3335', 'josh.reyes@example.com', SHA2(CONCAT('JoshPass98', 'salt_for_josh98'), 256), 'salt_for_josh98', 0, 0, '/uploads/default.jpg', 'Josh is studying computer science and coding.');
+
 
 -- Inserting Books with Book_IDs
 INSERT INTO Books (Book_ID, Author, ISBN, Title, Book_Subject, Cover_Picture)
