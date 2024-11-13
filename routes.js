@@ -668,3 +668,34 @@ router.get('/api/report/:id', (req, res) => {
     res.json(result[0]);
   });
 });
+
+// Route to search for users based on the username or email
+router.get('/api/search-users', (req, res) => {
+    const query = req.query.query;
+    const sql = 'SELECT * FROM Users WHERE Username LIKE ? OR Email LIKE ?';
+    const values = [`%${query}%`, `%${query}%`];
+    
+    req.db.query(sql, values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
+});
+
+// Route to ban a user based on their username
+router.post('/api/ban-user/:username', (req, res) => {
+    const username = req.params.username;
+    const sql = 'UPDATE Users SET Banned = 1 WHERE Username = ?';  // Set banned flag to true
+    
+    req.db.query(sql, [username], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        if (result.affectedRows > 0) {
+            res.status(200).json({ message: 'User banned successfully' });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    });
+});

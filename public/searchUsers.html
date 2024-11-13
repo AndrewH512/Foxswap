@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Search for a User - Foxswap</title>
+
+    <link rel="stylesheet" href="css/front-end.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to Foxswap</h1>
+        <a href="welcomepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px; z-index: 10;" /></a>
+    </header>
+
+    <nav id="navbar">
+        <!-- Navigation links will be added here by JavaScript -->
+    </nav>
+
+    <main>
+        <h2>Search Users</h2>
+        <input type="text" id="searchInput" placeholder="Search for a user" onkeyup="searchUsers()">
+        
+        <div id="userList"></div>
+    </main>
+
+    <div style="text-align: center; position: absolute; bottom:0; width: 100%;">
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="js/window.js"></script>
+    <script src="js/reports.js"></script>
+    <script src="js/sessionCheck.js"></script>
+    <script src="js/profilePicture.js"></script>
+    <script>
+        function searchUsers() {
+            const query = document.getElementById('searchInput').value;
+            fetch(`/api/search-users?query=${query}`)
+                .then(response => response.json())
+                .then(users => {
+                    const userList = document.getElementById('userList');
+                    userList.innerHTML = '';
+                    users.forEach(user => {
+                        const userElement = document.createElement('div');
+                        userElement.innerHTML = `
+                            <p>${user.Username} (${user.Email}) 
+                            ${user.Banned ? "<span style='color:red;'>Banned</span>" : ""}
+                            <button onclick="banUser('${user.Username}')">Ban</button></p>
+                        `;
+                        userList.appendChild(userElement);
+                    });
+                })
+                .catch(error => console.error('Error fetching users:', error));
+        }
+
+        function banUser(username) {
+            fetch(`/api/ban-user/${username}`, { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        alert('User banned successfully');
+                        searchUsers();  // Re-run search to refresh the list
+                    } else {
+                        alert('Failed to ban user');
+                    }
+                })
+                .catch(error => console.error('Error banning user:', error));
+        }
+    </script>
+</body>
+
+</html>
