@@ -11,17 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
   
     <style>
-        body {
-            background-color: #f7f7f7; /* Light background for contrast */
-            font-family: Arial, sans-serif; /* Consistent font */
-        }
-        header {
-            text-align: center;
-            padding: 20px;
-        }
-        nav {
-            margin: 20px 0;
-        }
         .button-container {
             display: flex;
             flex-direction: column;
@@ -49,7 +38,9 @@
 <body>
     <!-- Header section -->
     <header>
-        <h1>Welcome to the Admin Dashboard</h1>
+        <h1>Admin Dashboard</h1>
+        <!-- Clickable Foxswap logo that links to the homepage -->
+        <a href="homepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
     </header>
 
     <!-- Navigation bar -->
@@ -69,32 +60,22 @@
     </div>
 
     <!-- Footer section -->
-    <footer>
-        <p style="text-align: center;">&copy; 2024 Foxswap - All Rights Reserved</p>
-    </footer>
+    <div id="footer-placeholder"></div>
 
-    <script>
-        // Get the username from the current URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get("username");
-    
-        // Function to handle redirection with username parameter
-        function redirectTo(page) {
-            if (username) {
-                window.location.href = `${page}?username=${encodeURIComponent(username)}`;
-            } else {
-                window.location.href = page;
-            }
-        }
-        
-    </script>
+    <!-- Footer Script -->
+    <script src="js/window.js"></script>
 
-    <!-- Import session check script -->
-    <!-- This ensures the user will not be able to skip this page
-     by just entering the URL-->
-    <script src="js/sessionCheck.js"></script>
+   <!-- Import session check script -->
+   <!-- This ensures the user will not be able to skip this page
+   by just entering the URL-->
+   <script src="js/sessionCheck.js"></script>
 
-    <!-- Displays the Profile Picture at top of the page -->
-  <script src="js/profilePicture.js"></script>
+   <!-- Displays the Profile Picture at top of the page -->
+   <script src="js/profilePicture.js"></script>
+
+   <!-- Displays the Profile Picture at top of the page -->
+   <script src="js/profilePicture.js"></script>
+
+   <script src="js/buttons.js"></script>
 </body>
 </html>
