@@ -25,24 +25,69 @@
         <!-- Navigation links will be added here by JavaScript -->
     </nav>
 
-    <h1 id="reportTitle">Report Title</h1>
-    <p><strong>Reported User:</strong> <span id="reportedUser"></span></p>
-    <p><strong>Reporting User:</strong> <span id="reportingUser"></span></p>
-    <p><strong>Description:</strong></p>
-    <p id="reportDescription"></p>
+    <style>
+        .reportBody {
+        padding: 0;
+        height: 100vh;
+        background-image: url("art/adminBackgroundpic.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+      }
+      h1 {
+        text-align: center;
+        text-decoration: underline;
+      }
+      .cardR {
+        width: 100%;
+        max-width: 1000px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        /* This indicates that the card is clickable */
+        cursor: pointer;
+        border: 2px solid red;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0.9;
+      }
 
+      .cardR:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+
+    </style>
+
+    <body class="reportBody">
+    <div class="cardR">
+    <h1 id="reportTitle" style="text-align: center; font-size: 45px; color:red" >Report Title</h1>
+    <p style="text-align: center; font-size: 30px; font-style: oblique;"><strong>Reported User:</strong> <span id="reportedUser"></span></p>
+    <p style="text-align: center; font-size: 30px; font-style: oblique;"><strong>Reporting User:</strong> <span id="reportingUser"></span></p>
+    <p style="text-align: center; font-size: 30px; font-style: oblique;"><strong>Description:</strong></p>
+    <p id="reportDescription" style="text-align: center; font-size: 30px; font-style: oblique;"></p>
+
+    
     <!-- Division for Buttons -->
     <div class="auth-buttons">
         <button class="admin-button" onclick="redirectTo('listReports.html')">View Reports</button>
         <button class="admin-button" onclick="redirectTo('searchUsers.html')">Ban User</button>
-        <button class="admin-button" onclick="redirectTo('searchPosts.html')">Ban Post</button>
+        <button class="admin-button" onclick="redirectTo('searchPosts.html')">Remove Post</button>
         <button class="admin-button" onclick="redirectTo('messages.html')">Message User</button>
+    </div>
     </div>
   
     <!-- Footer section -->
     <div style="text-align: center; position: absolute; bottom:0; width: 100%;">
         <div id="footer-placeholder"></div>
     </div>
+</body>
 
     <!-- Imporant Scripts -->
     <script src="js/window.js"></script>
