@@ -772,3 +772,38 @@ router.post('/api/unban-user/:username', (req, res) => {
     }
   });
 });
+
+// Router to view Transactions
+router.get('/api/viewTran', (req, res) => {
+  const sql = `
+  SELECT
+    t.Transaction_ID,           -- Select transaction details
+    t.Buyer,                    -- Buyer involved in the transaction
+    t.Seller,                   -- Seller involved in the transaction
+    t.Price AS Transaction_Price, -- Price of the transaction
+    t.created_at AS Transaction_Date,  -- Transaction creation date
+    p.Post_ID,                  -- Post details
+    p.Status AS Post_Status,    -- Status of the post (available, sold, pending)
+    p.Price AS Post_Price,      -- Price listed on the post
+    p.Class_Name,               -- Class name for which the book is listed
+    p.Book_Condition,           -- Condition of the book
+    p.Transaction_Type,         -- Type of transaction (Sale, Rental)
+    p.Due_Date                  -- Due date for rental (if applicable)
+  FROM
+    Transaction t
+  JOIN
+    Posts p ON t.Post_ID = p.Post_ID  -- Join on Post_ID between Transaction and Posts
+  ORDER BY
+    t.created_at DESC;  -- Optional: Orders by transaction creation date (most recent first)
+`;
+
+
+  req.db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error executing query:', err); // Logs error to the server console
+      return res.status(500).json({ error: err.message });
+    }
+    console.log(results);
+    res.json(results);  // Send the results as JSON
+  });
+});
