@@ -676,7 +676,7 @@ router.get('/api/report/:id', (req, res) => {
 
 
 router.put('/api/editPost', (req, res) => {
-  const { transaction, buyer, price } = req.body;
+  const { transaction, buyer, price, dueDate } = req.body;
   const postId = parseInt(req.query.id);
   const seller = req.session.username;
 
@@ -696,9 +696,8 @@ router.put('/api/editPost', (req, res) => {
         return res.status(500).send('Error inserting transaction details');
       }
 
-      // 2. Update Post.Display_Post to 0
-      const updatePostQuery = 'UPDATE Posts SET Display_Post = 0 WHERE Post_ID = ?';
-      req.db.query(updatePostQuery, [postId], (err, result) => {
+      const updatePostQuery = 'UPDATE Posts SET Display_Post = 0, Status = ? WHERE Post_ID = ?';
+      req.db.query(updatePostQuery, ["Sold or Rented", postId], (err, result) => {
         if (err) {
           return res.status(500).send('Error updating post visibility');
         }
@@ -708,8 +707,26 @@ router.put('/api/editPost', (req, res) => {
     });
   }
   else {
-    // Send error response if transaction or buyer data is missing
-    res.status(400).json({ success: false, message: 'Invalid transaction type or missing buyer' });
+    if (dueDate) {
+      const updatePostQuery = 'UPDATE Posts SET Price = ?, Due_Date = ? WHERE Post_ID = ?';
+      req.db.query(updatePostQuery, [price, dueDate, postId], (err, result) => {
+        if (err) {
+          return res.status(500).send('Error updating post visibility');
+        }
+        // Success response if everything went well
+        res.status(200).json({ success: true });
+      });
+    }
+    else {
+      const updatePostQuery = 'UPDATE Posts SET Price = ? WHERE Post_ID = ?';
+      req.db.query(updatePostQuery, [price, postId], (err, result) => {
+        if (err) {
+          return res.status(500).send('Error updating post visibility');
+        }
+        // Success response if everything went well
+        res.status(200).json({ success: true });
+      });
+    }
   }
 });
 

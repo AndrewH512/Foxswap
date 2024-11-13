@@ -113,6 +113,9 @@
             const price = document.getElementById('price').value;
             const transaction = document.getElementById('transaction').value; // Get the selected transaction type
 
+            const changeDueDate = document.getElementById('changeDueDate').value; // Get the user's choice to change the due date
+            const dueDate = document.getElementById('dueDate').value; // Get the due date value (if any)
+
             const buyer = document.getElementById('buyerSection').querySelector('select').value; // Get the selected value from the <select> element
             // Prepare the data to send
             const updatedPostData = {
@@ -132,7 +135,6 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log("Hello my friend!");
                         if (data.success) {
                             alert('Post updated successfully!');
                             window.location.href = `homepage.html?username=${username}`;
@@ -141,9 +143,30 @@
                         }
                     })
                     .catch(error => console.error('Error:', error));
-            } else {
-                // If "No" is selected, you may want to skip calling the editPost route
-                alert('Transaction type must be selected as "Yes" to update.');
+            } else if (transaction === 'no') {
+                updatedPostData.price = price; // Ensure price gets updated
+
+                // Update due date if user selects 'yes' to change it
+                if (changeDueDate === 'yes' && dueDate) {
+                    updatedPostData.dueDate = dueDate; // Only add due date if selected 'yes' and entered a date
+                }
+                // Send the data to the API for updating the post
+                fetch(`/api/editPost?id=${postId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedPostData),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Post update response:", data);
+                        if (data.success) {
+                            alert('Post updated successfully!');
+                            window.location.href = `homepage.html?username=${username}`;
+                        } else {
+                            alert('Failed to update post');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
             }
         });
 
@@ -175,6 +198,7 @@
                     .then(response => {
                         if (response.ok) {
                             // Redirect to homepage after successful deletion
+                            alert('Post deleted successfully!');
                             window.location.href = `homepage.html?username=${encodeURIComponent(username)}`;
                         } else {
                             alert("Failed to delete post.");
