@@ -294,8 +294,6 @@ router.post('/public/post', upload.single('coverPicture'), (req, res) => {
   // Check if the dueDate is empty, and if so, set it to null
   const dueDateValue = dueDate ? dueDate : null;
 
-  console.log("dueDate " + dueDate);
-
   // Check if a book with the same ISBN already exists
   const checkQuery = "SELECT * FROM Books WHERE ISBN = ?";
   req.db.query(checkQuery, [isbn], (error, results) => {
@@ -334,7 +332,6 @@ router.post('/public/post', upload.single('coverPicture'), (req, res) => {
         if (err) {
           return res.status(500).json({ error: err.message });
         }
-        console.log('Post Complete.');
         res.redirect(`/homepage.html?username=${encodeURIComponent(seller)}`);
       });
     });
@@ -349,7 +346,6 @@ router.get('/api/check-session', (req, res) => {
     const query = "SELECT Admin FROM Users WHERE Username = ?";
     req.db.query(query, [req.session.username], (error, results) => {
       if (error) {
-        console.error("Database query error:", error);
         return res.status(500).json({ error: "Internal server error" });
       }
 
@@ -362,7 +358,6 @@ router.get('/api/check-session', (req, res) => {
           admin: isAdmin // Include the admin status
         });
       } else {
-        console.warn("User not found:", req.session.username);
         return res.status(404).json({ authenticated: false });
       }
     });
@@ -429,7 +424,6 @@ router.get('/api/getPost', (req, res) => {
   req.db.query(query, [postId], (error, results) => {
     if (error) {
       // Log error and respond with a 500 status code if an error occurs
-      console.error('Error fetching post information:', error);
       res.status(500).json({ error: 'Internal server error' });
     } else if (results.length === 0) {
       // If no results, send a 404 response indicating post not found
@@ -659,8 +653,6 @@ router.post('/api/report', (req, res) => {
   const { reportedUser, title, description } = req.body;
   const reporter = req.session.username;  // Assuming `username` is stored in the session
 
-  console.log('Report data received:', { reportedUser, reporter, title, description });
-
   // Validate input
   if (!reportedUser || !reporter || !title || !description) {
     return res.status(400).json({ error: 'All fields are required.' });
@@ -677,7 +669,6 @@ router.post('/api/report', (req, res) => {
       console.error('Database error:', err);
       return res.status(500).json({ error: 'Database error' });
     }
-    console.log('Report successfully inserted with ID:', result.insertId);
     res.json({ message: 'Report submitted successfully!' });
 
   });

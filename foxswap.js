@@ -87,7 +87,6 @@ io.on('connection', (socket) => {
   socket.on('register', (username) => {
     users[username] = socket.id;
     sockets[socket.id] = username;
-    console.log(`Registered ${username} with ID: ${socket.id}`);
 
     // Fetch all users from the database
     db.query('SELECT Username FROM Users', (err, results) => {
@@ -98,7 +97,6 @@ io.on('connection', (socket) => {
       // Emit the list of usernames to the client
       const userList = results.map((row) => row.Username);
       io.emit('user list', userList);
-      console.log(userList)
     });
 
     // Fetch undelivered messages for the user
@@ -170,6 +168,7 @@ io.on('connection', (socket) => {
     console.log(`User disconnected: ${socket.id}`);
   });
 });
+
 
 // Start server on port 3000
 const PORT = process.env.PORT || 3000;
