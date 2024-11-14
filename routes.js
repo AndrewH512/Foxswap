@@ -26,7 +26,43 @@ function generateSalt(length = 16) {
 // Now Initialize multer with the defined storage configuration
 const upload = multer({ storage: storage });
 
-// Start of Routes Here
+// Middleware to check if the user is an admin
+function checkAdmin(req, res, next) {
+  if (req.session && req.session.admin) {
+    // If the user is an admin, proceed to the next middleware or route
+    return next();
+  } else {
+    // If the user is not an admin, redirect to the homepage
+    return res.redirect('/homepage.html');
+  }
+}
+
+// Apply the admin check middleware to admin-specific routes
+router.get('/admin_home', checkAdmin, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/admin_home.html'));
+});
+
+router.get('/admin_status', checkAdmin, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/admin_status.html'));
+});
+
+router.get('/transactions.html', checkAdmin, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/transactions.html'));
+});
+
+router.get('/userSearch.html', checkAdmin, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/userSearch.html'));
+});
+
+router.get('/listReports.html', checkAdmin, (req, res) => {
+  res.sendFile(path.join(__dirname, 'listReports.html'));
+});
+
+router.get('/viewReports.html', checkAdmin, (req, res) => {
+  res.sendFile(path.join(__dirname, 'viewReports.html'));
+});
+
+// Start of Main Routes Here
 
 // Route for login functionality
 router.post('/public/login', upload.none(), (req, res) => {

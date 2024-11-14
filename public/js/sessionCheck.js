@@ -15,11 +15,18 @@ function checkSession() {
                 if (data.username !== urlUsername) {
                     // If the usernames don't match, redirect to login page
                     window.location.href = '/login.html';
-                    alert("You have been logged out, Please Log Back In")
+                    alert("You have been logged out, Please Log Back In");
                 } else {
 
                     // Store the admin status in localStorage
                     localStorage.setItem('isAdmin', data.admin);
+
+                    // Prevent non-admin users from accessing admin pages
+                    const currentPath = window.location.pathname;
+                    if (!data.admin && (currentPath.includes('admin_home') || currentPath.includes('listReports.html')|| currentPath.includes('viewReports.html') || currentPath.includes('admin_status') || currentPath.includes('transactions.html') || currentPath.includes('userSearch.html'))) {
+                        // Redirect non-admin users to homepage and include username in URL
+                        window.location.href = `/homepage.html?username=${encodeURIComponent(urlUsername)}`;
+                    }
 
                     // Proceed based on admin status
                     if (data.admin) {
