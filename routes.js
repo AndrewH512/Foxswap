@@ -534,6 +534,26 @@ router.get('/chat-users/:username', (req, res) => {
   });
 });
 
+// Retrieve Chat History
+router.get('/chat-history/:user1/:user2', (req, res) => {
+  const { user1, user2 } = req.params;
+  const query = `
+  SELECT * FROM Messages 
+  WHERE 
+    ((Sender = ? AND Recipient = ? AND isDeletedBySender = FALSE) 
+    OR (Sender = ? AND Recipient = ? AND isDeletedByRecipient = FALSE))
+  ORDER BY Timestamp ASC
+`;
+  req.db.query(query, [user1, user2, user2, user1], (err, results) => {
+    if (err) {
+      console.error('Error retrieving chat history:', err);
+      res.status(500).send('Error retrieving chat history');
+    } else {
+      res.json(results); // Send the chat history as JSON
+    }
+  });
+});
+
 // Mark all messages as deleted for a specific conversation
 router.delete('/delete-chat/:user1/:user2', (req, res) => {
   const { user1, user2 } = req.params;
@@ -711,7 +731,20 @@ router.get('/api/report/:id', (req, res) => {
   });
 });
 
+// Edit Post Routes
+router.post('/editPost', (req, res) => {
+  const { postID, title, condition, price } = req.body;
 
+  const query = 'UPDATE Posts SET Title = ?, Book_Condition = ?, Price = ? WHERE Post_ID = ?';
+  req.db.query(query, [title, condition, price, postID], (err, results) => {
+      if (err) {
+          console.error('Error updating post:', err);
+          res.json({ success: false });
+      } else {
+          res.json({ success: true });
+      }
+  });
+});
 
 router.put('/api/editPost', (req, res) => {
   const { transaction, buyer, price, dueDate } = req.body;
