@@ -258,6 +258,8 @@ router.post('/public/post', upload.single('coverPicture'), (req, res) => {
   // Check if the dueDate is empty, and if so, set it to null
   const dueDateValue = dueDate ? dueDate : null;
 
+  console.log("dueDate " + dueDate);
+
   // Check if a book with the same ISBN already exists
   const checkQuery = "SELECT * FROM Books WHERE ISBN = ?";
   req.db.query(checkQuery, [isbn], (error, results) => {
