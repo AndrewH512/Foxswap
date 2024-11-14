@@ -108,11 +108,45 @@
         <button id="messageSellerButton">Message Seller</button>
         <button id="viewSellerProfileButton">View Seller's Profile</button>
       </div>
+      <!-- Delete Post Button (conditionally displayed) -->
+      <div class="auth-buttons" id="deletePostContainer" style="display: none;">
+        <button id="deletePostButton">Delete Post</button>
+      </div>
     </div>
   </main>
 
   <!-- Footer section -->
   <div id="footer-placeholder"></div>
+
+  <script>
+
+    // Check if user is an admin and display delete button if true
+    const isAdmin = localStorage.getItem('isAdmin') === "1";
+    if (isAdmin) {
+      document.getElementById('deletePostContainer').style.display = 'block';
+    }
+
+    document.getElementById("deletePostButton").addEventListener("click", function () {
+      if (confirm("Are you sure you want to delete this post?")) {
+        fetch(`/api/deletePost?id=${encodeURIComponent(postId)}`, {
+          method: "PUT", // Use PUT for updating an existing record
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ displayPost: 0 }) // Send data to update Display_Posts to 0
+        })
+          .then(response => {
+            if (response.ok) {
+              // Redirect to homepage after successful deletion
+              alert('Post deleted successfully!');
+              window.location.href = `homepage.html?username=${encodeURIComponent(username)}`;
+            } else {
+              alert("Failed to delete post.");
+            }
+          })
+          .catch(error => console.error("Error deleting post:", error));
+      }
+    });
+
+  </script>
 
   <script>
     // Fetch the specific textbook information using the post ID

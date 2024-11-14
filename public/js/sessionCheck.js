@@ -17,6 +17,10 @@ function checkSession() {
                     window.location.href = '/login.html';
                     alert("You have been logged out, Please Log Back In")
                 } else {
+
+                    // Store the admin status in localStorage
+                    localStorage.setItem('isAdmin', data.admin);
+
                     // Proceed based on admin status
                     if (data.admin) {
                         updateNavBarForAdmin();
