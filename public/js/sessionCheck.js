@@ -53,7 +53,7 @@ function updateNavBarForAdmin() {
         <a href="myprofile.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-user"></i>My Profile</a>
         <a href="favorites.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-heart"></i>Favorites</a>
         <a href="post.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-plus-circle"></i>Post</a>
-        <a href="yourposts.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-file-alt"></i>Your Posts</a>
+        <a href="yourPosts.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-file-alt"></i>Your Posts</a>
         <a href="reports.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fa-solid fa-triangle-exclamation"></i>Report</a>
         <a href="admin_home.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-cog"></i>Admin Panel</a>
         <a href="/public/logout${username ? '?username=' + encodeURIComponent(username) : ''}" id="logoutButton"><i class="fas fa-sign-out-alt"></i>Logout</a>
@@ -71,7 +71,7 @@ function updateNavBarForUser() {
         <a href="myprofile.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-user"></i>My Profile</a>
         <a href="favorites.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-heart"></i>Favorites</a>
         <a href="post.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-plus-circle"></i>Post</a>
-        <a href="yourposts.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-file-alt"></i>Your Posts</a>
+        <a href="yourPosts.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fas fa-file-alt"></i>Your Posts</a>
         <a href="reports.html${username ? '?username=' + encodeURIComponent(username) : ''}"><i class="fa-solid fa-triangle-exclamation"></i>Report</a>
         <a href="/public/logout${username ? '?username=' + encodeURIComponent(username) : ''}" id="logoutButton"><i class="fas fa-sign-out-alt"></i>Logout</a>
     `;
