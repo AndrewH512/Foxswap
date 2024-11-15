@@ -34,8 +34,10 @@ app.use(session({
 
 // Database connection configuration
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
+  //host: 'localhost',
+  host: '167.99.125.33',
+  //user: 'root',
+  user: 'foxswap_user',
   password: 'marist123',
   database: 'foxswap_db'
 });
