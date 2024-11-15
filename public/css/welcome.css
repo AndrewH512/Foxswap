@@ -1,27 +1,55 @@
-/* CSS styke that just the welcome page uses*/
+/* CSS style that just the welcome page uses*/
 body {
-    background-image: url('../art/welcomepage.jpg'); 
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    margin: 0;
-    height: 100vh;
-    color: white; 
+  background-image: url("../art/welcomebackground.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  height: 100vh;
+  color: white;
 }
 /* Welcome Page */
 .main-content {
-    color:white; 
-    background-color: #000000;
-    border: 2px solid red;
-    width: 80%; 
-    max-width: 600px; 
-    margin: 40px auto; 
-    padding: 20px; 
-    border-radius: 10px; 
-    text-align: center;
+  color: white;
+  background-color: #f9f9f9;
+  border: 5px solid lightgray;
+  width: 80%;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.6s ease;
+  opacity: 0.9;
+}
+
+.main-content img {
+  filter: grayscale(100%); /* Makes the image grey*/
+  width: 150px;
+  transition: filter 0.3s ease;
+}
+
+/* When you hover over the icon, it turns red*/
+.main-content img:hover {
+  filter: grayscale(0%);
+}
+
+.main-content h3 {
+  font-size: 35px;
+  color: #282828;
+  margin-bottom: 15px;
+}
+
+.main-content p {
+  font-size: 25px;
+  color: rgb(108, 102, 102);
+}
+
+.main-content:hover {
+  transform: translateY(-20px);
 }
 
 .auth-buttons {
-    margin-top: 200px; /* Move buttons down the page */
-    text-align: center; /* Center the buttons */
+  margin-top: 80px; /* Move buttons down the page */
+  text-align: center; /* Center the buttons */
 }
