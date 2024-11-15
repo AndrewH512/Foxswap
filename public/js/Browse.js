@@ -30,8 +30,8 @@ function searchBooks() {
                 return; // Exit if no results
             }
 
-            // Limit the results to only 4 items
-            const limitedData = data.slice(0, 4);
+            // Limit the results to only 10 items
+            const limitedData = data.slice(0, 10);
 
             limitedData.forEach((book) => {
                 // Create a card for each book using the createCard function
@@ -65,3 +65,4 @@ function createCard(item) {
 
     return card;
 }
+
