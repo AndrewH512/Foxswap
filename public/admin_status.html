@@ -8,36 +8,40 @@
 
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="css/front-end.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <style>
-    /* Centering container */
-    .container {
-        max-width: 1200px; /* Limit the width for larger screens */
+      /* Centering container */
+      .container {
+        /* max-width: 1200px; Limit the width for larger screens */
         margin: 0 auto; /* Center the container */
         padding: 20px;
-    }
+        height: 100%;
+      }
 
-    /* Styling the search user section */
-    #search-user {
+      /* Styling the search user section */
+      #search-user {
         text-align: center;
         margin: 30px 0;
-    }
+      }
 
-    #search-user label {
+      #search-user label {
         font-size: 1.2em;
         margin-right: 10px;
-    }
+      }
 
-    #search-user input[type="text"] {
-    padding: 10px;
-    width: 250px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
-    font-size: 1em;
-    }
+      #search-user input[type="text"] {
+        padding: 10px;
+        width: 250px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        margin-right: 10px;
+        font-size: 1em;
+      }
 
-    #search-user button {
+      #search-user button {
         background-color: #b3261e;
         color: white;
         padding: 10px 20px;
@@ -45,30 +49,30 @@
         border-radius: 4px;
         cursor: pointer;
         font-size: 1em;
-    }
+      }
 
-    #search-user button:hover {
-         background-color: #ddd;
+      #search-user button:hover {
+        background-color: #ddd;
         color: black;
-    }
+      }
 
-    /* Styling the search results */
-    #search-results {
+      /* Styling the search results */
+      #search-results {
         margin-top: 20px;
         text-align: center;
-    }
+      }
 
-    #user-list {
+      #user-list {
         list-style: none;
         padding: 0;
-    }
+      }
 
-    #user-list li {
+      #user-list li {
         margin: 10px 0;
         font-size: 1.1em;
-    }       
+      }
 
-    #user-list button {
+      #user-list button {
         background-color: #b3261e;
         color: white;
         padding: 5px 15px;
@@ -77,27 +81,27 @@
         cursor: pointer;
         font-size: 1em;
         margin-left: 10px;
-    }
+      }
 
-    #user-list button:hover {
+      #user-list button:hover {
         background-color: #ddd;
         color: black;
-    }
+      }
 
-    /* Styling for the admin status form section */
-    #change-admin-status {
+      /* Styling for the admin status form section */
+      #change-admin-status {
         text-align: center;
         margin-top: 30px;
-    }
+      }
 
-    #admin-status-form select {
+      #admin-status-form select {
         padding: 10px;
         font-size: 1.1em;
         margin: 10px 0;
         border-radius: 4px;
-    }
+      }
 
-    #admin-status-form button {
+      #admin-status-form button {
         background-color: #b3261e;
         color: white;
         padding: 10px 20px;
@@ -105,90 +109,162 @@
         border-radius: 4px;
         cursor: pointer;
         font-size: 1em;
-         margin-top: 20px;
-    }
+        margin-top: 20px;
+      }
 
-    #admin-status-form button:hover {
+      #admin-status-form button:hover {
         background-color: #ddd;
         color: black;
-    }
+      }
 
-    /* Styling for response message */
-    #response-message {
+      /* Styling for response message */
+      #response-message {
         margin-top: 20px;
         font-size: 1.2em;
         color: #b3261e;
-    }
+      }
+      .adminHome {
+        height: 100%;
+        background-image: url("art/adminBackgroundpic.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+      }
+      .cardT {
+        width: 800px;
+        height: auto;
+        background-color: white;
+        border-color: red;
+        border-radius: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        transition: transform 0.6s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0.9;
+        margin-top: 30px;
+        padding: 30px;
+      }
+
+      .cardT:hover {
+        transform: translateY(-20px);
+      }
+      /* Individual button styling */
+      .admin-button {
+        background-color: #000000;
+        border: 2px solid red;
+        color: white;
+        padding: 15px 25px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 33px;
+        cursor: pointer;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* Add some shadow */
+        transition: 0.3s ease-in-out;
+        /* Smooth transitions */
+      }
+
+      /* Button hover effect */
+      .admin-button:hover {
+        background-color: #e41e1e;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        /* Increase shadow on hover */
+      }
     </style>
   </head>
-  <body>
+  <body class="adminHome">
     <!-- Header section -->
     <header>
       <h1>Add or Delete an Admin</h1>
       <!-- Clickable Foxswap logo that links to the homepage -->
       <a href="homepage.html">
-        <img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="width: 90px;height: 90px;position: absolute;top: 20px;left: 20px;" />
+        <img
+          src="uploads/Fox_Swap_Logo.ico"
+          alt="Logo"
+          class="logo"
+          style="
+            width: 90px;
+            height: 90px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+          "
+        />
       </a>
     </header>
 
-
     <!-- Navigation bar -->
     <nav id="navbar">
-        <!-- Navigation links will be added here by JavaScript -->
+      <!-- Navigation links will be added here by JavaScript -->
     </nav>
 
-    <!-- Search for User Section -->
-    <section id="search-user">
+    <div class="cardT">
+      <!-- Search for User Section -->
+      <section id="search-user">
         <label for="search-query">Search for User (Username or Email):</label>
-        <input type="text" id="search-query" placeholder="Enter username or email" />
+        <input
+          type="text"
+          id="search-query"
+          placeholder="Enter username or email"
+        />
         <button id="search-btn">Search</button>
       </section>
-  
+
       <!-- Search Results Section -->
-      <section id="search-results" style="display: none;">
+      <section id="search-results" style="display: none">
         <h2>Search Results:</h2>
         <ul id="user-list"></ul>
       </section>
-  
+
       <!-- Admin Status Form Section -->
-      <section id="change-admin-status" style="display: none;">
+      <section id="change-admin-status" style="display: none">
         <form id="admin-status-form">
           <input type="hidden" id="selected-username" />
-          
+
           <label for="isAdmin">Admin Status:</label>
           <select id="isAdmin" name="isAdmin">
             <option value="true">Make Admin</option>
             <option value="false">Remove Admin</option>
           </select>
-  
+
           <button type="submit">Change Admin Status</button>
         </form>
         <div id="response-message"></div>
       </section>
 
       <!-- Button container -->
-    <div class="auth-buttons"  style="text-align: center; position: absolute; bottom:150px; width: 100%;">
-        <button class="admin-button" onclick="redirectTo('admin_home.html')">Admin Panel</button>
-      </div>
-  
-      <!-- Footer section -->
-    <div style="text-align: center; position: absolute; bottom:0; width: 100%;">
-        <div id="footer-placeholder"></div>
+
+      <button class="admin-button" onclick="redirectTo('admin_home.html')">
+        Admin Panel
+      </button>
     </div>
-  
-      <!-- Footer Script -->
-      <script src="js/window.js"></script>
-  
-      <!-- Import session check script -->
-      <script src="js/sessionCheck.js"></script>
-  
-      <!-- Displays the Profile Picture at top of the page -->
-      <script src="js/profilePicture.js"></script>
-  
-      <!-- Button functionality script -->
-      <script src="js/buttons.js"></script>
-  
-      <!-- Admin status change script -->
-      <script src="js/adminStatus.js"></script>
-    </body>
-  </html>
+
+    <!-- Footer section -->
+    <div style="text-align: center; position: absolute; bottom: 0; width: 100%">
+      <div id="footer-placeholder"></div>
+    </div>
+
+    <!-- Footer Script -->
+    <script src="js/window.js"></script>
+
+    <!-- Import session check script -->
+    <script src="js/sessionCheck.js"></script>
+
+    <!-- Displays the Profile Picture at top of the page -->
+    <script src="js/profilePicture.js"></script>
+
+    <!-- Button functionality script -->
+    <script src="js/buttons.js"></script>
+
+    <!-- Admin status change script -->
+    <script src="js/adminStatus.js"></script>
+  </body>
+</html>
