@@ -90,10 +90,17 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(`/api/report/${reportID}`)
             .then(response => response.json())
             .then(report => {
+                // Update the report details in the HTML
                 document.getElementById('reportTitle').textContent = report.Title;
                 document.getElementById('reportDescription').textContent = report.Description;
                 document.getElementById('reportedUser').textContent = report.Reported_User;
                 document.getElementById('reportingUser').textContent = report.Reporting_User;
+
+                // Set up the Message Seller button to direct to the messages page
+                document.getElementById("messageUserButton").addEventListener("click", () => {
+                    // Use the 'Reported_User' for the recipient
+                    window.location.href = `messages.html?username=${encodeURIComponent(username)}&recipient=${encodeURIComponent(report.Reported_User)}`;
+                });
             })
             .catch(error => {
                 console.error('Error fetching report details:', error);
