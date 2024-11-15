@@ -626,7 +626,7 @@ router.post('/api/updateProfile', upload.single('profilePic'), (req, res) => {
       console.error('Error updating profile:', error);
       return res.status(500).json({ error: 'Failed to update profile' });
     }
-    res.json({ message: 'Profile updated successfully' });
+    res.json({ message: 'Profile updated successfully!' });
   });
 });
 
@@ -728,12 +728,12 @@ router.post('/editPost', (req, res) => {
 
   const query = 'UPDATE Posts SET Title = ?, Book_Condition = ?, Price = ? WHERE Post_ID = ?';
   req.db.query(query, [title, condition, price, postID], (err, results) => {
-      if (err) {
-          console.error('Error updating post:', err);
-          res.json({ success: false });
-      } else {
-          res.json({ success: true });
-      }
+    if (err) {
+      console.error('Error updating post:', err);
+      res.json({ success: false });
+    } else {
+      res.json({ success: true });
+    }
   });
 });
 

@@ -1,173 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Profile - Foxswap</title>
-    <link rel="stylesheet" href="css/front-end.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-  </head>
 
-  <style>
-    .background-image {
-      width: 100%;
-      height: 100vh; /* Ensures the image covers the full screen height */
-      object-fit: cover; /* Ensures the image will not stretch but will maintain its aspect ratio */
-      object-position: center center; /* Centers the image */
-      position: fixed; /* Fixed positioning makes it stay in place when scrolling */
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
-    .center-container {
-      opacity: 0.9;
-    }
-  </style>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Profile - Foxswap</title>
+  <link rel="stylesheet" href="css/front-end.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
 
-  <body>
-    <!-- Header section -->
-    <header>
-      <h1>Edit Your Profile</h1>
-      <!-- Clickable Foxswap logo that links to the homepage -->
-      <a href="welcomepage.html"
-        ><img
-          src="uploads/Fox_Swap_Logo.ico"
-          alt="Logo"
-          class="logo"
-          style="
+<style>
+  .background-image {
+    width: 100%;
+    height: 100vh;
+    /* Ensures the image covers the full screen height */
+    object-fit: cover;
+    /* Ensures the image will not stretch but will maintain its aspect ratio */
+    object-position: center center;
+    /* Centers the image */
+    position: fixed;
+    /* Fixed positioning makes it stay in place when scrolling */
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  .center-container {
+    opacity: 0.9;
+  }
+</style>
+
+<body>
+  <!-- Header section -->
+  <header>
+    <h1>Edit Your Profile</h1>
+    <!-- Clickable Foxswap logo that links to the homepage -->
+    <a href="welcomepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="
             width: 90px;
             height: 90px;
             position: absolute;
             top: 20px;
             left: 20px;
-          "
-      /></a>
-    </header>
+          " /></a>
+  </header>
 
-    <!-- Navigation bar -->
-    <nav id="navbar">
-      <!-- Navigation links will be added here by JavaScript -->
-    </nav>
+  <!-- Navigation bar -->
+  <nav id="navbar">
+    <!-- Navigation links will be added here by JavaScript -->
+  </nav>
 
-    <img class="background-image" src="art/editProfileBackground.jpeg" />
-    <!-- Link to navigate back to the profile page -->
-    <div class="centered-container">
-      <a href="myprofile.html" class="back-to-profile">Back to Profile</a>
-    </div>
+  <img class="background-image" src="art/editProfileBackground.jpeg" />
+  <!-- Link to navigate back to the profile page -->
+  <div class="centered-container">
+    <a href="myprofile.html" class="back-to-profile">Back to Profile</a>
+  </div>
 
-    <div class="center-container">
-      <!-- Edit Profile Form -->
-      <form id="editProfileForm" enctype="multipart/form-data">
-        <!-- Upload Profile Picture -->
-        <div>
-          <label for="profilePic">Profile Picture:</label>
-          <input
-            type="file"
-            id="profilePic"
-            name="profilePic"
-            accept="image/*"
-          />
-        </div>
+  <div class="center-container">
+    <!-- Edit Profile Form -->
+    <form id="editProfileForm" enctype="multipart/form-data">
+      <!-- Upload Profile Picture -->
+      <div>
+        <label for="profilePic">Profile Picture:</label>
+        <input type="file" id="profilePic" name="profilePic" accept="image/*" />
+      </div>
 
-        <!-- First Name -->
-        <div>
-          <label for="firstName">First Name:</label>
-          <input type="text" id="firstName" name="firstName" required />
-        </div>
+      <!-- First Name -->
+      <div>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required />
+      </div>
 
-        <!-- Last Name -->
-        <div>
-          <label for="lastName">Last Name:</label>
-          <input type="text" id="lastName" name="lastName" required />
-        </div>
+      <!-- Last Name -->
+      <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required />
+      </div>
 
-        <!-- Bio -->
-        <div>
-          <label for="bio">Bio:</label>
-          <textarea id="bio" name="bio" rows="4" cols="50" required></textarea>
-        </div>
+      <!-- Bio -->
+      <div>
+        <label for="bio">Bio:</label>
+        <textarea id="bio" name="bio" rows="4" cols="50" required></textarea>
+      </div>
 
-        <!-- Password -->
-        <div>
-          <label for="password">Password:</label>
-          <input type="text" id="password" name="password" required />
-        </div>
+      <!-- Password -->
+      <div>
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password" required />
+      </div>
 
-        <!-- Phone Number-->
-        <div>
-          <label for="phoneNumber">Phone Number:</label>
-          <input type="text" id="phoneNumber" name="phoneNumber" required />
-        </div>
+      <!-- Phone Number-->
+      <div>
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" required />
+      </div>
 
-        <!-- Submit Button -->
-        <div class="auth-buttons">
-          <button type="submit">Save Changes</button>
-        </div>
-      </form>
-    </div>
+      <!-- Submit Button -->
+      <div class="auth-buttons">
+        <button type="submit">Save Changes</button>
+      </div>
+    </form>
+  </div>
 
-    <!-- Footer placeholder -->
-    <div id="footer-placeholder"></div>
+  <!-- Footer placeholder -->
+  <div id="footer-placeholder"></div>
 
-    <!-- JavaScript to handle form submission -->
-    <script>
-      // Extract username from the URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const username = urlParams.get("username");
+  <!-- JavaScript to handle form submission -->
+  <script>
+    // Extract username from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get("username");
 
-      if (username) {
-        // Fetch the current user data to prefill the form
-        fetch(`/api/Users?username=${encodeURIComponent(username)}`)
+    if (username) {
+      // Fetch the current user data to prefill the form
+      fetch(`/api/Users?username=${encodeURIComponent(username)}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.length > 0) {
+            const user = data.find((u) => u.Username === username);
+            document.getElementById("firstName").value =
+              user.First_Name || "";
+            document.getElementById("lastName").value = user.Last_Name || "";
+            document.getElementById("bio").value = user.Bio || "";
+            document.getElementById("phoneNumber").value =
+              user.Phone_Number || "";
+          }
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    }
+
+    // Form submission handler
+    document
+      .getElementById("editProfileForm")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        formData.append("username", username); // Attach the username to identify the user on the server
+        fetch("/api/updateProfile", {
+          method: "POST",
+          body: formData,
+        })
           .then((response) => response.json())
           .then((data) => {
-            if (data.length > 0) {
-              const user = data.find((u) => u.Username === username);
-              document.getElementById("firstName").value =
-                user.First_Name || "";
-              document.getElementById("lastName").value = user.Last_Name || "";
-              document.getElementById("bio").value = user.Bio || "";
-              document.getElementById("phoneNumber").value =
-                user.Phone_Number || "";
+            if (data.success) {
+              alert("Profile updated successfully!");
+              window.location.href = `myProfile.html?username=${username}`;
+            } else {
+              alert(data.message);
             }
           })
-          .catch((error) => console.error("Error fetching user data:", error));
-      }
+          .catch((error) => console.error("Error updating profile:", error));
+      });
+  </script>
 
-      // Form submission handler
-      document
-        .getElementById("editProfileForm")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
-          const formData = new FormData(this);
-          formData.append("username", username); // Attach the username to identify the user on the server
-          fetch("/api/updateProfile", {
-            method: "POST",
-            body: formData,
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                alert("Profile updated successfully!");
-                window.location.href = `myProfile.html?username=${username}`;
-              } else {
-                alert("Error updating profile: " + data.message);
-              }
-            })
-            .catch((error) => console.error("Error updating profile:", error));
-        });
-    </script>
+  <!-- Import session check script -->
+  <script src="js/sessionCheck.js"></script>
 
-    <!-- Import session check script -->
-    <script src="js/sessionCheck.js"></script>
+  <!-- Displays the Profile Picture at top of the page -->
+  <script src="js/profilePicture.js"></script>
 
-    <!-- Displays the Profile Picture at top of the page -->
-    <script src="js/profilePicture.js"></script>
+  <!-- Footer Script-->
+  <script src="js/window.js"></script>
+</body>
 
-    <!-- Footer Script-->
-    <script src="js/window.js"></script>
-  </body>
 </html>
