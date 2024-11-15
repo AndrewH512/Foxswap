@@ -1,334 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Posts - Foxswap</title>
-    <link rel="stylesheet" href="css/front-end.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-</head>
+    <link rel="stylesheet" href="css/front-end.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
 
-<style>
+  <style>
     .editPostBg {
-        background-image: url("art/editPost.jpeg");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
+      background-image: url("art/editPost.jpeg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
     .editPost-container {
-        margin: auto;
-        max-width: 100vh;
-        margin-right: auto;
-        margin-left: auto;
-        margin-bottom: 120px;
-        margin-top: 10px;
-        padding: 20px;
-        flex-wrap: wrap;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 50vh;
-        background-color: lightgrey;
-        border: 2px solid red;
-        border-radius: 10px;
-        width: 700px;
-        height: 800px;
-        opacity: 0.8;
+      margin: auto;
+      max-width: 100vh;
+      margin-right: auto;
+      margin-left: auto;
+      margin-bottom: 25px;
+      margin-top: 25px;
+      padding: 20px;
+      flex-wrap: wrap;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 50vh;
+      background-color: whitesmoke;
+      border: 5px solid lightgray;
+      border-radius: 10px;
+      width: 700px;
+      height: 800px;
+      opacity: 0.95;
     }
 
     .card-content {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
 
     .editPost-wrapper {
-        margin: 0x;
-        padding: 0x;
-        z-index: -1;
+      margin: 0x;
+      padding: 0x;
+      z-index: -1;
     }
-</style>
 
-<body class="editPostBg">
+    /* Basic button styling */
+    .backtopostlink {
+      display: flex;
+      justify-content: center;
+      /* Centers the buttons horizontally */
+      gap: 20px;
+      /* Space between buttons */
+      margin-top: 20px;
+    }
+
+    /* Individual button styling */
+    .backtopostlink a {
+      background-color: #000000;
+      border: 2px solid red;
+      color: white;
+      padding: 15px 25px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 33px;
+      cursor: pointer;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      /* Add some shadow */
+      transition: 0.3s ease-in-out;
+      /* Smooth transitions */
+    }
+
+    /* Button hover effect */
+    .backtopostlink a:hover {
+      background-color: #e41e1e;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      /* Increase shadow on hover */
+    }
+  </style>
+
+  <body class="editPostBg">
     <!-- Header section -->
     <header>
-        <h1>Edit Your Post</h1>
-        <!-- Clickable Foxswap logo that links to the homepage -->
-        <a href="welcomepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo"
-                style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
+      <h1>Edit Your Post</h1>
+      <!-- Clickable Foxswap logo that links to the homepage -->
+      <a href="welcomepage.html"
+        ><img
+          src="uploads/Fox_Swap_Logo.ico"
+          alt="Logo"
+          class="logo"
+          style="
+            width: 90px;
+            height: 90px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+          "
+      /></a>
     </header>
 
     <!-- Navigation bar -->
     <nav id="navbar">
-        <!-- Navigation links will be added here by JavaScript -->
+      <!-- Navigation links will be added here by JavaScript -->
     </nav>
 
-    <!-- Link to navigate back to the profile page -->
-    <div class="centered-container">
-        <a id="backToPost" href="yourTextbookInfo.html" class="back-to-post">Back to Post</a>
-    </div>
     <div class="editPost-wrapper">
-        <div class="editPost-container">
-            <!-- Edit Post Form -->
-            <form id="editPostForm" enctype="multipart/form-data">
-
-                <!-- Book Details Section -->
-                <div class="card-content" style="font-size: 25px">
-                    <h3><strong>Title:</strong> <span id="bookTitle"></span></h3>
-                    <h4><strong>Status:</strong> <span id="bookStatus"></span></h4>
-
-                    <div class="content-wrapper">
-                        <!-- Book Image Section -->
-                        <div class="book-image">
-                            <img src="uploads/andrew.png" alt="Book Cover" style="width: 273px; height: 350px"
-                                id="bookCover" />
-                        </div>
-
-                        <!-- Price -->
-                        <div>
-                            <label for="price">Price:</label>
-                            <input type="text" id="price" name="price" required />
-                        </div>
-
-
-
-
-                        <!-- Dropdown for Changing Due Date -->
-                        <div id="changeDueDateSection" style="display: none;">
-                            <label for="changeDueDate">Do you want to change the Due Date?</label>
-                            <select id="changeDueDate" onchange="toggleDueDateField()">
-                                <option value="no">No</option>
-                                <option value="yes">Yes</option>
-                            </select>
-                        </div>
-
-                        <!-- Date Input (Initially Hidden) -->
-                        <div id="dueDateSection" style="display: none;">
-                            <label for="dueDate">Date:</label>
-                            <input type="date" id="dueDate" name="dueDate" />
-                        </div>
-
-
-
-
-
-                        <div class="form-group">
-                            <label for="transaction">Did you rent or sell your book?</label>
-                            <select name="transaction" id="transaction">
-                                <option value="no">No</option>
-                                <option value="yes">Yes</option>
-                            </select>
-
-                            <div class="users" id="buyerSection" style="display: none;">
-                                <label for="buyer">Who did you sell to?</label>
-                                <select id="buyerSection">
-                                    <option value="">Select a User</option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <!--</select> -->
-                        <!--<input type="text" id="status" name="status" required />-->
-                    </div>
-
-                    <!-- Delete and Save Changes Button -->
-                    <div class="auth-buttons" style="z-index: 1">
-                        <button type="button" id="deletePostButton">Delete Post</button>
-                        <button id="submitPostButton" type="button">Update Post</button>
-                    </div>
-
-                </div>
-            </form>
+      <div class="editPost-container">
+        <!-- Link to navigate back to the profile page -->
+        <div class="backtopostlink">
+          <a href="yourPosts.html" id="backToPost" class="back-to-post">
+            Back to Post
+          </a>
         </div>
+        <!-- Edit Post Form -->
+        <form id="editPostForm" enctype="multipart/form-data">
+          <!-- Book Details Section -->
+          <div class="card-content" style="font-size: 25px">
+            <h3><strong>Title:</strong> <span id="bookTitle"></span></h3>
+            <h4><strong>Status:</strong> <span id="bookStatus"></span></h4>
 
+            <div class="content-wrapper">
+              <!-- Book Image Section -->
+              <div class="book-image">
+                <img
+                  src="uploads/andrew.png"
+                  alt="Book Cover"
+                  style="width: 273px; height: 350px"
+                  id="bookCover"
+                />
+              </div>
+
+              <!-- Price -->
+              <div>
+                <label for="price" style="font-weight: bold; margin-top: 20px"
+                  >Price:</label
+                >
+                <input type="text" id="price" name="price" required />
+              </div>
+
+              <!-- Dropdown for Changing Due Date -->
+              <div id="changeDueDateSection" style="display: none">
+                <label for="changeDueDate"
+                  >Do you want to change the Due Date?</label
+                >
+                <select id="changeDueDate" onchange="toggleDueDateField()">
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                </select>
+              </div>
+
+              <!-- Date Input (Initially Hidden) -->
+              <div id="dueDateSection" style="display: none">
+                <label for="dueDate">Date:</label>
+                <input type="date" id="dueDate" name="dueDate" />
+              </div>
+
+              <div class="form-group">
+                <label
+                  for="transaction"
+                  style="font-weight: bold; margin-top: 10px"
+                  >Did you rent or sell your book?</label
+                >
+                <select name="transaction" id="transaction">
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                </select>
+
+                <div class="users" id="buyerSection" style="display: none">
+                  <label for="buyer">Who did you sell to?</label>
+                  <select id="buyerSection">
+                    <option value="">Select a User</option>
+                  </select>
+                </div>
+              </div>
+
+              <!--</select> -->
+              <!--<input type="text" id="status" name="status" required />-->
+            </div>
+
+            <!-- Delete and Save Changes Button -->
+            <div class="auth-buttons">
+              <button type="button" id="deletePostButton">Delete Post</button>
+              <button id="submitPostButton" type="button">Update Post</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
     <!-- Footer placeholder -->
     <div id="footer-placeholder"></div>
 
-
-
     <script>
-        document.getElementById('submitPostButton').addEventListener('click', function () {
-            const price = document.getElementById('price').value;
-            const transaction = document.getElementById('transaction').value; // Get the selected transaction type
+      document
+        .getElementById("submitPostButton")
+        .addEventListener("click", function () {
+          const price = document.getElementById("price").value;
+          const transaction = document.getElementById("transaction").value; // Get the selected transaction type
 
-            const changeDueDate = document.getElementById('changeDueDate').value; // Get the user's choice to change the due date
-            const dueDate = document.getElementById('dueDate').value; // Get the due date value (if any)
+          const changeDueDate = document.getElementById("changeDueDate").value; // Get the user's choice to change the due date
+          const dueDate = document.getElementById("dueDate").value; // Get the due date value (if any)
 
-            const buyer = document.getElementById('buyerSection').querySelector('select').value; // Get the selected value from the <select> element
-            // Prepare the data to send
-            const updatedPostData = {
-                price: price,
-                transaction: transaction,
-                postId: postId, // Use the existing postId
-                buyer: buyer
-            };
+          const buyer = document
+            .getElementById("buyerSection")
+            .querySelector("select").value; // Get the selected value from the <select> element
+          // Prepare the data to send
+          const updatedPostData = {
+            price: price,
+            transaction: transaction,
+            postId: postId, // Use the existing postId
+            buyer: buyer,
+          };
 
-            if (transaction === 'yes') {
-                const postId = urlParams.get("id"); // Extract the post id
-                // If the user has rented or sold the book, send the data to the editPost route
-                fetch(`/api/editPost?id=${postId}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(updatedPostData),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Post updated successfully!');
-                            window.location.href = `homepage.html?username=${username}`;
-                        } else {
-                            alert('Failed to update post');
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            } else if (transaction === 'no') {
-                updatedPostData.price = price; // Ensure price gets updated
-
-                // Update due date if user selects 'yes' to change it
-                if (changeDueDate === 'yes' && dueDate) {
-                    updatedPostData.dueDate = dueDate; // Only add due date if selected 'yes' and entered a date
+          if (transaction === "yes") {
+            const postId = urlParams.get("id"); // Extract the post id
+            // If the user has rented or sold the book, send the data to the editPost route
+            fetch(`/api/editPost?id=${postId}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(updatedPostData),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.success) {
+                  alert("Post updated successfully!");
+                  window.location.href = `homepage.html?username=${username}`;
+                } else {
+                  alert("Failed to update post");
                 }
-                // Send the data to the API for updating the post
-                fetch(`/api/editPost?id=${postId}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(updatedPostData),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log("Post update response:", data);
-                        if (data.success) {
-                            alert('Post updated successfully!');
-                            window.location.href = `homepage.html?username=${username}`;
-                        } else {
-                            alert('Failed to update post');
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
+              })
+              .catch((error) => console.error("Error:", error));
+          } else if (transaction === "no") {
+            updatedPostData.price = price; // Ensure price gets updated
+
+            // Update due date if user selects 'yes' to change it
+            if (changeDueDate === "yes" && dueDate) {
+              updatedPostData.dueDate = dueDate; // Only add due date if selected 'yes' and entered a date
             }
+            // Send the data to the API for updating the post
+            fetch(`/api/editPost?id=${postId}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(updatedPostData),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log("Post update response:", data);
+                if (data.success) {
+                  alert("Post updated successfully!");
+                  window.location.href = `homepage.html?username=${username}`;
+                } else {
+                  alert("Failed to update post");
+                }
+              })
+              .catch((error) => console.error("Error:", error));
+          }
         });
-
     </script>
-
 
     <!-- Adds Drop Down of Buyers -->
     <script>
-        document.getElementById('transaction').addEventListener('change', function () {
-            const buyerSection = document.getElementById('buyerSection');
-            if (this.value === 'yes') {
-                buyerSection.style.display = 'block';
-            } else {
-                buyerSection.style.display = 'none';
-            }
+      document
+        .getElementById("transaction")
+        .addEventListener("change", function () {
+          const buyerSection = document.getElementById("buyerSection");
+          if (this.value === "yes") {
+            buyerSection.style.display = "block";
+          } else {
+            buyerSection.style.display = "none";
+          }
         });
     </script>
 
-
-
     <script>
-        document.getElementById("deletePostButton").addEventListener("click", function () {
-            if (confirm("Are you sure you want to delete this post?")) {
-                fetch(`/api/deletePost?id=${encodeURIComponent(postId)}`, {
-                    method: "PUT", // Use PUT for updating an existing record
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ displayPost: 0 }) // Send data to update Display_Posts to 0
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            // Redirect to homepage after successful deletion
-                            alert('Post deleted successfully!');
-                            window.location.href = `homepage.html?username=${encodeURIComponent(username)}`;
-                        } else {
-                            alert("Failed to delete post.");
-                        }
-                    })
-                    .catch(error => console.error("Error deleting post:", error));
-            }
-        });
-
-    </script>
-
-
-    <script>
-        // Extract username from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get("username");
-        const postId = urlParams.get("id"); // Extract the post id
-
-        // Set "Back to Post" link with postId
-        const backToPostLink = document.getElementById("backToPost");
-        if (postId) {
-            backToPostLink.href = `yourTextbookInfo.html?id=${encodeURIComponent(postId)}&username=${encodeURIComponent(username)}`;
-        }
-    </script>
-
-    <script>
-        // Fetch the current user data to prefill the form
-        fetch(`/yourPost?id=${encodeURIComponent(postId)}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
-                    const post = data.find(p => parseInt(p.Post_ID) === parseInt(postId));
-                    if (post) {
-                        document.getElementById("price").value = post.Price || "";
-                        // Check if Transaction_Type is "Rental"
-                        if (post.Transaction_Type === "rental") {
-                            console.log("we have a rental!");
-                            document.getElementById("changeDueDateSection").style.display = "block";  // Show the change due date section
-                        }
-                    } else {
-                        console.error("Post not found");
-                    }
-                }
+      document
+        .getElementById("deletePostButton")
+        .addEventListener("click", function () {
+          if (confirm("Are you sure you want to delete this post?")) {
+            fetch(`/api/deletePost?id=${encodeURIComponent(postId)}`, {
+              method: "PUT", // Use PUT for updating an existing record
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ displayPost: 0 }), // Send data to update Display_Posts to 0
             })
-            .catch(error => console.error("Error fetching post data:", error));
+              .then((response) => {
+                if (response.ok) {
+                  // Redirect to homepage after successful deletion
+                  alert("Post deleted successfully!");
+                  window.location.href = `homepage.html?username=${encodeURIComponent(
+                    username
+                  )}`;
+                } else {
+                  alert("Failed to delete post.");
+                }
+              })
+              .catch((error) => console.error("Error deleting post:", error));
+          }
+        });
+    </script>
+
+    <script>
+      // Extract username from the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const username = urlParams.get("username");
+      const postId = urlParams.get("id"); // Extract the post id
+
+      // Set "Back to Post" link with postId
+      const backToPostLink = document.getElementById("backToPost");
+      if (postId && username) {
+        backToPostLink.href = `yourTextbookInfo.html?id=${encodeURIComponent(
+          postId
+        )}&username=${encodeURIComponent(username)}`;
+      } else {
+        console.error("Post ID or Username is missing from the URL parameters");
+      }
+    </script>
+
+    <script>
+      // Fetch the current user data to prefill the form
+      fetch(`/yourPost?id=${encodeURIComponent(postId)}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.length > 0) {
+            const post = data.find(
+              (p) => parseInt(p.Post_ID) === parseInt(postId)
+            );
+            if (post) {
+              document.getElementById("price").value = post.Price || "";
+              // Check if Transaction_Type is "Rental"
+              if (post.Transaction_Type === "rental") {
+                console.log("we have a rental!");
+                document.getElementById("changeDueDateSection").style.display =
+                  "block"; // Show the change due date section
+              }
+            } else {
+              console.error("Post not found");
+            }
+          }
+        })
+        .catch((error) => console.error("Error fetching post data:", error));
     </script>
 
     <!-- JavaScript to handle the dropdown visibility -->
     <script>
-        function toggleSecondaryDropdown() {
-            const primaryDropdown = document.getElementById("status");
-            const secondaryDropdown = document.getElementById("buyerSection");
+      function toggleSecondaryDropdown() {
+        const primaryDropdown = document.getElementById("status");
+        const secondaryDropdown = document.getElementById("buyerSection");
 
-            // Show the secondary dropdown if "Yes" is selected, hide otherwise
-            if (primaryDropdown.value === "yes") {
-                secondaryDropdown.style.display = "block";
-            } else {
-                secondaryDropdown.style.display = "none";
-            }
+        // Show the secondary dropdown if "Yes" is selected, hide otherwise
+        if (primaryDropdown.value === "yes") {
+          secondaryDropdown.style.display = "block";
+        } else {
+          secondaryDropdown.style.display = "none";
         }
+      }
 
-        // Toggle visibility of the Date input field based on "Do you want to change the Due Date?" selection
-        function toggleDueDateField() {
-            const changeDueDate = document.getElementById("changeDueDate").value;
-            const dueDateSection = document.getElementById("dueDateSection");
+      // Toggle visibility of the Date input field based on "Do you want to change the Due Date?" selection
+      function toggleDueDateField() {
+        const changeDueDate = document.getElementById("changeDueDate").value;
+        const dueDateSection = document.getElementById("dueDateSection");
 
-            // Show the date input field if "Yes" is selected, hide otherwise
-            if (changeDueDate === "yes") {
-                dueDateSection.style.display = "block";
-            } else {
-                dueDateSection.style.display = "none";
-            }
+        // Show the date input field if "Yes" is selected, hide otherwise
+        if (changeDueDate === "yes") {
+          dueDateSection.style.display = "block";
+        } else {
+          dueDateSection.style.display = "none";
         }
+      }
     </script>
 
     <script>
-        fetch(`/api/getPost?id=${postId}`)
-            .then((response) => response.json())
-            .then((data) => {
-                document.getElementById("bookCover").src = data.Cover_Picture;
-                document.getElementById("bookTitle").textContent = data.Title;
-                document.getElementById("bookStatus").textContent = data.Status;
-                document.getElementById("price").textContent = data.Price;
-            })
-            .catch((error) => {
-                console.error("Error fetching textbook data:", error);
-            });
+      fetch(`/api/getPost?id=${postId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("bookCover").src = data.Cover_Picture;
+          document.getElementById("bookTitle").textContent = data.Title;
+          document.getElementById("bookStatus").textContent = data.Status;
+          document.getElementById("price").textContent = data.Price;
+        })
+        .catch((error) => {
+          console.error("Error fetching textbook data:", error);
+        });
     </script>
 
     <!-- Import session check script -->
@@ -341,7 +400,5 @@
 
     <!-- Footer Script-->
     <script src="js/window.js"></script>
-
-</body>
-
+  </body>
 </html>
