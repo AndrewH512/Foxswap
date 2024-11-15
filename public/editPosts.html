@@ -10,7 +10,49 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 
-<body>
+<style>
+    .editPostBg {
+        background-image: url("art/editPost.jpeg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .editPost-container {
+        margin: auto;
+        max-width: 100vh;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 120px;
+        margin-top: 10px;
+        padding: 20px;
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 50vh;
+        background-color: lightgrey;
+        border: 2px solid red;
+        border-radius: 10px;
+        width: 700px;
+        height: 800px;
+        opacity: 0.8;
+    }
+
+    .card-content {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .editPost-wrapper {
+        margin: 0x;
+        padding: 0x;
+        z-index: -1;
+    }
+</style>
+
+<body class="editPostBg">
     <!-- Header section -->
     <header>
         <h1>Edit Your Post</h1>
@@ -28,81 +70,82 @@
     <div class="centered-container">
         <a id="backToPost" href="yourTextbookInfo.html" class="back-to-post">Back to Post</a>
     </div>
+    <div class="editPost-wrapper">
+        <div class="editPost-container">
+            <!-- Edit Post Form -->
+            <form id="editPostForm" enctype="multipart/form-data">
 
-    <div class="center-container">
-        <!-- Edit Post Form -->
-        <form id="editPostForm" enctype="multipart/form-data">
+                <!-- Book Details Section -->
+                <div class="card-content" style="font-size: 25px">
+                    <h3><strong>Title:</strong> <span id="bookTitle"></span></h3>
+                    <h4><strong>Status:</strong> <span id="bookStatus"></span></h4>
 
-            <!-- Book Details Section -->
-            <div class="card-content" style="font-size: 25px">
-                <p><strong>Title:</strong> <span id="bookTitle"></span></p>
-                <p><strong>Status:</strong> <span id="bookStatus"></span></p>
+                    <div class="content-wrapper">
+                        <!-- Book Image Section -->
+                        <div class="book-image">
+                            <img src="uploads/andrew.png" alt="Book Cover" style="width: 273px; height: 350px"
+                                id="bookCover" />
+                        </div>
 
-                <div class="content-wrapper">
-                    <!-- Book Image Section -->
-                    <div class="book-image">
-                        <img src="uploads/andrew.png" alt="Book Cover" style="width: 350px; height: 350px"
-                            id="bookCover" />
-                    </div>
-
-                    <!-- Price -->
-                    <div>
-                        <label for="price">Price:</label>
-                        <input type="text" id="price" name="price" required />
-                    </div>
-
-
-
-
-                    <!-- Dropdown for Changing Due Date -->
-                    <div id="changeDueDateSection" style="display: none;">
-                        <label for="changeDueDate">Do you want to change the Due Date?</label>
-                        <select id="changeDueDate" onchange="toggleDueDateField()">
-                            <option value="no">No</option>
-                            <option value="yes">Yes</option>
-                        </select>
-                    </div>
-
-                    <!-- Date Input (Initially Hidden) -->
-                    <div id="dueDateSection" style="display: none;">
-                        <label for="dueDate">Date:</label>
-                        <input type="date" id="dueDate" name="dueDate" />
-                    </div>
+                        <!-- Price -->
+                        <div>
+                            <label for="price">Price:</label>
+                            <input type="text" id="price" name="price" required />
+                        </div>
 
 
 
 
-
-                    <div class="form-group">
-                        <label for="transaction">Did you rent or sell your book?</label>
-                        <select name="transaction" id="transaction">
-                            <option value="no">No</option>
-                            <option value="yes">Yes</option>
-                        </select>
-
-                        <div class="users" id="buyerSection" style="display: none;">
-                            <label for="buyer">Who did you sell to?</label>
-                            <select id="buyerSection">
-                                <option value="">Select a User</option>
+                        <!-- Dropdown for Changing Due Date -->
+                        <div id="changeDueDateSection" style="display: none;">
+                            <label for="changeDueDate">Do you want to change the Due Date?</label>
+                            <select id="changeDueDate" onchange="toggleDueDateField()">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
                             </select>
                         </div>
 
+                        <!-- Date Input (Initially Hidden) -->
+                        <div id="dueDateSection" style="display: none;">
+                            <label for="dueDate">Date:</label>
+                            <input type="date" id="dueDate" name="dueDate" />
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+                            <label for="transaction">Did you rent or sell your book?</label>
+                            <select name="transaction" id="transaction">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+
+                            <div class="users" id="buyerSection" style="display: none;">
+                                <label for="buyer">Who did you sell to?</label>
+                                <select id="buyerSection">
+                                    <option value="">Select a User</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <!--</select> -->
+                        <!--<input type="text" id="status" name="status" required />-->
                     </div>
 
-                    <!--</select> -->
-                    <!--<input type="text" id="status" name="status" required />-->
-                </div>
+                    <!-- Delete and Save Changes Button -->
+                    <div class="auth-buttons" style="z-index: 1">
+                        <button type="button" id="deletePostButton">Delete Post</button>
+                        <button id="submitPostButton" type="button">Update Post</button>
+                    </div>
 
-                <!-- Delete and Save Changes Button -->
-                <div class="auth-buttons">
-                    <button type="button" id="deletePostButton">Delete Post</button>
-                    <button id="submitPostButton" type="button">Update Post</button>
                 </div>
+            </form>
+        </div>
 
-            </div>
-        </form>
     </div>
-
     <!-- Footer placeholder -->
     <div id="footer-placeholder"></div>
 
