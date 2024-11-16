@@ -5,7 +5,8 @@ function searchUsers() {
         .then(users => {
             const userList = document.getElementById('userList');
             userList.innerHTML = '';
-            users.forEach(user => {
+            const limitedUsers = users.slice(0, 5);  // Limit to 5 results
+            limitedUsers.forEach(user => {
                 const userElement = document.createElement('div');
                 userElement.innerHTML = `
                     <p>${user.Username} (${user.Email}) 
