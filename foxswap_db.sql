@@ -133,9 +133,9 @@ VALUES
     ('steven', 'Steve', 'Stever', '987-654-3210', 'steve@gmail.com', SHA2(CONCAT('mynamesteve', 'salt_for_steven'), 256), 'salt_for_steven', 0, 0, '/uploads/steve.png', 'Steve is a nerd'),
     ('admin', 'Admin', 'Admin', '123-456-7890', 'admin@gmail.com', SHA2(CONCAT('marist123', 'salt_for_admin'), 256), 'salt_for_admin', 1, 0, '/uploads/admin.jpg', 'Admin'),
     ('mitch', 'Mitch', 'Levy', '845-699-9999', 'Mitchell.Levy1@outlook.com', SHA2(CONCAT('marist123', 'salt_for_mitch'), 256), 'salt_for_mitch', 1, 0, '/uploads/admin.jpeg', 'Stupid Admin'),
-    ('tania1518', 'Tania', 'Hernandez', '845-505-8317', 'taiamarez1518@gmail.com', SHA2(CONCAT('mypass1','salt_for_tania1518'), 256), 'salt_for_tania1518', 0, 0, '/uploads/tania.jpg', 'hi'),
-    ('albiana12', 'Albiana', 'Krasniqi', '845-123-0000', 'albianamail@gmail.com', SHA2(CONCAT('mypass2','salt_for_albiana12'), 256), 'salt_for_albiana12', 0, 0, '/uploads/albiana.jpg', 'hi2'),
-    ('davidR', 'David', 'Ramsaroop', '845-456-0000', 'davidmail@gmail.com', SHA2(CONCAT('mypass1','salt_for_davidR'), 256), 'salt_for_davidR', 0, 0, '/uploads/david.jpg', 'hi3');
+    ('tania1518', 'Tania', 'Hernandez', '845-505-8317', 'taiamarez1518@gmail.com', SHA2(CONCAT('mypass1','salt_for_tania1518'), 256), 'salt_for_tania1518', 1, 0, '/uploads/tania.jpg', 'hi'),
+    ('albiana12', 'Albiana', 'Krasniqi', '845-123-0000', 'albianamail@gmail.com', SHA2(CONCAT('mypass2','salt_for_albiana12'), 256), 'salt_for_albiana12', 1, 0, '/uploads/albiana.jpg', 'hi2'),
+    ('davidR', 'David', 'Ramsaroop', '845-456-0000', 'davidmail@gmail.com', SHA2(CONCAT('mypass1','salt_for_davidR'), 256), 'salt_for_davidR', 1, 0, '/uploads/david.jpg', 'hi3');
     
 
 -- Inserting More Test Users, Theses are fake accounts, going to be used for testing and has to be deleted when website goes live**
