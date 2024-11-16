@@ -31,7 +31,7 @@ CREATE TABLE Users (
 CREATE TABLE Books (
     Book_ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,  -- Book ID as the primary key
     Author VARCHAR(100) NOT NULL,                     -- Author of the book
-    ISBN VARCHAR(20) NOT NULL UNIQUE,                 -- ISBN of the book (unique constraint)
+    ISBN VARCHAR(255) NOT NULL UNIQUE,                 -- ISBN of the book (unique constraint)
     Title VARCHAR(255) NOT NULL,                      -- Title of the book
     Book_Subject VARCHAR(100) NOT NULL,               -- Subject or category of the book
     Cover_Picture VARCHAR(100)                        -- Path to the cover picture 
