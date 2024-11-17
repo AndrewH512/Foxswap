@@ -89,6 +89,5 @@ admin can fitler this by the transaction ID.
 We have test examples on our website (like favorites).
 ------------------------------------------------------------------------------------------------
 Features That Did Not Make Version 1 Include:
--Reviews
--Changing Passwords
+-Reviews, Changing Passwords
 
