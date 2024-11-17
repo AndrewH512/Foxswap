@@ -1,22 +1,22 @@
 Foxswap - Beta Version
 ------------------------------------------------------------------------------------------------
 Developers:
-Mitchell Levy - Team Lead and Backend,
-David Ramsaroop  - IS Leader and Frontend Developer,
-Tania Hernandez-Martinez- Backend Developer,
-Andrew Hennessy - Full Stack Developer,
-Albiana Krasniqi - Frontend Developer.
+- Mitchell Levy - Team Lead and Backend,
+- David Ramsaroop  - IS Leader and Frontend Developer,
+- Tania Hernandez-Martinez- Backend Developer,
+- Andrew Hennessy - Full Stack Developer,
+- Albiana Krasniqi - Frontend Developer.
 ------------------------------------------------------------------------------------------------
 Introduction:
 
-On Fox Swap students will be able to simply buy, sell, and rent affordable textbooks. 
+- On Fox Swap students will be able to simply buy, sell, and rent affordable textbooks. 
 Marist students should be able to search for course specific textbooks, make an offer, 
 and get their textbooks at a reduced price. Students will be able to browse for textbooks, 
 message the seller to negotiate the price, and then meet to buy the textbook. 
 ------------------------------------------------------------------------------------------------
 System Architecture/System Stack:
 
-For FoxSwap we are using Digital-ocean servers to host and manage our website. We developed the
+- For FoxSwap we are using Digital-ocean servers to host and manage our website. We developed the
 web-app using languages including HTML, JavaScript, and CSS. On the back-end we will use MySQL as 
 our database for managing and querying data. We used Node.js as the primary framework for server-side
 application development. We used Express.js framework for routing and server management. Socket.Io was
@@ -68,6 +68,9 @@ the post will no longer appear on the browsing page. A user can also delete thei
 Reports: The reports page allows a user to fill out a complaint about another user. You must select a user (must
 be a user you messaged), file out a title for the report, and finally the description. 
 
+404_Page: The 404 page is displayed when a user tries to access a page or resource on Foxswap that does not exist.
+We have test examples on our website (like favorites).
+
 Admin Panel - The admin panel only appears if an admin sign in. 
 - View Reports - Admins are able to view are the reports that are sent. By click on the title of the report, the Admin
 can then see more information about the report. There are buttons there for the admin to go to other pages depending
@@ -85,8 +88,7 @@ search their username.
 - Transactions - When a post is marked as sold/rented, an admin is able to view all the transactions made. The
 admin can fitler this by the transaction ID. 
 
-404 Page - The 404 page is displayed when a user tries to access a page or resource on Foxswap that does not exist.
-We have test examples on our website (like favorites).
+
 ------------------------------------------------------------------------------------------------
 Features That Did Not Make Version 1 Include:
 -Reviews, Changing Passwords
