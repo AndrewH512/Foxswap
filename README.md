@@ -1,11 +1,11 @@
 Foxswap - Beta Version
 ------------------------------------------------------------------------------------------------
 Developers:
-Mitchell Levy - Team Lead and Backend
-David Ramsaroop  - IS Leader and Frontend Developer
-Tania Hernandez-Martinez- Backend Developer
-Andrew Hennessy - Full Stack Developer
-Albiana Krasniqi - Frontend Developer
+Mitchell Levy - Team Lead and Backend,
+David Ramsaroop  - IS Leader and Frontend Developer,
+Tania Hernandez-Martinez- Backend Developer,
+Andrew Hennessy - Full Stack Developer,
+Albiana Krasniqi - Frontend Developer.
 ------------------------------------------------------------------------------------------------
 Introduction:
 
