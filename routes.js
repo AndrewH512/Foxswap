@@ -105,6 +105,7 @@ router.post('/public/login', upload.none(), (req, res) => {
   });
 });
 
+// Route for Signup 
 router.post('/public/signup', upload.single('profilePicture'), (req, res) => {
   const { username, firstName, lastName, phoneNumber, email, password, bio } = req.body;
   const profilePicture = req.file ? `/uploads/${req.file.filename}` : null;
@@ -248,7 +249,6 @@ AND
     res.json(results);
   });
 });
-
 
 // API route to get their data
 router.get('/theirData', (req, res) => {
@@ -397,7 +397,6 @@ router.get('/api/users', (req, res) => {
   });
 });
 
-
 // Route to get detailed textbook information
 router.get('/api/getPost', (req, res) => {
   const postId = req.query.id;
@@ -457,7 +456,7 @@ router.get('/search-user/:query', (req, res) => {
   });
 });
 
-
+// Route for Searching for Books in database
 router.get('/searchBooks', (req, res) => {
   const query = req.query.query;
 
@@ -586,8 +585,6 @@ router.post('/mark-as-read/:user1/:user2', (req, res) => {
   });
 });
 
-
-
 // Endpoint to update user profile
 router.post('/api/updateProfile', upload.single('profilePic'), (req, res) => {
   const { firstName, lastName, bio, phoneNumber, password } = req.body;
@@ -630,6 +627,7 @@ router.post('/api/updateProfile', upload.single('profilePic'), (req, res) => {
   });
 });
 
+// Router to get users to report
 router.get('/api/reports/users', (req, res) => {
   const username = req.session.username;
 
@@ -649,9 +647,10 @@ router.get('/api/reports/users', (req, res) => {
   });
 });
 
+// Reporter to Insert Report Information into database
 router.post('/api/report', (req, res) => {
   const { reportedUser, title, description } = req.body;
-  const reporter = req.session.username;  // Assuming `username` is stored in the session
+  const reporter = req.session.username;  
 
   // Validate input
   if (!reportedUser || !reporter || !title || !description) {
@@ -674,9 +673,7 @@ router.post('/api/report', (req, res) => {
   });
 });
 
-
-
-
+// Router for admin to delete post
 router.put('/api/deletePost', (req, res) => {
   const postId = req.query.id;
   const displayPost = req.body.displayPost;
@@ -737,6 +734,7 @@ router.post('/editPost', (req, res) => {
   });
 });
 
+// Marks book as sold, get puts into the transaction table
 router.put('/api/editPost', (req, res) => {
   const { transaction, buyer, price, dueDate } = req.body;
   const postId = parseInt(req.query.id);
@@ -792,6 +790,7 @@ router.put('/api/editPost', (req, res) => {
   }
 });
 
+// Function set get date to display correctly
 function getFormattedDateTime() {
   const now = new Date();
   const year = now.getFullYear();
