@@ -11,7 +11,7 @@ const encoder = bodyParser.urlencoded({ extended: true }); // Parse URL-encoded 
 // Initialize Express app
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, {path: '/mysocket'});
+const io = new Server(server);
 const users = {}; // Object to map usernames to socket IDs
 const sockets = {}; // Object to map socket IDs to usernames
 
