@@ -430,3 +430,18 @@ nav a:hover {
 .user-list button:hover {
   background-color: #e41e1e;
 }
+
+/* Used in the profile picture background */
+.background-image {
+  width: 100%;
+  height: 100vh; /* Ensures the image covers the full screen height */
+  object-fit: cover; /* Ensures the image will not stretch but will maintain its aspect ratio */
+  object-position: center center; /* Centers the image */
+  position: fixed; /* Fixed positioning makes it stay in place when scrolling */
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.Profile {
+  opacity: 0.9;
+}
