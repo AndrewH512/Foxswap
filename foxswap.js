@@ -13,8 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://foxswap.shop", // Your domain
-    methods: ["GET", "POST"],
+    origin: "*"
   },
 });
 const users = {}; // Object to map usernames to socket IDs
