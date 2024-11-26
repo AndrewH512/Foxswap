@@ -12,8 +12,10 @@ const encoder = bodyParser.urlencoded({ extended: true }); // Parse URL-encoded 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
+  path: "/socket.io/",  // This is the same path used by Nginx for WebSocket requests
   cors: {
-    origin: "*"
+    origin:  "*", 
+    methods: ["GET", "POST"],
   },
 });
 const users = {}; // Object to map usernames to socket IDs
