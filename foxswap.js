@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-      origin: "http://foxswap.shop/", // Allow requests from your domain
+      origin: "167.99.125.33:3000", // Allow requests from your domain
       methods: ["GET", "POST"]
   }
 });

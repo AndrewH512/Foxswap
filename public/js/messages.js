@@ -4,7 +4,7 @@ const params2 = new URLSearchParams(window.location.search);
 const username3 = params2.get('username');
 
 // Connect to the server register their username
-const socket = io("http://foxswap.shop/");
+const socket = io("167.99.125.33:3000");
 socket.emit('register', username3);
 
 // Get DOM elements for user list, message form, message input, messages display aream and search
