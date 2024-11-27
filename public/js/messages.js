@@ -4,7 +4,9 @@ const params2 = new URLSearchParams(window.location.search);
 const username3 = params2.get('username');
 
 // Connect to the server register their username
-const socket = io("localhost:3000");
+const socket = io("localhost:3000",{
+    transports: ['websocket', 'polling'], // Enable both WebSocket and Polling transports
+});
 
 socket.emit('register', username3);
 
