@@ -5,6 +5,7 @@ const username3 = params2.get('username');
 
 // Connect to the server register their username
 const socket = io("localhost:3000");
+
 socket.emit('register', username3);
 
 // Get DOM elements for user list, message form, message input, messages display aream and search

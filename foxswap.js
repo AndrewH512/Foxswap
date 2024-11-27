@@ -7,22 +7,27 @@ const path = require('path'); // Path utilities for file and directory paths
 const bodyParser = require("body-parser"); // Middleware for parsing request bodies
 const session = require('express-session'); // Add session import
 const encoder = bodyParser.urlencoded({ extended: true }); // Parse URL-encoded request bodies
+const cors = require('cors');
+
+
 
 // Initialize Express app
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, {
-  path: "/socket.io/",  // This is the same path used by Nginx for WebSocket requests
+const io = require('socket.io')(server, {
   cors: {
-    origin:  "*", 
-    methods: ["GET", "POST"],
-  },
+      origin: "localhost:3000", // Frontend URL
+      methods: ["GET", "POST"]
+  }
 });
 const users = {}; // Object to map usernames to socket IDs
 const sockets = {}; // Object to map socket IDs to usernames
 
 // Serve static files from the 'public' directory (HTML, CSS, JS files)
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Allow requests from your frontend domain
+app.use(cors({ origin: 'localhost:3000' }));
 
 // Use body parser middleware to handle form data
 app.use(encoder);
