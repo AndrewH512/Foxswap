@@ -9,25 +9,17 @@ const session = require('express-session'); // Add session import
 const encoder = bodyParser.urlencoded({ extended: true }); // Parse URL-encoded request bodies
 const cors = require('cors');
 
-
-
 // Initialize Express app
 const app = express();
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
-  cors: {
-      origin: "167.99.125.33", // Frontend URL
-      methods: ["GET", "POST"]
-  }
+  transports: ['websocket', 'polling']
 });
 const users = {}; // Object to map usernames to socket IDs
 const sockets = {}; // Object to map socket IDs to usernames
 
 // Serve static files from the 'public' directory (HTML, CSS, JS files)
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Allow requests from your frontend domain
-app.use(cors({ origin: '167.99.125.33' }));
 
 // Use body parser middleware to handle form data
 app.use(encoder);
