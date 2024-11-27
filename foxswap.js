@@ -16,7 +16,7 @@ const app = express();
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
   cors: {
-      origin: "localhost:3000", // Frontend URL
+      origin: "167.99.125.33", // Frontend URL
       methods: ["GET", "POST"]
   }
 });
@@ -27,7 +27,7 @@ const sockets = {}; // Object to map socket IDs to usernames
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Allow requests from your frontend domain
-app.use(cors({ origin: 'localhost:3000' }));
+app.use(cors({ origin: '167.99.125.33' }));
 
 // Use body parser middleware to handle form data
 app.use(encoder);
