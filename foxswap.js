@@ -72,6 +72,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// Serve the Socket.IO client file manually
+app.get('/socket.io/socket.io.js', (req, res) => {
+  res.sendFile(__dirname + '/node_modules/socket.io-client/dist/socket.io.js');
+});
+
 // Import user routes
 const userRoutes = require('./routes');
 const router = require('./routes');
