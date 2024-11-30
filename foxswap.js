@@ -53,6 +53,17 @@ db.connect((err) => {
   console.log('Connected to MySQL database');
 });
 
+// Periodic keep-alive query to prevent MySQL connection timeout
+setInterval(() => {
+  db.query('SELECT 1', (err) => {
+    if (err) {
+      console.error('Error with keep-alive query:', err);
+    } else {
+      console.log('Keep-alive query executed successfully');
+    }
+  });
+}, 300000); // Every 5 minutes (300,000 ms)
+
 // Middleware to attach db connection to req
 app.use((req, res, next) => {
   req.db = db;
