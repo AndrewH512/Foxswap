@@ -1,7 +1,7 @@
 // Import necessary modules
 const mysql = require('mysql2'); // MySQL database connection
 const http = require('http'); // HTTP server creation
-const { Server } = require('socket.io'); // Socket.IO for real-time communication
+const socketIo = require('socket.io'); // Socket.IO for real-time communication
 const express = require('express'); // Express framework for handling routes
 const path = require('path'); // Path utilities for file and directory paths
 const bodyParser = require("body-parser"); // Middleware for parsing request bodies
@@ -11,12 +11,7 @@ const encoder = bodyParser.urlencoded({ extended: true }); // Parse URL-encoded 
 // Initialize Express app
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "https://foxswap.shop", // Your domain
-    methods: ["GET", "POST"],
-  },
-});
+const io = socketIo(server);
 const users = {}; // Object to map usernames to socket IDs
 const sockets = {}; // Object to map socket IDs to usernames
 
