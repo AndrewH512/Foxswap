@@ -7,13 +7,15 @@ const path = require('path'); // Path utilities for file and directory paths
 const bodyParser = require("body-parser"); // Middleware for parsing request bodies
 const session = require('express-session'); // Add session import
 const encoder = bodyParser.urlencoded({ extended: true }); // Parse URL-encoded request bodies
-const cors = require('cors');
 
 // Initialize Express app
 const app = express();
 const server = http.createServer(app);
-const io = require('socket.io')(server, {
-  transports: ['websocket', 'polling']
+const io = new Server(server, {
+  cors: {
+    origin: "https://foxswap.shop", // Your domain
+    methods: ["GET", "POST"],
+  },
 });
 const users = {}; // Object to map usernames to socket IDs
 const sockets = {}; // Object to map socket IDs to usernames
@@ -52,17 +54,6 @@ db.connect((err) => {
   }
   console.log('Connected to MySQL database');
 });
-
-// Periodic keep-alive query to prevent MySQL connection timeout
-setInterval(() => {
-  db.query('SELECT 1', (err) => {
-    if (err) {
-      console.error('Error with keep-alive query:', err);
-    } else {
-      console.log('Keep-alive query executed successfully');
-    }
-  });
-}, 300000); // Every 5 minutes (300,000 ms)
 
 // Middleware to attach db connection to req
 app.use((req, res, next) => {
@@ -197,4 +188,3 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on http://167.99.125.33:${PORT}`);
 });
-

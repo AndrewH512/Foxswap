@@ -4,10 +4,7 @@ const params2 = new URLSearchParams(window.location.search);
 const username3 = params2.get('username');
 
 // Connect to the server register their username
-const socket = io("167.99.125.33",{
-    transports: ['websocket', 'polling'], // Enable both WebSocket and Polling transports
-});
-
+const socket = io();
 socket.emit('register', username3);
 
 // Get DOM elements for user list, message form, message input, messages display aream and search
