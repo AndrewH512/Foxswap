@@ -7,15 +7,13 @@ const path = require('path'); // Path utilities for file and directory paths
 const bodyParser = require("body-parser"); // Middleware for parsing request bodies
 const session = require('express-session'); // Add session import
 const encoder = bodyParser.urlencoded({ extended: true }); // Parse URL-encoded request bodies
+const cors = require('cors');
 
 // Initialize Express app
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "https://foxswap.shop", // Your domain
-    methods: ["GET", "POST"],
-  },
+const io = require('socket.io')(server, {
+  transports: ['websocket', 'polling']
 });
 const users = {}; // Object to map usernames to socket IDs
 const sockets = {}; // Object to map socket IDs to usernames
