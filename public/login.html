@@ -13,11 +13,11 @@
 
 </head>
 <style>
-    body{
-        background-image: url('../art/login_background.jpg'); 
-        background-size: cover; 
-        background-position: center; 
-        background-repeat: no-repeat; 
+    body {
+        background-image: url('../art/login_background.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 </style>
 
@@ -26,7 +26,8 @@
     <header>
         <h1>Welcome to Foxswap</h1>
         <!-- Clickable Foxswap logo that links to the homepage -->
-        <a href="welcomepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo" style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
+        <a href="welcomepage.html"><img src="uploads/Fox_Swap_Logo.ico" alt="Logo" class="logo"
+                style="width: 90px; height: 90px; position: absolute; top: 20px; left: 20px;" /></a>
     </header>
 
     <!-- Login Container -->
@@ -59,10 +60,10 @@
     </div>
 
     <!-- Footer section -->
-    <div style="text-align: center; position: absolute; bottom:0; width: 100%;">
+    <div style="text-align: center; bottom:0; width: 100%;">
         <div id="footer-placeholder"></div>
     </div>
-    
+
     <!-- Footer Script -->
     <script src="js/window.js"></script>
 
@@ -74,7 +75,7 @@
             document.getElementById('error-message').textContent = 'Error: Username does not exist.';
         } else if (error === 'password') {
             document.getElementById('error-message').textContent = 'Error: Incorrect password.';
-        } else if (error ==='banned'){
+        } else if (error === 'banned') {
             document.getElementById('error-message').textContent = 'Error: Banned Sucks to be You!';
         }
 
