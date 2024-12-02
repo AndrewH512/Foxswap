@@ -55,6 +55,10 @@ socket.on('private message', ({ from, message }) => {
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', from === username3 ? 'sent' : 'received'); // Add appropriate class
 
+        // Apply text wrapping style
+        messageElement.style.wordWrap = 'break-word';  // Ensure text wraps when it's too long
+        messageElement.style.whiteSpace = 'normal';   // Allow line breaks within the text
+
         // Set the message text with username
         messageElement.innerHTML = `
             <span class="username">${from}</span>
@@ -83,6 +87,10 @@ function loadChatHistory(selectedRecipient) {
                 const messageElement = document.createElement('div');
                 // Apply the CSS class based on the sender
                 messageElement.classList.add('message', msg.Sender === username3 ? 'sent' : 'received');
+
+                // Apply text wrapping style
+                messageElement.style.wordWrap = 'break-word';  // Ensures text wraps when it's too long
+                messageElement.style.whiteSpace = 'normal';   // Allows line breaks within the text
 
                 // Set the message text with username
                 messageElement.innerHTML = `
