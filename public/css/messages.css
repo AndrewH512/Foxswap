@@ -74,14 +74,14 @@ button:hover {
 }
 
 .message {
-    max-width: 70%;
+    max-width: 70%;  /* Control the maximum width of the message bubble */
     margin-bottom: 15px;
     padding: 10px;
     border-radius: 10px;
     font-size: 0.95rem;
-    position: relative; /* Needed for positioning pseudo-elements */
+    position: relative;
+    max-width: 50%;
 }
-
 /* Sent messages */
 .message.sent {
     background-color: rgb(14, 218, 14); /* Sender's background */
@@ -106,6 +106,16 @@ button:hover {
     font-size: 0.9rem;
     display: block; /* Makes username take a new line */
     margin-bottom: 5px; /* Space between username and message */
+}
+
+/* Changes the bubble size based on how big the message is */
+#messages {
+    display: flex;
+    flex-direction: column;    
+    gap: 10px;                 /* Adds space between messages */
+    overflow-y: auto;          /* Allows scrolling if content exceeds the container height */
+    padding: 10px;
+    max-height: 400px;         
 }
 
 /* Optional: Timestamp styling (if you want to add timestamps) */

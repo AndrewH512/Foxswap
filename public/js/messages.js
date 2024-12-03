@@ -41,12 +41,10 @@ messageForm.addEventListener('submit', (e) => {
             saveRemovedUsers(); // Save updated removed users to local storage
             loadChatUsers(); // Refresh the chat users list to show the added user
         }
-
     } else if (!selectedRecipient) {
         alert("Please select a user to message.");
     }
 });
-
 // Listen for incoming private messages and display them
 socket.on('private message', ({ from, message }) => {
     // Check if the message is from the selected recipient or it's the message you sent
@@ -58,6 +56,7 @@ socket.on('private message', ({ from, message }) => {
         // Apply text wrapping style
         messageElement.style.wordWrap = 'break-word';  // Ensure text wraps when it's too long
         messageElement.style.whiteSpace = 'normal';   // Allow line breaks within the text
+        messageElement.style.textAlign = 'left'; // Ensures left-alignment for text
 
         // Set the message text with username
         messageElement.innerHTML = `
@@ -91,6 +90,7 @@ function loadChatHistory(selectedRecipient) {
                 // Apply text wrapping style
                 messageElement.style.wordWrap = 'break-word';  // Ensures text wraps when it's too long
                 messageElement.style.whiteSpace = 'normal';   // Allows line breaks within the text
+                messageElement.style.textAlign = 'left'; // Ensures left-alignment for text
 
                 // Set the message text with username
                 messageElement.innerHTML = `
