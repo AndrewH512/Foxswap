@@ -25,7 +25,14 @@
     height: 300px;
     overflow-y: auto;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;    
+    gap: 10px;                 /* Adds space between messages */
+    overflow-y: auto;          /* Allows scrolling if content exceeds the container height */
+    padding: 10px;
+    max-height: 400px; 
 }
+
 
 /* Current recipient styling */
 #currentRecipient {
