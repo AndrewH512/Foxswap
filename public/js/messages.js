@@ -54,7 +54,7 @@ socket.on('private message', ({ from, message }) => {
         messageElement.classList.add('message', from === username3 ? 'sent' : 'received'); // Add appropriate class
 
         // Apply text wrapping style
-        messageElement.style.wordWrap = 'break-word';  // Ensure text wraps when it's too long
+        messageElement.style.writingsuggestions = 'break-word';  // Ensure text wraps when it's too long
         messageElement.style.whiteSpace = 'normal';   // Allow line breaks within the text
         messageElement.style.textAlign = 'left'; // Ensures left-alignment for text
 
