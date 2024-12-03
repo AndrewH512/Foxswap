@@ -41,33 +41,33 @@
             <!-- Divsion to Enter Username -->
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" maxlength="50" required>
             </div>
             <!-- Divsion to Enter First Name -->
             <div class="form-group">
                 <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" required>
+                <input type="text" id="firstName" name="firstName" maxlength="40" required>
             </div>
             <!-- Divsion to Enter Last Name -->
             <div class="form-group">
                 <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" required>
+                <input type="text" id="lastName" name="lastName"  maxlength="40" required>
             </div>
             <!-- Divsion to Enter Phone Number -->
             <div class="form-group">
-                <label for="phoneNumber">Phone Number</label>
-                <input type="text" id="phoneNumber" name="phoneNumber" required pattern="\d{10}" maxlength="10"
-                    title="Enter Phone Number">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" maxlength="12" required />
             </div>
+            
             <!-- Divsion to Enter Email -->
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" maxlength="50" required>
             </div>
             <!-- Divsion to Password -->
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" maxlength="100" required>
             </div>
             <!-- Divsion to Enter Bio (Optional) -->
             <div class="form-group">
@@ -109,19 +109,6 @@
                 }
             });
         }
-
-        // Validate phone number on form submission
-        document.querySelector('form').addEventListener('submit', function (event) {
-            const phoneNumberInput = document.getElementById('phoneNumber');
-            const phoneNumber = phoneNumberInput.value;
-
-            // Check if the phone number is exactly 10 digits
-            if (!/^\d{10}$/.test(phoneNumber)) {
-                // Prevent form submission
-                event.preventDefault();
-                document.getElementById('error-message').innerHTML += 'Error: Phone number must be exactly 10 digits.<br>';
-            }
-        });
     </script>
 
     <!-- Footer Script -->
