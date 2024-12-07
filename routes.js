@@ -547,27 +547,6 @@ router.get('/chat-history/:user1/:user2', (req, res) => {
   });
 });
 
-// Mark all messages as deleted for a specific conversation
-router.delete('/delete-chat/:user1/:user2', (req, res) => {
-  const { user1, user2 } = req.params;
-  const query = `
-    UPDATE Messages 
-    SET 
-      isDeletedBySender = CASE WHEN Sender = ? THEN TRUE ELSE isDeletedBySender END,
-      isDeletedByRecipient = CASE WHEN Recipient = ? THEN TRUE ELSE isDeletedByRecipient END
-    WHERE 
-      (Sender = ? AND Recipient = ?) 
-      OR (Sender = ? AND Recipient = ?)
-  `;
-  req.db.query(query, [user1, user1, user1, user2, user2, user1], (err) => {
-    if (err) {
-      console.error('Error marking chat as deleted:', err);
-      return res.status(500).send('Error marking chat as deleted');
-    }
-    res.sendStatus(204); // No content to send back, operation successful
-  });
-});
-
 // Mark all messages as read for a conversation between two users
 router.post('/mark-as-read/:user1/:user2', (req, res) => {
   const { user1, user2 } = req.params;
